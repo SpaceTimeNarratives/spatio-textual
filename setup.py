@@ -8,7 +8,7 @@ setup(
     long_description_content_type="text/markdown",
     author="Ignatius Ezeani",
     author_email="igezeani@yahoo.com",
-    url="https://github.com/yourusername/my_holocaust_analysis",
+    url="https://github.com/SpaceTimeNarratives/spatio-textual",
     packages=find_packages(),
     install_requires=[
         "spacy",
@@ -16,7 +16,7 @@ setup(
     ],
     classifiers=[
         "Programming Language :: Python :: 3",
-        "License :: OSI Approved :: MIT License",
+        "License :: OSI Approved :: GNU General Public License v3.0",
         "Operating System :: OS Independent",
     ],
     python_requires=">=3.7",
