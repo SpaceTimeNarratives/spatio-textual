@@ -1,2 +1,22 @@
 # spatio-textual
-A library for spatial textual analysis with a focus on the Corpus of Lake District Writing and Holocaust survivors' testimonies."
+A library for spatial textual analysis with a focus on the Corpus of Lake District Writing and Holocaust survivors' testimonies.
+
+1. Clone this repo
+```bash
+git clone ....
+```
+2. Run `setup.sh` to
+  - Create a venv/ folder
+  - Activate it 
+  - Install everything from requirements.txt
+  - Download the defaul model, spacy's `en-core-web-trf` 
+
+```bash
+./setup.sh
+```
+3. 
+
+```bash
+source venv/bin/activate
+python entity_annotator.py -i segments.jsonl -o out_dir -r resources -w 4
+```
