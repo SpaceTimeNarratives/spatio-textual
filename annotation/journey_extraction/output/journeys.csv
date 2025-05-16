@@ -1,0 +1,21 @@
+from_location,to_location,approx_date,mode_of_transport,reason,transcript,source_lat,source_lon,target_lat,target_lon
+Home in Berlin,Big synagogue in Berlin,"September 24, 1942",Public transportation,Deportation by Gestapo; gathering point for arrested Jews,1172.txt,,,,
+Big synagogue in Berlin,Railway station in Berlin,"September 27, 1942",On foot (led through Berlin),Transport of Jews to concentration camps,1172.txt,,,43.4501391,-80.4934992
+Berlin railway station,"Riga, Latvia","September 27-30, 1942 (approximate)",Train,Deportation to concentration camp,1172.txt,48.8796039,2.3270446,56.9493977,24.1051846
+"Riga, Latvia",Estonia (open field near railway tracks),"October 1, 1942",Train,Deportation to concentration camp,1172.txt,56.9493977,24.1051846,,
+Open field near train tracks in Estonia,Camp in Estonia,"October 1, 1942",Walking (many miles),Transfer to camp after arrival,1172.txt,,,,
+Camp in Estonia,Tallinn prison,Spring 1943,Buses,Transfer to prison camp,1172.txt,,,59.4503416,24.7427956
+Tallinn prison,"Ereda camp near Russian border, Estonia","After some time in Tallinn, 1943",Train,Transfer deeper into Estonia near Russian border,1172.txt,59.4503416,24.7427956,,
+Ereda camp,"Goldfields camp, Estonia",Late 1943,Not explicitly mentioned (likely on foot or truck),Transfer to another camp for forced labor,1172.txt,,,,
+Goldfields camp,"Lagedi field, Estonia",September or October 1944,Train,Evacuation as Russians advanced; camp closure,1172.txt,-30.7608277,121.4876526,,
+Lagedi field,"Danzig, Germany (by ship)",Late 1944,Ship (bottom of the boat),Transport after camp evacuation,1172.txt,,,,
+Danzig river,Stutthof concentration camp,Late 1944,Little boats down the river,Transfer to concentration camp,1172.txt,,,53.4460185,19.9190456
+Stutthof concentration camp,Hamburg (Ochsenzoll camp near ammunition factory),Early 1945 (after about 3 weeks in Stutthof),Train,Transfer to work in ammunition factory,1172.txt,53.4460185,19.9190456,,
+Hamburg (Ochsenzoll camp),Bergen-Belsen concentration camp,Early April 1945,Train,Transfer to Bergen-Belsen concentration camp,1172.txt,,,,
+Bergen-Belsen concentration camp,British-occupied area in Bergen-Belsen (former German army housing),"Shortly after liberation, April 1945",On foot (marched to camp and moved within camp),Post-liberation relocation to safer housing,1172.txt,,,,
+Bergen-Belsen,"Hospital (location unspecified, likely near Bergen-Belsen)","Shortly after liberation, 1945",Ambulance,Medical treatment after liberation,1172.txt,48.8601371,2.4001275,,
+Bergen-Belsen area,"Lubeck, Germany",Beginning of 1946,Not specified,Post-war resettlement with sister and brother-in-law,1172.txt,,,53.866444,10.684738
+"Lubeck, Germany",Israel,1949,Not specified (likely by ship or plane),Visit and marriage in Israel,1172.txt,53.866444,10.684738,30.8124247,34.8594762
+Israel,Germany,After 1949 wedding,Not specified,Return to Germany to live and have first child,1172.txt,30.8124247,34.8594762,51.1638175,10.4478313
+Germany (Lubeck area),United States (initially New York),1951,Plane,Immigration to the United States,1172.txt,,,,
+New York,California,After about 33 years in New York (around early 1980s),Not specified,Family relocation to be together with sons and grandchildren,1172.txt,40.7127281,-74.0060152,36.7014631,-118.755997
