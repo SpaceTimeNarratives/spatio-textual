@@ -3,7 +3,7 @@ A library for spatial textual analysis with a focus on the Corpus of Lake Distri
 
 1. Clone this repo
 ```bash
-git clone ....
+git clone https://github.com/SpaceTimeNarratives/spatio-textual.git
 ```
 2. Run `setup.sh` to
   - Create a venv/ folder
