@@ -14,9 +14,12 @@ git clone ....
 ```bash
 ./setup.sh
 ```
-3. 
-
+3. Activate virtual environment
 ```bash
 source venv/bin/activate
+```
+
+4. Run `entity annotator.py` on the segments
+```bash
 python entity_annotator.py -i segments.jsonl -o out_dir -r resources -w 4
 ```
