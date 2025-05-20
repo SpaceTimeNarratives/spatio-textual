@@ -1,14 +1,11 @@
 import os
 import json
-import time
 import argparse
 import openai
 import requests
 import pandas as pd
-import folium
 from tqdm import tqdm
 from multiprocessing import Pool, cpu_count
-from pyvis.network import Network
 from typing import Tuple, Dict, List
 
 # -- Configuration -------------------------------------------------------------
@@ -138,73 +135,14 @@ class JourneyExtractor:
         df.to_csv(path, index=False)
         print(f"CSV saved: {path}")
 
-    def export_neo4j(self, journeys: List[dict]):
-        # nodes
-        nodes = set()
-        for j in journeys:
-            nodes.add(j['from_location']); nodes.add(j['to_location'])
-        nodes_df = pd.DataFrame([{'id': n, 'label': n} for n in nodes])
-        nodes_path = os.path.join(self.out, 'neo4j_nodes.csv')
-        nodes_df.to_csv(nodes_path, index=False)
-        # edges
-        edges = []
-        for j in journeys:
-            edges.append({
-                'source': j['from_location'],
-                'target': j['to_location'],
-                'date': j['approx_date'],
-                'transport': j['mode_of_transport'],
-                'reason': j['reason']
-            })
-        edges_df = pd.DataFrame(edges)
-        edges_path = os.path.join(self.out, 'neo4j_edges.csv')
-        edges_df.to_csv(edges_path, index=False)
-        print(f"Neo4j CSVs saved: {nodes_path}, {edges_path}")
-
-    def export_pyvis(self, journeys: List[dict]):
-        net = Network(directed=True, height='750px', width='100%', notebook=False)
-        net.barnes_hut()
-        seen = set()
-        for j in journeys:
-            f, t = j['from_location'], j['to_location']
-            lat1, lon1 = j['source_lat'], j['source_lon']
-            lat2, lon2 = j['target_lat'], j['target_lon']
-            if f not in seen:
-                net.add_node(f, label=f, title=f)
-                seen.add(f)
-            if t not in seen:
-                net.add_node(t, label=t, title=t)
-                seen.add(t)
-            net.add_edge(f, t, title=j['approx_date'], label=j['mode_of_transport'])
-        path = os.path.join(self.out, 'journey_network.html')
-        net.show(path)
-        print(f"Pyvis network saved: {path}")
-
-    def export_folium(self, journeys: List[dict]):
-        # center map
-        valid = [j for j in journeys if j['source_lat'] and j['target_lat']]
-        center = valid[0]['source_lat'], valid[0]['source_lon'] if valid else (0, 0)
-        m = folium.Map(location=center, zoom_start=5)
-        for j in valid:
-            pts = [(j['source_lat'], j['source_lon']), (j['target_lat'], j['target_lon'])]
-            folium.PolyLine(pts, tooltip=j['approx_date']).add_to(m)
-            folium.Marker(pts[0], popup=f"From: {j['from_location']}<br>{j['approx_date']} ({j['mode_of_transport']})").add_to(m)
-            folium.Marker(pts[1], popup=f"To: {j['to_location']}<br>{j['reason']}").add_to(m)
-        path = os.path.join(self.out, 'journey_map.html')
-        m.save(path)
-        print(f"Folium map saved: {path}")
-
     def run_all(self, transcripts: Dict[str, str]):
         journeys = self.extract(transcripts)
         journeys = self.geocode_all(journeys)
         self.export_jsonl(journeys)
         self.export_csv(journeys)
-        self.export_neo4j(journeys)
-        self.export_pyvis(journeys)
-        self.export_folium(journeys)
 
-# -- CLI & Streamlit UI --------------------------------------------------------
-def cli_main():
+# -- CLI ----
+if __name__ == '__main__':
     parser = argparse.ArgumentParser(description="Extract, geocode, and export journeys.")
     parser.add_argument('--input', '-i', required=True, help="Path to .txt file or folder.")
     parser.add_argument('--output', '-o', required=True, help="Output directory.")
@@ -215,45 +153,3 @@ def cli_main():
     trans = load_transcripts(args.input)
     ext = JourneyExtractor(model=args.model, api_key=api_key, output_dir=args.output)
     ext.run_all(trans)
-
-# Streamlit UI
-try:
-    import streamlit as st
-    from streamlit_folium import folium_static
-
-    def ui_main():
-        st.title("Historical Journey Extractor")
-        uploaded = st.file_uploader("Upload .txt transcripts", type=['txt'], accept_multiple_files=True)
-        out_dir = st.text_input("Output directory", value="output")
-        model = st.selectbox("OpenAI model", ['gpt-4-turbo', 'gpt-3.5-turbo'])
-        api_key = st.text_input("OpenAI API Key", type="password")
-        if st.button("Run Extraction") and uploaded:
-            os.makedirs(out_dir, exist_ok=True)
-            texts = {}
-            for uf in uploaded:
-                texts[uf.name] = uf.read().decode('utf-8')
-            ext = JourneyExtractor(model=model, api_key=get_api_key(api_key), output_dir=out_dir)
-            with st.spinner("Extracting..."):
-                journeys = ext.extract(texts)
-                journeys = ext.geocode_all(journeys)
-            st.success(f"Extracted {len(journeys)} journeys.")
-            df = pd.DataFrame(journeys)
-            st.dataframe(df)
-            st.subheader("Folium Map")
-            m = folium.Map(location=[df.loc[0,'source_lat'], df.loc[0,'source_lon']], zoom_start=5)
-            for _, row in df.dropna(subset=['source_lat']).iterrows():
-                pts = [(row['source_lat'], row['source_lon']), (row['target_lat'], row['target_lon'])]
-                folium.PolyLine(pts, tooltip=row['approx_date']).add_to(m)
-            folium_static(m)
-
-except ImportError:
-    ui_main = None
-
-if __name__ == '__main__':
-    # Detect if running via Streamlit
-    if 'streamlit' in os.getenv('RUN_BY_STREAMLIT', '').lower():
-        ui_main()
-    elif ui_main and os.getenv('STREAMLIT_RUN'):  # another check
-        ui_main()
-    else:
-        cli_main()
