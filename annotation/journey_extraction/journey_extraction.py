@@ -150,7 +150,7 @@ class JourneyExtractor:
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description="Extract, geocode, and export journeys.")
     parser.add_argument('--input', '-i', required=True, help="Path to .txt file or folder.")
-    parser.add_argument('--output', '-o', required=True, help="Output directory.")
+    parser.add_argument('--output', '-o', required=True, default="journeys", help="Output directory.")
     parser.add_argument('--model', '-M', default="gpt-4-turbo", help="OpenAI model to use.")
     parser.add_argument('--api_key', help="OpenAI API key (or set via environment).")
     args = parser.parse_args()
