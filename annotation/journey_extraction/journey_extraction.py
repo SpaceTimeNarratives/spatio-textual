@@ -8,6 +8,11 @@ from tqdm import tqdm
 from multiprocessing import Pool, cpu_count
 from typing import Tuple, Dict, List
 
+# this reads the .env file and adds its vars to os.environ
+from dotenv import load_dotenv
+load_dotenv()
+# api_key = os.getenv("OPENAI_API_KEY")
+
 # -- Configuration -------------------------------------------------------------
 PROMPT_TEMPLATE = """
 You are an expert analyst of historical survivor testimonies. Your task is to extract all the journeys embarked on by the narrator from the transcript below.
