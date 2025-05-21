@@ -1,0 +1,78 @@
+from_location,to_location,approx_date,mode_of_transport,reason,transcript,source_lat,source_lon,target_lat,target_lon
+"Warsaw, Poland","Warsaw Ghetto, Poland",1940,Not mentioned,Forced relocation by Nazis into the ghetto,10098.txt,52.2337172,21.0714322,52.2308605,20.9991022
+"Warsaw Ghetto, Poland",Polish airport barracks near Warsaw,December 1941,Truck,Forced labor assignment by Nazis,10098.txt,52.2308605,20.9991022,,
+Polish airport barracks near Warsaw,"Warsaw Ghetto, Poland",Late December 1941,Truck and walking (jumped the wall),Escaped from forced labor after dangerous relationship with German officer's daughter,10098.txt,,,52.2308605,20.9991022
+"Warsaw Ghetto, Poland","Treblinka extermination camp, Poland",Late December 1942,Train,Deportation by Nazis,10098.txt,52.2308605,20.9991022,52.6310673,22.0534911
+"Treblinka extermination camp, Poland","Warsaw Ghetto, Poland",Late December 1942,Train (escaped by jumping off),Escaped to warn others about extermination at Treblinka,10098.txt,52.6310673,22.0534911,52.2308605,20.9991022
+"Warsaw Ghetto, Poland","Majdanek concentration camp, Poland",May 1943,"Truck to Umschlagplatz, then train",Captured after Warsaw Ghetto Uprising,10098.txt,52.2308605,20.9991022,51.2216932,22.5975039
+"Majdanek concentration camp, Poland","Skarzysko-Kamienna labor camp, Poland",Late summer 1943,Train,Transferred for forced labor in ammunition factory,10098.txt,51.2216932,22.5975039,,
+"Skarzysko-Kamienna labor camp, Poland","Sulejow labor camp, Poland",Early 1944,Not mentioned,Transferred to dig tank traps,10098.txt,,,,
+"Sulejow labor camp, Poland","Czestochowa labor camp, Poland",1944,Not mentioned,Transferred to work in ammunition factory,10098.txt,,,,
+"Czestochowa labor camp, Poland","Buchenwald concentration camp, Germany",December 1944,Train,Evacuation due to advancing Soviet forces,10098.txt,,,51.0235423,11.2522682
+"Buchenwald concentration camp, Germany","Dachau concentration camp, Germany",March-April 1945,Forced march (death march),Evacuation due to advancing Allied forces,10098.txt,51.0235423,11.2522682,47.6978718,10.3244047
+"Dachau concentration camp, Germany","Buchloe, Germany","After liberation, April-May 1945",Not mentioned,Moved to find other survivors and settle temporarily,10098.txt,47.6978718,10.3244047,48.0373762,10.7282761
+"Buchloe, Germany","Bremen, Germany",Late 1949,Not mentioned,Waiting for ship to emigrate to America,10098.txt,48.0373762,10.7282761,53.0758196,8.8071646
+"Bremen, Germany","New Orleans, USA",December 1949,Ship,Immigration to the United States,10098.txt,53.0758196,8.8071646,29.9759983,-90.0782127
+"New Orleans, USA","Monroe, Louisiana, USA",December 1949,Train,Assigned to settle and work in Monroe,10098.txt,29.9759983,-90.0782127,32.5025471,-92.116219
+"Debrecen, Hungary","Hatvan Street ghetto, Debrecen, Hungary",Spring 1944,Not mentioned,Forced relocation to a designated ghetto area,10162.txt,47.531399,21.6259782,,
+"Hatvan Street ghetto, Debrecen, Hungary","Brick factory (Téglagyár), outskirts of Debrecen, Hungary",Late Spring 1944,Not mentioned,Further forced relocation before deportation,10162.txt,,,,
+"Brick factory, outskirts of Debrecen, Hungary","Auschwitz, Poland",Late Spring/Early Summer 1944,Cattle car (train),Deportation to concentration camp,10162.txt,,,50.0382443,19.2214053
+"Auschwitz, Poland","Münchmühle labor camp (Fabrik Allendorf), Germany",Fall 1944,Cattle car (train),Selected by Mengele for forced labor in ammunition factory,10162.txt,50.0382443,19.2214053,,
+"Münchmühle labor camp, Germany",Unknown location westward in Germany,April 1945,Walking (death march),Evacuation of camp due to approaching Allied forces,10162.txt,,,,
+"Death march route, Germany","Forest near a farm, Germany",April 1945,Walking (escape into forest),Escape from death march,10162.txt,,,,
+"Forest near a farm, Germany","Farmhouse stable, Germany",April 1945,Walking (guided by French POWs),Hidden by French prisoners of war until liberation,10162.txt,,,,
+"Farmhouse stable, Germany","School building (temporary shelter), Germany",April 1945,Not mentioned,Shelter after liberation by American forces,10162.txt,,,,
+"School building, Germany","Fritzlar American airbase, Germany",Summer 1945,Car (American Red Cross),Offered work by American Red Cross as interpreter (actually worked making donuts),10162.txt,,,,
+"Fritzlar American airbase, Germany","Budapest, Hungary",Fall 1945,"Hitchhiking, trains",Return to Hungary after learning her father survived,10162.txt,,,47.4978789,19.0402383
+"Budapest, Hungary","Debrecen, Hungary",Late 1945,Not mentioned,Sent by father to live with mother's cousin and finish school,10162.txt,47.4978789,19.0402383,47.531399,21.6259782
+"Debrecen, Hungary","Budapest, Hungary",Late 1940s,Not mentioned,Returned to Budapest after finishing school,10162.txt,47.531399,21.6259782,47.4978789,19.0402383
+"Budapest, Hungary","Belgrade, Yugoslavia",October 1956,Not mentioned,Fled Hungary during the Hungarian Revolution,10162.txt,47.4978789,19.0402383,44.7880163,20.4522489
+"Belgrade, Yugoslavia","Paris, France",Late 1956,Not mentioned,Moved to France to join her uncle after fleeing Hungary,10162.txt,44.7880163,20.4522489,48.8588897,2.320041
+"Paris, France","New York, USA",1961,Airplane,Job offer from Revlon as a fragrance expert,10162.txt,48.8588897,2.320041,40.7127281,-74.0060152
+"New York, USA","Forest Hills, New York, USA",1961,Not mentioned,Settled in apartment with her children,10162.txt,40.7127281,-74.0060152,40.7231009,-73.8466125
+"Forest Hills, New York, USA","Huntington, New York, USA",1963,Not mentioned,Moved after marrying Alan Friedberg,10162.txt,40.7231009,-73.8466125,40.868154,-73.425676
+"Hildesheim, Germany","Dreisen, Germany","April 1, 1933",train,To attend the European Fashion Academy for further technical training in tailoring and design.,10572.txt,52.1527188,9.9518083,49.6029907,8.0131458
+"Dreisen, Germany","Hamburg, Germany","August 1, 1934",,"To start working at a fine tailoring firm, Christian Ohlmeyer.",10572.txt,49.6029907,8.0131458,53.550341,10.000654
+"Hamburg, Germany","Hildesheim, Germany",1938,,Returned home after the liquidation of the family business.,10572.txt,53.550341,10.000654,52.1527188,9.9518083
+"Hildesheim, Germany","Buchenwald concentration camp, Germany","November 9-10, 1938",truck and train,Arrested during Kristallnacht and deported to Buchenwald.,10572.txt,52.1527188,9.9518083,51.0235423,11.2522682
+"Buchenwald concentration camp, Germany","Hildesheim, Germany",Early 1939,train,Released from Buchenwald due to affidavits provided by Mrs. Hamilton.,10572.txt,51.0235423,11.2522682,52.1527188,9.9518083
+"Hildesheim, Germany","Lord Kitchener Camp, England","June 23, 1939",train and ship,To escape Nazi Germany and await immigration to the United States.,10572.txt,52.1527188,9.9518083,,
+"Lord Kitchener Camp, England","Liverpool, England","May 1, 1940",,To board a ship to the United States after receiving immigration visa.,10572.txt,,,53.4071991,-2.99168
+"Liverpool, England","New York, United States",May 1940,ship (Britannic),Immigration to the United States.,10572.txt,53.4071991,-2.99168,40.7127281,-74.0060152
+"New York, United States","Elkhart, Indiana, United States",Summer 1940,bus,Sent by refugee committee to disperse refugees from New York.,10572.txt,40.7127281,-74.0060152,41.6012796,-85.8590603
+"Elkhart, Indiana, United States","Chicago, Illinois, United States",Summer 1940,bus,Moved to Chicago after receiving financial assistance from Mrs. Hamilton.,10572.txt,41.6012796,-85.8590603,41.8755616,-87.6244212
+"Chicago, Illinois, United States","Camp Lee, Virginia, United States",1942,,Joined the U.S. Army and underwent basic training.,10572.txt,41.8755616,-87.6244212,,
+"Camp Lee, Virginia, United States","Camp Ashby, Virginia, United States",1943,,Assigned to work at a prisoner of war camp.,10572.txt,,,,
+"Camp Ashby, Virginia, United States","Third Service Command Headquarters, Baltimore, Maryland, United States",1944,,Transferred to counterintelligence corps.,10572.txt,,,,
+"Baltimore, Maryland, United States","Chicago, Illinois, United States",May 1946,,Returned to civilian life after discharge from the U.S. Army.,10572.txt,39.2908816,-76.610759,41.8755616,-87.6244212
+"Berlin, Germany","Riga, Latvia","September 27, 1942",Train,Deportation by Nazis,1172.txt,52.510885,13.3989367,56.9493977,24.1051846
+"Riga, Latvia",Estonia,"October 1, 1942",Train,Continued deportation by Nazis,1172.txt,56.9493977,24.1051846,58.7523778,25.3319078
+Estonia (initial camp),"Tallinn, Estonia",Spring 1943,Bus,Transferred to Tallinn prison camp,1172.txt,,,59.4372155,24.7453688
+"Tallinn, Estonia","Ereda, Estonia",1943,Train,Transferred to another labor camp,1172.txt,59.4372155,24.7453688,59.3151238,27.2506629
+"Ereda, Estonia","Goldfields, Estonia",Late 1943,Not specified,Transferred to another labor camp,1172.txt,59.3151238,27.2506629,,
+"Goldfields, Estonia","Lagedi, Estonia",September or October 1944,Train,Evacuation due to approaching Russian forces,1172.txt,,,59.3981997,24.9402118
+"Lagedi, Estonia","Danzig, Germany",October 1944,Ship,Evacuation by Nazis,1172.txt,59.3981997,24.9402118,51.4807552,6.6168002
+"Danzig, Germany","Stutthof concentration camp, Germany",October 1944,Small boats,Transferred to concentration camp,1172.txt,51.4807552,6.6168002,,
+"Stutthof concentration camp, Germany","Ochsenzoll (near Hamburg), Germany",Late 1944,Train,Transferred to work in ammunition factory,1172.txt,,,,
+"Ochsenzoll, Germany","Bergen-Belsen concentration camp, Germany",April 1945,Train,Transferred as war was nearing end,1172.txt,53.6780751,10.0018152,,
+"Bergen-Belsen concentration camp, Germany","Lübeck, Germany",1945,Not specified,Moved after liberation to join sister and brother-in-law,1172.txt,,,53.866444,10.684738
+"Lübeck, Germany","Frankfurt am Main, Germany",1945,Not specified,Moved temporarily with friends,1172.txt,53.866444,10.684738,50.1106444,8.6820917
+"Frankfurt am Main, Germany","Lübeck, Germany",1945-1946,Not specified,Returned to live with sister,1172.txt,50.1106444,8.6820917,53.866444,10.684738
+"Lübeck, Germany",Israel,1949,Not specified,Visit and marriage,1172.txt,53.866444,10.684738,30.8124247,34.8594762
+Israel,"Lübeck, Germany",1949,Not specified,Returned after marriage,1172.txt,30.8124247,34.8594762,53.866444,10.684738
+"Lübeck, Germany","New York, USA",1951,Airplane,Immigration to the United States,1172.txt,53.866444,10.684738,40.7127281,-74.0060152
+"New York, USA","California, USA",1980s (after 33 years in New York),Not specified,Moved to be closer to sons and grandchildren,1172.txt,40.7127281,-74.0060152,36.7014631,-118.755997
+"Warsaw, Poland",Bialystok,"November 15, 1939",horse and buggy,Father sent him away fearing German kidnapping due to owning jewelry stores.,1173.txt,52.2337172,21.0714322,53.132398,23.1591679
+Bialystok,"Arkhangelsk Oblast, Russia",May or June 1940,train (cattle car),"Attempted return to Warsaw, but Russians deported him and others to Russia instead.",1173.txt,53.132398,23.1591679,63.5589686,43.1221646
+Arkhangelsk Oblast train station,Labor camp in Arkhangelsk woods,June 1940,truck,Transferred from train station to forced labor camp.,1173.txt,,,,
+Arkhangelsk labor camp,"Saratov, Russia",1941,train,Transported towards Central Asia; became ill with typhoid fever and hospitalized in Saratov.,1173.txt,,,51.530018,46.034683
+"Saratov, Russia","Tashkent, Uzbekistan",1941,train,Continued journey after hospitalization towards Central Asia.,1173.txt,51.530018,46.034683,41.3123363,69.2787079
+"Tashkent, Uzbekistan","Lenger, Kazakhstan",1941,train,Sent to work in oil exploration.,1173.txt,41.3123363,69.2787079,42.1870904,69.8705984
+"Lenger, Kazakhstan",Kolkhoz (collective farm) in Kazakhstan,Late 1941,unspecified,Transferred to agricultural work in kolkhoz.,1173.txt,42.1870904,69.8705984,,
+Kolkhoz in Kazakhstan,"Posen (Poznań), Poland",April-May 1946,train,Returned to Poland after liberation.,1173.txt,,,52.387384,16.817705
+"Posen (Poznań), Poland","Warsaw, Poland",May 1946,unspecified,Visited hometown to check on family and property.,1173.txt,52.387384,16.817705,52.2337172,21.0714322
+"Warsaw, Poland","Waldenburg, Silesia (Poland)",May 1946,train (rode on top),Moved temporarily after finding nothing left in Warsaw.,1173.txt,52.2337172,21.0714322,50.785221,16.2846403
+"Waldenburg, Silesia","Lübeck, Germany",1946,"train via Czechoslovakia, Austria, Munich",Reunited with father and brother who survived the Holocaust.,1173.txt,50.785221,16.2846403,53.866444,10.684738
+"Lübeck, Germany","Tel Aviv, Israel",1949,unspecified,Visited father and family in Israel; got married there.,1173.txt,53.866444,10.684738,32.0852997,34.7818064
+"Tel Aviv, Israel","Lübeck, Germany",1950,unspecified,Returned to Lübeck after marriage to prepare for immigration to America.,1173.txt,32.0852997,34.7818064,53.866444,10.684738
+"Lübeck, Germany","New York, USA",June 1951,airplane,Immigrated to the United States with wife and newborn son.,1173.txt,53.866444,10.684738,40.7127281,-74.0060152

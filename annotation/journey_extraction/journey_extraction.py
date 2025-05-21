@@ -38,14 +38,23 @@ def get_api_key(cli_key: str = None) -> str:
     return cli_key or os.getenv("OPENAI_API_KEY")
 
 def call_gpt(prompt: str, model: str) -> str:
-    response = openai.ChatCompletion.create(
-        model=model,
-        messages=[
-            {"role": "system", "content": "You are a careful and structured extractor of data from historical testimonies."},
-            {"role": "user", "content": prompt}
-        ],
-        temperature=0.0
-    )
+    messages = [
+        {"role": "system", "content": "You are a careful and structured extractor of data from historical testimonies."},
+        {"role": "user", "content": prompt}
+    ]
+
+    if model.startswith("o"):  # for o-X models like o3, o3-mini, o4
+        response = openai.ChatCompletion.create(
+            model=model,
+            messages=messages
+        )
+    else:
+        response = openai.ChatCompletion.create(
+            model=model,
+            messages=messages,
+            temperature=0.0
+        )
+
     return response.choices[0].message.content
 
 
@@ -98,15 +107,44 @@ class JourneyExtractor:
         results = []
         for name, text in tqdm(transcripts.items(), desc="LLM Extraction"):
             prompt = PROMPT_TEMPLATE.format(text=text)
+
+            # 1) Call the API and let exceptions bubble up so you see the full traceback
+            resp = call_gpt(prompt, self.model)
+            # print(f"\n--- DEBUG: Raw response for {name} ---\n{resp!r}\n") ## uncommend for raw responses
+
+            # 2) Strip markdown fences if present
+            stripped = resp.strip()
+            if stripped.startswith("```"):
+                parts = stripped.split("```")
+                if len(parts) >= 3:
+                    resp = parts[1].strip()
+                    # print(f"--- DEBUG: Stripped code block for {name} ---\n{resp!r}\n") ## uncommend for raw responses
+                else:
+                    print(f"[Warning][{name}] Malformed fences; skipping strip.")
+
+            # 2.5) Remove leading 'json\n' if present
+            if resp.lower().startswith("json\n"):
+                resp = resp[5:].lstrip()
+                # print(f"--- DEBUG: Removed 'json\\n' prefix for {name} ---\n{resp!r}\n") ## uncommend for raw responses
+
+            # 3) Try JSON parsing, now catching only JSONDecodeError
             try:
-                resp = call_gpt(prompt, self.model)
                 journeys = json.loads(resp)
-                for j in journeys:
-                    if validate_journey(j):
-                        j['transcript'] = name
-                        results.append(j)
-            except Exception as e:
-                print(f"[Error][Extraction] {name}: {e}")
+            except json.JSONDecodeError as e:
+                print(f"[Error][JSONDecodeError][{name}]: {e}")
+                pos = e.pos
+                snippet = resp[max(0, pos-20):pos+20]
+                print(f"…{snippet!r}…")
+                continue
+
+            # 4) Validate each journey
+            for j in journeys:
+                if validate_journey(j):
+                    j['transcript'] = name
+                    results.append(j)
+                else:
+                    print(f"[Warning][Validation Failed][{name}]: {j!r}")
+
         return results
 
     def geocode_all(self, journeys: List[dict]) -> List[dict]:
@@ -128,7 +166,7 @@ class JourneyExtractor:
         return journeys
 
     def export_jsonl(self, journeys: List[dict]):
-        path = os.path.join(self.out, 'journeys.jsonl')
+        path = os.path.join(self.out, f'journeys_{self.model}.jsonl')
         with open(path, 'w', encoding='utf-8') as f:
             for j in journeys:
                 f.write(json.dumps(j) + "\n")
@@ -136,7 +174,7 @@ class JourneyExtractor:
 
     def export_csv(self, journeys: List[dict]):
         df = pd.DataFrame(journeys)
-        path = os.path.join(self.out, 'journeys.csv')
+        path = os.path.join(self.out, f'journeys_{self.model}.csv')
         df.to_csv(path, index=False)
         print(f"CSV saved: {path}")
 

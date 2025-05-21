@@ -1,0 +1,1164 @@
+from_location,to_location,approx_date,mode_of_transport,reason,transcript,source_lat,source_lon,target_lat,target_lon
+"Warsaw, Poland","Warsaw Ghetto, Poland",1940,Walking,Forced relocation by Nazis into the Warsaw Ghetto,10098.txt,,,52.2308605,20.9991022
+"Warsaw Ghetto, Poland",Polish airport barracks near Warsaw,December 1941,Truck,Forced labor assignment by Nazis,10098.txt,52.2308605,20.9991022,,
+Polish airport barracks near Warsaw,"Warsaw Ghetto, Poland",Late December 1941,Truck and walking (escaped),Escaped after dangerous relationship with German officer's daughter,10098.txt,,,52.2308605,20.9991022
+"Warsaw Ghetto, Poland","Treblinka extermination camp, Poland",Late December 1942,Train,Deportation by Nazis,10098.txt,52.2308605,20.9991022,52.6310673,22.0534911
+"Treblinka extermination camp, Poland","Warsaw Ghetto, Poland",Late December 1942,Train (escaped by jumping off),Escaped to warn others about extermination at Treblinka,10098.txt,52.6310673,22.0534911,52.2308605,20.9991022
+"Warsaw Ghetto, Poland","Majdanek concentration camp, Poland",May 1943,"Truck to Umschlagplatz, then train",Captured after Warsaw Ghetto Uprising,10098.txt,52.2308605,20.9991022,51.2216932,22.5975039
+"Majdanek concentration camp, Poland","Skarzysko-Kamienna labor camp, Poland",Late summer 1943,Train,Transferred for forced labor in ammunition factory,10098.txt,51.2216932,22.5975039,,
+"Skarzysko-Kamienna labor camp, Poland","Sulejow labor site, Poland",Early 1944,Train,Evacuation due to advancing Soviet forces,10098.txt,,,,
+"Sulejow labor site, Poland","Czestochowa labor camp, Poland",1944,Train,Transferred for forced labor,10098.txt,,,,
+"Czestochowa labor camp, Poland","Buchenwald concentration camp, Germany",December 1944,Train,Evacuation due to advancing Soviet forces,10098.txt,,,51.0235423,11.2522682
+"Buchenwald concentration camp, Germany","Dachau concentration camp, Germany",March-April 1945,Forced march (death march),Evacuation due to advancing Allied forces,10098.txt,51.0235423,11.2522682,47.6978718,10.3244047
+"Dachau concentration camp, Germany","Buchloe, Germany","After April 29, 1945","Various (walking, hitchhiking)","Liberated by American forces, traveled to find other survivors",10098.txt,47.6978718,10.3244047,48.0373762,10.7282761
+"Buchloe, Germany","Bremen, Germany",September 1949,Not specified,Preparation for emigration to the United States,10098.txt,48.0373762,10.7282761,,
+"Bremen, Germany","New Orleans, Louisiana, USA",December 1949,Ship,Emigration to the United States,10098.txt,,,29.9759983,-90.0782127
+"New Orleans, Louisiana, USA","Monroe, Louisiana, USA",December 1949,Train,Assigned resettlement location in the United States,10098.txt,29.9759983,-90.0782127,32.5025471,-92.116219
+"Debrecen, Hungary","Hatvan Street ghetto area, Debrecen, Hungary",Spring 1944,Not mentioned,Forced relocation to a designated ghetto area,10162.txt,,,,
+"Hatvan Street ghetto area, Debrecen, Hungary","Brick factory (Téglagyár), outskirts of Debrecen, Hungary",Late Spring 1944,Not mentioned,Further forced relocation before deportation,10162.txt,,,,
+"Brick factory, outskirts of Debrecen, Hungary","Auschwitz, Poland",Late Spring/Early Summer 1944,Cattle car train,Deportation to concentration camp,10162.txt,,,50.0382443,19.2214053
+"Auschwitz, Poland","Münchmühle labor camp (Fabrik Allendorf), Germany",Fall 1944,Cattle car train,Selected by Mengele for forced labor in ammunition factory,10162.txt,50.0382443,19.2214053,,
+"Münchmühle labor camp, Germany","Unknown location westward, Germany",April 1945,Forced march (death march),Evacuation of camp due to approaching Allied forces,10162.txt,,,,
+"Forced march route, Germany","Forest near a farm, Germany",April 1945,On foot (escape),Escape from forced march as German guards fled,10162.txt,,,,
+"Forest near a farm, Germany","Nearby farm, Germany",April 1945,On foot (guided by French POWs),Hidden by French prisoners of war until liberation,10162.txt,,,,
+"Farm, Germany","School building (temporary shelter), Germany",April/May 1945,Not mentioned,Shelter provided after liberation by American forces,10162.txt,53.4333,9.31667,,
+"School building, Germany","Fritzlar American airbase, Germany",Summer 1945,Car (American Red Cross),Offered work by American Red Cross as interpreter (though actually worked making donuts),10162.txt,,,,
+"Fritzlar American airbase, Germany","Budapest, Hungary",Fall 1945,"Hitchhiking, trains",Return to Hungary after learning her father survived,10162.txt,,,47.4978789,19.0402383
+"Budapest, Hungary","Debrecen, Hungary",Late 1945,Not mentioned,Sent by father to live temporarily with mother's cousin,10162.txt,47.4978789,19.0402383,,
+"Debrecen, Hungary","Budapest, Hungary",Late 1940s,Not mentioned,Returned to Budapest after finishing school,10162.txt,,,47.4978789,19.0402383
+"Budapest, Hungary","Belgrade, Yugoslavia",October 1956,Not mentioned,Fled Hungary during the Hungarian Revolution,10162.txt,47.4978789,19.0402383,44.7880163,20.4522489
+"Belgrade, Yugoslavia","Paris, France",Late 1956,Not mentioned,Moved to France due to having an uncle there,10162.txt,44.7880163,20.4522489,,
+"Paris, France","New York, USA",1961,Airplane,Job opportunity with Revlon in the perfume industry,10162.txt,,,40.7127281,-74.0060152
+"Forest Hills, New York, USA","Huntington, New York, USA",1963,Not mentioned,Moved after marrying Alan Friedberg,10162.txt,,,,
+"Hildesheim, Germany","Dreisen, Germany","April 1, 1933",Not explicitly mentioned,To attend the European Fashion Academy for further technical training in tailoring.,10572.txt,52.1527188,9.9518083,49.6029907,8.0131458
+"Dreisen, Germany","Hamburg, Germany","August 1, 1934",Not explicitly mentioned,"To start working at a fine tailoring firm, Christian Ohlmeyer.",10572.txt,49.6029907,8.0131458,53.550341,10.000654
+"Hamburg, Germany","Hildesheim, Germany",1938,Not explicitly mentioned,Returned home after the liquidation of the family business.,10572.txt,53.550341,10.000654,52.1527188,9.9518083
+"Hildesheim, Germany","Berlin, Germany",August 1938,Car,"To meet Mrs. Hamilton, an American woman, to seek sponsorship for emigration to the United States.",10572.txt,52.1527188,9.9518083,52.510885,13.3989367
+"Hildesheim, Germany","Buchenwald concentration camp, Germany","November 10, 1938",Train and truck,Arrested during Kristallnacht and deported to Buchenwald.,10572.txt,52.1527188,9.9518083,51.0235423,11.2522682
+"Buchenwald concentration camp, Germany","Hildesheim, Germany",Early 1939,Train,Released from Buchenwald due to affidavits provided by Mrs. Hamilton.,10572.txt,51.0235423,11.2522682,52.1527188,9.9518083
+"Hildesheim, Germany","Lord Kitchener Camp, England","June 23, 1939",Train and ship,To escape Nazi Germany and await immigration to the United States.,10572.txt,52.1527188,9.9518083,,
+"Lord Kitchener Camp, England","Liverpool, England","May 1, 1940",Not explicitly mentioned,To board a ship to the United States after receiving immigration visa.,10572.txt,,,53.4071991,-2.99168
+"Liverpool, England","New York, United States",May 1940,Ship (Britannic),Immigration to the United States.,10572.txt,53.4071991,-2.99168,,
+"New York, United States","Elkhart, Indiana, United States",Summer 1940,Greyhound bus,Sent by refugee committee to disperse refugees from New York.,10572.txt,,,41.6012796,-85.8590603
+"Elkhart, Indiana, United States","Chicago, Illinois, United States",Summer 1940,Bus,Moved to Chicago after receiving financial assistance from Mrs. Hamilton to arrange parents' immigration.,10572.txt,41.6012796,-85.8590603,41.8755616,-87.6244212
+"Chicago, Illinois, United States","Camp Lee, Virginia, United States",1942,Not explicitly mentioned,Joined the U.S. Army and underwent basic training.,10572.txt,41.8755616,-87.6244212,,
+"Camp Lee, Virginia, United States","Camp Ashby, Virginia, United States",1943,Not explicitly mentioned,Assigned to work at a prisoner of war camp.,10572.txt,,,,
+"Camp Ashby, Virginia, United States","Baltimore, Maryland, United States",1944,Not explicitly mentioned,Transferred to Third Service Command headquarters to work in counterintelligence.,10572.txt,,,39.2908816,-76.610759
+"Baltimore, Maryland, United States","Chicago, Illinois, United States",May 1946,Not explicitly mentioned,Returned to civilian life after discharge from the U.S. Army.,10572.txt,39.2908816,-76.610759,41.8755616,-87.6244212
+"Oswiecim, Poland","Sosnowiec, Poland",1941,Train,Forced resettlement by Germans,10587.txt,,,,
+"Sosnowiec, Poland","Srodula, Poland",1943,Walking,Forced relocation to Srodula ghetto,10587.txt,,,50.29892,19.1581338
+"Srodula, Poland","Bielsko, Poland",1943,Walking,Escaping liquidation of Srodula ghetto,10587.txt,50.29892,19.1581338,52.607327,15.9228416
+"Bielsko, Poland","Auschwitz concentration camp, Poland",1943,Cattle train,Captured by Germans and deported to Auschwitz,10587.txt,52.607327,15.9228416,50.0389061,19.1712984
+"Auschwitz concentration camp, Poland","Funfteichen (Krupp factory), Germany",Late 1943,Cattle train,Transferred to forced labor at Krupp factory,10587.txt,50.0389061,19.1712984,,
+"Funfteichen, Germany","Gross-Rosen concentration camp, Germany",Late 1944,Walking (Death march),Evacuation due to approaching Russian forces,10587.txt,,,,
+"Gross-Rosen concentration camp, Germany","Hersbruck concentration camp, Germany",Late 1944 or early 1945,Open cattle train,Transferred to forced labor at Hersbruck,10587.txt,,,,
+"Hersbruck concentration camp, Germany","Dachau concentration camp, Germany",Early 1945,Walking (Death march),Evacuation due to approaching Allied forces,10587.txt,,,47.6978718,10.3244047
+"Dachau concentration camp, Germany","Munich, Germany",April or May 1945,Walking,Liberation and seeking shelter after liberation,10587.txt,47.6978718,10.3244047,48.1371079,11.5753822
+"Munich, Germany","Breslau area (near Wroclaw), Poland",1945,"Walking, hitchhiking, trains",Searching for surviving siblings,10587.txt,48.1371079,11.5753822,,
+"Breslau area, Poland","Munich, Germany",1945,Train (posing as Volksdeutsche),Returning with siblings to Munich after reunion,10587.txt,,,48.1371079,11.5753822
+"Munich, Germany",United States,"December 23, 1949",Ship (implied),Immigration to the United States,10587.txt,48.1371079,11.5753822,,
+"Detroit, Michigan, USA","Los Angeles, California, USA",Around 1957,Not mentioned,Relocation after marriage,10587.txt,42.3315509,-83.0466403,34.0536909,-118.242766
+Barisaw,Vyazma,around 1915-1916,not mentioned,Sent by grandmother to live away from Barisaw after revolting against attending cheder,10644.txt,,,55.2103563,34.2995187
+Vyazma,Barisaw,around 1916-1917,not mentioned,Returned to Barisaw to attend gymnasium,10644.txt,55.2103563,34.2995187,,
+Barisaw,Kiev,1918,not mentioned,Family fled due to fear of Bolsheviks after the revolution,10644.txt,,,50.4500336,30.5241361
+Kiev,Bialystok,around 1919,not mentioned,Family moved to escape political instability and danger,10644.txt,50.4500336,30.5241361,,
+Bialystok,Drohiczyn,early 1920s,not mentioned,Attended Polish government high school,10644.txt,,,52.396648,22.658812
+Drohiczyn,Vilna,1927,not mentioned,Admitted to medical school at the University of Vilna,10644.txt,52.396648,22.658812,54.6870458,25.2829111
+Vilna,Warsaw,1933,not mentioned,Joined Polish army after graduating medical school,10644.txt,54.6870458,25.2829111,,
+Warsaw,Bialystok,1933,not mentioned,Assigned as a doctor in a regiment stationed in Bialystok,10644.txt,,,,
+Bialystok,Miedzyrzec (Mezritch),1937,not mentioned,Became chief of obstetrics and gynecology at a Jewish hospital,10644.txt,,,,
+Miedzyrzec (Mezritch),Kaunas,June 1941,not mentioned,"Went to marry his fiancée, Sacha",10644.txt,,,54.8982139,23.9044817
+Kaunas,Riga (Spilwe),September 1942,train,Volunteered to join transport to reunite with wife who had been taken earlier,10644.txt,54.8982139,23.9044817,,
+Spilwe,Kaiserwald concentration camp,September 1944,truck,Camp evacuated as Russians approached,10644.txt,,,56.9962678,24.1324053
+Kaiserwald,Stutthof concentration camp,October 1944,boat,Transferred as part of camp evacuation,10644.txt,57.001796,24.1574993,53.4460185,19.9190456
+Stutthof,Danzig,November 1944,not mentioned,Sent to work in the port of Danzig,10644.txt,54.330086,19.177209,,
+Danzig,Laumberg (Pommern),"February 8, 1945",forced march,Evacuated due to advancing Russian forces,10644.txt,,,,
+Laumberg,Berlin,mid-1945,not mentioned,Moved westward after liberation,10644.txt,,,,
+Berlin,Hanover,mid-1945,truck,Transferred by United Nations Relief Organization to western zone,10644.txt,,,52.3744779,9.7385532
+Hanover,Eckernforde,mid-1945,not mentioned,"Went to find his wife, discovered she had died",10644.txt,52.3744779,9.7385532,54.4716456,9.8374947
+Eckernforde,Munich,mid-1945,not mentioned,Moved to Munich to join Jewish community and work at University Hospital,10644.txt,54.4716456,9.8374947,48.1371079,11.5753822
+Munich,"New York, USA",1951,not mentioned,Emigrated to the United States,10644.txt,48.1371079,11.5753822,40.7127281,-74.0060152
+New York,"Los Angeles, California",after 1987,not mentioned,Moved after retirement,10644.txt,40.7127281,-74.0060152,34.0536909,-118.242766
+"Warsaw, Poland","Majdanek concentration camp, Lublin, Poland",1942-1943,Truck and train,Deportation by Nazis after being captured in Warsaw,10698.txt,,,51.2216932,22.5975039
+Majdanek concentration camp,"Skarzyska-Kamienna labor camp, Poland",1943,Train,Transferred to work in ammunition factory,10698.txt,51.2216932,22.5975039,,
+Skarzyska-Kamienna labor camp,"Czestochowa labor camp (Hasag), Poland",1944,Train,Transferred to another labor camp,10698.txt,,,,
+Czestochowa labor camp,"Ravensbrück concentration camp, Germany","January 16, 1945",Train,Evacuation due to approaching Russian front,10698.txt,,,,
+Ravensbrück concentration camp,"Burgau concentration camp, Germany",Early 1945,Train,Transferred to smaller camp,10698.txt,,,,
+Burgau concentration camp,"Türkheim concentration camp, Germany",Early 1945,Train,Transferred to another smaller camp,10698.txt,,,,
+Türkheim concentration camp,"Dachau concentration camp, Germany",April 1945,Forced march (death march),Evacuation as Allies approached,10698.txt,,,47.6978718,10.3244047
+Dachau concentration camp,"Berlin, Germany","After liberation, late April or May 1945",Not specified,Resettlement after liberation,10698.txt,47.6978718,10.3244047,52.510885,13.3989367
+"Berlin, Germany","Bremen, Germany",April 1948,Not specified,Travel to port city to emigrate to the United States,10698.txt,52.510885,13.3989367,,
+"Bremen, Germany","New York, USA","April 10, 1948",Ship (Marlin or Marlene),Immigration to join family in the United States,10698.txt,,,40.7127281,-74.0060152
+"New York, USA","Vineland, New Jersey, USA",1953,Not specified,Moved to farm for better living conditions,10698.txt,40.7127281,-74.0060152,39.4862777,-75.0254256
+"Vineland, New Jersey, USA","Ventnor, New Jersey, USA",1966,Not specified,Sold farm and moved to outskirts of Atlantic City,10698.txt,39.4862777,-75.0254256,39.3405045,-74.4773916
+"Ventnor, New Jersey, USA","Irvine, California, USA",After 1966 (exact date not specified),Not specified,Moved to be closer to son and for better climate,10698.txt,39.3405045,-74.4773916,33.6856969,-117.825981
+"Metz, France","Sarreguemines, France",around 1931,,Family moved to Sarreguemines where Freda grew up,10699.txt,49.1196964,6.1763552,49.1094836,7.0708865
+"Sarreguemines, France",interior of France (unspecified location),1938,,Fear of war outbreak after Hitler moved into Czechoslovakia,10699.txt,49.1094836,7.0708865,,
+interior of France (unspecified location),"Sarreguemines, France",1938 (six weeks later),,Returned home as war did not break out immediately,10699.txt,,,49.1094836,7.0708865
+"Sarreguemines, France","Blamont, France",September 1939,car,Evacuation due to war outbreak and proximity to German border,10699.txt,49.1094836,7.0708865,,
+"Blamont, France","Vichy, France",June 1940,company van,Fleeing German invasion of France,10699.txt,,,46.1239268,3.4203712
+"Vichy, France","Saint-Etienne, France",June 1940,,Seeking safer location and opportunities for work,10699.txt,46.1239268,3.4203712,45.4401467,4.3873058
+"Saint-Etienne, France","Le Puy, Haute-Loire, France",1940-1944 (multiple trips),train and bicycle,To barter goods for food in the countryside,10699.txt,45.4401467,4.3873058,45.0459739,3.8855537
+"Saint-Etienne, France","Drancy, France","May 26, 1944",train,Arrested and deported by Gestapo and Milice,10699.txt,45.4401467,4.3873058,48.9229803,2.4455201
+"Drancy, France","Auschwitz-Birkenau, Poland","May 30, 1944",train (cattle cars),Deportation to concentration camp,10699.txt,48.9229803,2.4455201,50.0346203,19.1807846
+"Auschwitz-Birkenau, Poland","Bergen-Belsen, Germany","October 31, 1944",train,Transferred to another concentration camp,10699.txt,50.0346203,19.1807846,52.7580569,9.9117992
+"Bergen-Belsen, Germany","Raguhn, Germany",February 1945,train,Transferred to forced labor camp,10699.txt,52.7580569,9.9117992,,
+"Raguhn, Germany","Theresienstadt, Czechoslovakia",April-May 1945,train,Evacuation due to approaching Allied forces,10699.txt,,,,
+"Theresienstadt, Czechoslovakia","Kassel, Germany",May 1945,truck,"Liberated by Russians, transferred to American care",10699.txt,,,51.3157833,9.4978479
+"Kassel, Germany","Pilsen, Czechoslovakia",May 1945,,Further transfer under American care,10699.txt,51.3157833,9.4978479,,
+"Pilsen, Czechoslovakia","Lyon, France",May 1945,plane,Repatriation to France after liberation,10699.txt,,,45.7578137,4.8320114
+"Lyon, France","Chambon-sur-Lignon, France",Summer 1945,,Convalescence after liberation,10699.txt,45.7578137,4.8320114,45.060809,4.302941
+"Chambon-sur-Lignon, France","Saint-Etienne, France",Late 1945,,Settling down after convalescence,10699.txt,45.060809,4.302941,45.4401467,4.3873058
+"Saint-Etienne, France","Paris, France",Late 1940s,,Moved to Paris after brother's marriage,10699.txt,45.4401467,4.3873058,,
+"Paris, France","London, England",1950,,Marriage and relocation to husband's home,10699.txt,,,,
+"London, England","Rochester, England",Early 1950s,,Residence with husband,10699.txt,,,,
+"Rochester, England","London, England",Mid-1950s,,Returned to London after husband's death,10699.txt,,,,
+Sojmy,Khust,around 1939,not mentioned,Moved to attend Hebrew school after bar mitzvah,11089.txt,,,,
+Khust,Sojmy,April 1944,train,School closed due to anti-Jewish measures; returned home,11089.txt,,,,
+Sojmy,Chust Ghetto,"April 1944, after Passover",horse-drawn wagon,Forced relocation to ghetto by Hungarian authorities,11089.txt,,,,
+Chust Ghetto,Birkenau (Auschwitz),End of May 1944 (Shavuot),train (cattle cars),Deportation to concentration camp,11089.txt,,,50.0346203,19.1807846
+Birkenau (Auschwitz),Warsaw,June 1944,open freight train,Selected as a carpenter for forced labor,11089.txt,50.0346203,19.1807846,,
+Warsaw,Kutno,August 1944,forced march (death march),Evacuation due to approaching Russian forces,11089.txt,,,52.2222131,19.3874589
+Kutno,Dachau,August 1944,train (cattle cars),Continued evacuation deeper into Germany,11089.txt,52.2222131,19.3874589,48.2592477,11.4354419
+Dachau,Landsberg (Kaufering Lager VII),August/September 1944,not mentioned,Transferred to labor camp,11089.txt,48.2592477,11.4354419,,
+Landsberg (Kaufering Lager VII),Kaufering Lager IV (sick camp),late 1944,not mentioned,Transferred due to illness and inability to work,11089.txt,,,,
+Kaufering Lager IV,Allach (near Dachau),April/May 1945,forced march,Evacuation as Allies approached,11089.txt,,,,
+Allach (near Dachau),Chust,May 1945,train,Return home after liberation,11089.txt,,,40.9966246,71.2273399
+Chust,"Pocking (Waldstadt DP Camp), Germany",1946,not mentioned,Left Soviet-controlled area to DP camp in Germany,11089.txt,40.9966246,71.2273399,,
+"Pocking (Waldstadt DP Camp), Germany",Israel,1949,ship,Immigration to Israel after marriage,11089.txt,,,30.8124247,34.8594762
+Israel,"Toronto, Canada",1953,not mentioned,Moved to Canada to help wife's sick mother,11089.txt,30.8124247,34.8594762,,
+"Toronto, Canada",Poland (March of the Living),April 1994,not mentioned,Participated as educator and survivor in March of the Living,11089.txt,,,,
+"Lodz, Poland","Warsaw, Poland",September 1939,Walking,Father fled due to rumors that Germans would kill all men in Lodz.,11184.txt,51.7728245,19.4784857,,
+"Warsaw, Poland","Lodz, Poland",October 1939,Walking,Father returned after realizing the rumors were propaganda.,11184.txt,,,51.7728245,19.4784857
+"Lodz, Poland","Lodz Ghetto, Poland",1940,"Pushcart, walking",Forced relocation by German authorities into the ghetto.,11184.txt,51.7728245,19.4784857,51.7899871,19.4603117
+"Lodz Ghetto, Poland","Auschwitz-Birkenau, Poland",July 1944,Train (boxcar),Deportation from Lodz Ghetto to concentration camp.,11184.txt,51.7899871,19.4603117,50.0346203,19.1807846
+"Auschwitz-Birkenau, Poland","Bergen-Belsen, Germany",Late July or early August 1944,Train,Transferred after selection for forced labor.,11184.txt,50.0346203,19.1807846,52.7580569,9.9117992
+"Bergen-Belsen, Germany","Geislingen, Germany",October or November 1944,Train,Transferred to work in ammunition factory.,11184.txt,52.7580569,9.9117992,48.2886289,8.8135495
+"Geislingen, Germany","Allach (near Dachau), Germany",April 1945,Train,Evacuation as Allies approached.,11184.txt,48.2886289,8.8135495,,
+"Allach, Germany","Tyrol region (intended destination), Austria/Germany",April 1945,Train,Further evacuation by Nazis; interrupted by liberation.,11184.txt,48.1900336,11.4681053,,
+Train near Tyrol region,"Nearby village (unnamed), Germany",April 1945,Bus (provided by American liberators),Liberation by American forces.,11184.txt,,,,
+"Unnamed village, Germany","Feldafing DP Camp, Germany",April or May 1945,Bus or truck,Relocation to Displaced Persons camp after liberation.,11184.txt,,,,
+"Feldafing DP Camp, Germany","Konstanz, Germany",1946,Unspecified,Moved to settle temporarily after marriage.,11184.txt,,,47.659216,9.1750718
+"Konstanz, Germany","Hamburg, Germany",1949,Unspecified,Travel to port city to emigrate to the United States.,11184.txt,47.659216,9.1750718,53.550341,10.000654
+"Hamburg, Germany","New Orleans, USA",1949,Ship (General Stewart),Immigration to the United States.,11184.txt,53.550341,10.000654,29.9759983,-90.0782127
+"New Orleans, USA","St. Louis, Missouri, USA",1949,Unspecified,Assigned settlement city by Joint Distribution Committee.,11184.txt,29.9759983,-90.0782127,,
+"St. Louis, Missouri, USA","Los Angeles, California, USA",1951,"Train (husband), Plane (Rose and mother)",Moved for better climate and health reasons for her son.,11184.txt,,,34.0536909,-118.242766
+Val-Palanka,Vari,around age 11-12 (circa 1939-1940),hitching rides and walking,Fleeing after being attacked by Hitler Youth,11272.txt,,,37.3983488,24.9467109
+Vari,Val-Palanka,shortly after initial escape (circa 1939-1940),not specified,Returned home after initial escape,11272.txt,37.3983488,24.9467109,,
+Val-Palanka,Lavik,after second attack by Hitler Youth (circa 1940-1941),not specified,Escaping further violence from Hitler Youth,11272.txt,,,,
+Lavik,Budapest,after about one month in Lavik (circa 1940-1941),not specified,Seeking safety and joining brother Ben,11272.txt,,,47.4978789,19.0402383
+Budapest,Val-Palanka,around age 15 (circa 1943-1944),not specified,Returned home as conditions worsened for Jews,11272.txt,47.4978789,19.0402383,,
+Val-Palanka,Munkacs Ghetto,around Passover 1944,forced march,Forced relocation by Nazis,11272.txt,,,,
+Munkacs Ghetto,Birkenau (Auschwitz),approximately three weeks after entering ghetto (1944),cattle car train,Deportation to concentration camp,11272.txt,,,50.0346203,19.1807846
+Birkenau,Auschwitz III (Buna Werke),shortly after arrival at Birkenau (1944),truck,Transferred for forced labor,11272.txt,49.5638,8.7264,,
+Auschwitz III (Buna Werke),Gleiwitz,around December 1944,forced march (death march),Evacuation due to approaching Soviet forces,11272.txt,,,,
+Gleiwitz,Buchenwald,December 1944 - January 1945,open coal-carrying train cars,Further evacuation from advancing Soviet forces,11272.txt,,,50.7892991,15.2705903
+Buchenwald,"Prague, Czechoslovakia",shortly after liberation (April-May 1945),American military truck,Searching for surviving family members,11272.txt,50.7892991,15.2705903,,
+Prague,Val-Palanka,mid-1945,not specified,Attending brother Philip's wedding,11272.txt,50.0596288,14.4464593,,
+Val-Palanka,"Vienna, Austria",mid-1945,hidden under skirt of Russian lady officer,Escaping Soviet-controlled territory,11272.txt,,,48.2083537,16.3725042
+Vienna,Prague,mid-1945,not specified,Returning after escaping Soviet territory,11272.txt,48.2083537,16.3725042,50.0596288,14.4464593
+Prague,"Edinburgh, Scotland",late 1945,not specified,Joining sister Rosalyn in orphanage,11272.txt,50.0596288,14.4464593,55.9533456,-3.1883749
+"Edinburgh, Scotland","Nelson, Lancashire, England",1945-1946,not specified,Transferred to another orphanage,11272.txt,55.9533456,-3.1883749,,
+"Nelson, Lancashire","London, England",1946,not specified,Joining brother Sam and finding employment,11272.txt,53.8363428,-2.2116469,,
+"London, England","New York, USA","December 16, 1949",ship (Queen Mary),Immigrating to join family in America,11272.txt,,,40.7127281,-74.0060152
+New York,"Ellwood City, Pennsylvania",late 1949,not specified,Joining brother Ben and family,11272.txt,40.7127281,-74.0060152,40.858579,-80.2895502
+"Ellwood City, Pennsylvania","Chicago, Illinois",circa 1950,not specified,Employment opportunity in contact lens industry,11272.txt,40.858579,-80.2895502,41.8755616,-87.6244212
+"Chicago, Illinois","Ellwood City, Pennsylvania",circa 1950-1951,not specified,Joining U.S. Army during Korean War,11272.txt,41.8755616,-87.6244212,40.858579,-80.2895502
+"Ellwood City, Pennsylvania","Youngstown/Niles, Ohio",after military service (early 1950s),not specified,Starting pre-cut home business,11272.txt,40.858579,-80.2895502,41.204644,-80.7392965
+"Youngstown/Niles, Ohio","Conyers, Georgia",early 1960s,not specified,Developing new community and business ventures,11272.txt,41.204644,-80.7392965,33.6676103,-84.0176904
+"Tylicz, Poland","Krynica, Poland",Summers before the war (late 1930s),Walking,Summer job as a nanny and later sewing work,11274.txt,49.3964757,21.0236531,53.0336093,23.5880673
+"Tylicz, Poland",Czechoslovakia,December 1939,Walking with guide (Andrej Garbera),Escape from Nazi officer who threatened her safety,11274.txt,49.3964757,21.0236531,48.257918,14.5007688
+Czechoslovakia,"Tylicz, Poland",Spring 1940,Walking with hired guide,Rumors of displacement of Jews; returned to help elderly parents,11274.txt,48.257918,14.5007688,49.3964757,21.0236531
+"Tylicz, Poland","Florynka, Poland",Fall 1940,Horse and buggy,Forced displacement by Nazis away from Slovakian border,11274.txt,49.3964757,21.0236531,49.5479,20.98453
+"Florynka, Poland",Czechoslovakia,December 1940,Sled with guide (Tolek),Escape due to rumors of Nazis taking Jewish girls as prostitutes,11274.txt,49.5479,20.98453,48.257918,14.5007688
+"Bratislava, Czechoslovakia","Humenne, Czechoslovakia",Fall 1941,Not specified,Moved to smaller town due to rumors of Nazis taking young Jewish girls,11274.txt,,,,
+"Humenne, Czechoslovakia","Auschwitz (Oświęcim), Poland",March 1942,Train (cattle car),Deported by Nazis after turning herself in to protect host family,11274.txt,,,50.0346203,19.1807846
+"Auschwitz I, Poland","Birkenau (Auschwitz II), Poland",September or October 1942,Walking,Transferred by Nazis to Birkenau camp,11274.txt,50.0264016,19.2039639,50.0346203,19.1807846
+"Birkenau, Poland","SS Laundry (near Auschwitz), Poland",October 1943,Walking,Selected by Mengele for work detail in SS laundry,11274.txt,,,,
+"SS Laundry, Auschwitz, Poland","Neustadt-Glewe, Germany (via Ravensbrück)","January 18, 1945","Walking (death march), then train, then walking again",Forced evacuation (death march) as Allies approached,11274.txt,50.0254715,19.2028125,,
+"Neustadt-Glewe, Germany","Ludwigslust, Germany (American zone)",After liberation (May 1945),Walking,Seeking safety and assistance from American forces after liberation,11274.txt,53.393252,11.5753248,,
+"Ludwigslust, Germany",Netherlands,1945,Military trucks (Allied transport),Relocation after liberation; seeking refuge and new life,11274.txt,53.3300229,11.4993644,52.2434979,5.6343227
+Netherlands,United States,1954,Not specified (likely ship),Immigration to start a new life with husband and children,11274.txt,52.2434979,5.6343227,,
+Plonsk,Warsaw,September 1939,Walking,Fleeing German invasion; belief Warsaw would be safer,11296.txt,,,,
+Warsaw,Plonsk,October 1939,Walking,Returning home after Warsaw fell to Germans,11296.txt,,,,
+Plonsk,Plonsk Ghetto,Spring 1940,Walking,Forced relocation by Germans into the ghetto,11296.txt,,,,
+Plonsk Ghetto,Auschwitz-Birkenau,"December 14, 1942",Train,Deportation by Germans to concentration camp,11296.txt,,,50.0346203,19.1807846
+Auschwitz-Birkenau,Ravensbruck,"January 18, 1945","Walking, then open train wagons",Forced evacuation (death march) due to approaching Russian army,11296.txt,50.0346203,19.1807846,53.1895808,13.1707778
+Ravensbruck,Neustadt-Glewe,March 1945,Not specified,Transferred due to overcrowding at Ravensbruck,11296.txt,53.1895808,13.1707778,53.393252,11.5753248
+Neustadt-Glewe,"Lodz, Poland",May 1945,"Horse-drawn wagon, walking",Returning home after liberation by Russian army,11296.txt,53.393252,11.5753248,51.7728245,19.4784857
+Lodz,Plonsk,Late 1945,Train,Returning to hometown to search for survivors,11296.txt,51.7728245,19.4784857,,
+Plonsk,Plock,Late 1945,Not specified,Seeking safer and more welcoming community,11296.txt,,,52.5353471,19.7136301
+Plock,"Berlin, Germany",Early 1946,Not specified,Fleeing anti-Semitic violence in Poland,11296.txt,52.5353471,19.7136301,52.510885,13.3989367
+Berlin,"Hanover, Germany",1946,Not specified,Relocation within Germany,11296.txt,,,52.3744779,9.7385532
+Hanover,"Frankfurt am Main, Germany",1946,Not specified,Further relocation within Germany,11296.txt,52.3744779,9.7385532,50.1106444,8.6820917
+Frankfurt am Main,"Traunstein, Germany",1946,Not specified,Settling temporarily; sister's husband found work,11296.txt,50.1106444,8.6820917,47.8695272,12.6484621
+"Traunstein, Germany",Israel,May 1950,Not specified,Immigration to newly established Israel,11296.txt,47.8695272,12.6484621,30.8124247,34.8594762
+Israel,"Montreal, Canada",1952,Not specified,Economic hardship in Israel; seeking better opportunities,11296.txt,30.8124247,34.8594762,45.5031824,-73.5698065
+"Montreal, Canada","Boston, United States",1955,Not specified,Marriage and relocation to join husband,11296.txt,45.5031824,-73.5698065,42.3554334,-71.060511
+"Boston, United States","Connecticut, United States",1965,Not specified,Family relocation; establishing a farm and business,11296.txt,42.3554334,-71.060511,41.6500201,-72.7342163
+"Rosulna, Poland","Buczacz, Poland",1935,Not mentioned,"Family home burned down, prompting relocation",11552.txt,,,49.8408333,22.5102778
+"Buczacz, Poland","Stanislalow, Poland",Summers between 1935-1939,Not mentioned,"Spent summers at uncle Dr. Kurtz's home, aspiring to become a physician",11552.txt,49.8408333,22.5102778,,
+"Buczacz, Poland","Chortkiv, Poland",November 1941,Train (forced deportation),"Captured during an action by German forces, deported with other Jews",11552.txt,49.8408333,22.5102778,,
+"Chortkiv, Poland","Buczacz, Poland",Early 1942,Hidden in a coffin under dead bodies on a sleigh,Smuggled back home after surviving severe beating and typhoid infection,11552.txt,,,49.8408333,22.5102778
+"Buczacz, Poland","Kopyczynce, Poland",1943,Wagon,Forced relocation after Buczacz ghetto declared Judenrein,11552.txt,49.8408333,22.5102778,,
+"Kopyczynce, Poland",Forest near Kopyczynce,Summer 1943,On foot (escape),Escaped from mass execution at gravesite due to Milek's distraction,11552.txt,,,,
+Forest near Kopyczynce,"Buczacz, Poland",Summer 1943,On foot,Returning to Buczacz to reunite with mother as previously agreed,11552.txt,,,49.8408333,22.5102778
+"Buczacz, Poland",Village near Buczacz (fields and shack),Late summer 1943,On foot,Hiding and surviving with mother after reuniting,11552.txt,49.8408333,22.5102778,,
+Village near Buczacz,"Buczacz, Poland",March 1944,On foot,"Liberation by Russian forces, returning to hometown",11552.txt,49.82738,22.50197,49.8408333,22.5102778
+"Buczacz, Poland",Forest near Buczacz,Spring 1944,On foot (escape),Escaped second German occupation after mother's murder,11552.txt,49.8408333,22.5102778,,
+Forest near Buczacz,"Przemysl, Poland",Fall 1944,"On foot, working in fields along the way","Attempting to move westward, away from danger",11552.txt,,,49.7835552,22.7885113
+"Przemysl, Poland",Village near Hungarian border,Fall 1944,Train (joined Ukrainian workers),"Joined group of Ukrainian workers heading to Germany, train attacked by partisans, escaped and found work as shepherdess",11552.txt,49.7835552,22.7885113,,
+Village near Hungarian border,"Buczacz, Poland",November 1944,Russian military transport,"Liberated by Russian forces, returned home",11552.txt,,,49.8408333,22.5102778
+"Buczacz, Poland","Bielsko, Poland",1945,Not mentioned,"Moved westward after war, father's former business location",11552.txt,49.8408333,22.5102778,52.607327,15.9228416
+"Bielsko, Poland","Lodz, Poland",1945,Not mentioned,"Recruited by Silvia Lobatkin to join Bricha organization, smuggling Jews out of Poland",11552.txt,52.607327,15.9228416,51.7728245,19.4784857
+"Lodz, Poland","Bratislava, Czechoslovakia",1945-1946,Not mentioned (smuggling),Smuggling Jewish refugees out of Poland,11552.txt,51.7728245,19.4784857,,
+"Bratislava, Czechoslovakia","Bad Gastein, Austria",1946,Not mentioned,Stayed to recover from illness (tuberculosis),11552.txt,,,47.1144954,13.1352653
+Austria,Belgium,1946,Not mentioned,Preparing to immigrate to Palestine,11552.txt,47.59397,14.12456,50.6402809,4.6667145
+Belgium,France,Spring 1947,Not mentioned,Boarding illegal immigration ship to Palestine,11552.txt,50.6402809,4.6667145,46.603354,1.8883335
+France,Cyprus,Spring 1947,Ship (Theodore Herzl),"Captured by British authorities, detained in Cyprus",11552.txt,46.603354,1.8883335,34.9174159,32.8899027
+Cyprus,Palestine (Israel),December 1947,Ship,"Released from Cyprus detention, immigrated to Palestine",11552.txt,34.9174159,32.8899027,50.8702394,4.3519777
+Israel,"Brooklyn, New York, USA",October 1952,Not mentioned,Moved to support husband's family due to father-in-law's illness,11552.txt,30.8124247,34.8594762,40.6526006,-73.9497211
+"Brooklyn, New York, USA",Israel,1969,Not mentioned,"Family moved to Israel, lived there until 1975",11552.txt,40.6526006,-73.9497211,30.8124247,34.8594762
+Israel,United States,1975,Not mentioned,Returned to the United States after living in Israel,11552.txt,30.8124247,34.8594762,,
+United States,Holland,1982,Not mentioned,"Moved due to husband's company relocation, wrote memoir",11552.txt,,,,
+Holland,"Santa Cruz, California, USA",1985,Not mentioned,Returned to the United States after completing memoir,11552.txt,,,37.050096,-121.99059
+Slawkow,neighboring city,1939,not mentioned,Attempting to escape the outbreak of war,11642.txt,48.9468388,17.6116635,35.2393114,-80.8587074
+neighboring city,Slawkow,1939,walking,Forced return after realizing the neighboring city was not safe,11642.txt,35.2393114,-80.8587074,48.9468388,17.6116635
+Slawkow,Sosnowiec,around 1941,train,To obtain linen for trading to support family,11642.txt,48.9468388,17.6116635,50.2712401,19.2155628
+Sosnowiec,Slawkow,around 1941,train,Returning home with linen for trading,11642.txt,50.2712401,19.2155628,48.9468388,17.6116635
+Slawkow,Sosnowiec,around 1941,train,Taken to court for interrogation by German authorities,11642.txt,48.9468388,17.6116635,50.2712401,19.2155628
+Slawkow,Wadowice,1941,train,Transferred to jail as punishment by German authorities,11642.txt,48.9468388,17.6116635,,
+Wadowice jail,Sosnowiec,around late 1941 or early 1942,not mentioned,"Released from jail, attempted to survive as a Christian",11642.txt,,,50.2712401,19.2155628
+Sosnowiec,Sosnowiec Ghetto,around early 1942,walking,Decided to rejoin Jewish community and find her sister,11642.txt,50.2712401,19.2155628,,
+Sosnowiec Ghetto,Ottmuth concentration camp,around 1942-1943,train,Deportation after ghetto liquidation,11642.txt,,,,
+Ottmuth concentration camp,Ludwigsdorf concentration camp,around 1943-1944,train,Transferred to another camp,11642.txt,,,,
+Ludwigsdorf concentration camp,Slawkow,after May 1945,train,Returned to hometown to visit grandfather's grave after liberation,11642.txt,,,48.9468388,17.6116635
+Slawkow,Ludwigsdorf,after May 1945,train,Returned to camp after visiting hometown,11642.txt,48.9468388,17.6116635,46.8794563,24.5737756
+Ludwigsdorf,Munich,around 1946-1947,walking and other means (crossing borders),Left camp with future husband and group to establish new life,11642.txt,46.8794563,24.5737756,48.1371079,11.5753822
+Munich,Israel,around 1961,not mentioned,Considered settling in Israel after son's bar mitzvah,11642.txt,48.1371079,11.5753822,30.8124247,34.8594762
+Israel,"Los Angeles, USA",around 1961-1962,not mentioned,Decided to settle near family in the United States,11642.txt,30.8124247,34.8594762,34.0536909,-118.242766
+"Cluj, Romania",Another location in Cluj (Kolozsvar),Late 1943,Not mentioned,Evicted by Hungarian soldiers who took over their house,11671.txt,46.769379,23.5899542,,
+"Cluj (Kolozsvar), Romania",Brick factory outskirts of Kolozsvar,April 1944,Walking,Rounded up by Hungarian soldiers for deportation,11671.txt,46.769379,23.5899542,,
+Brick factory outskirts of Kolozsvar,Auschwitz concentration camp,Late April 1944,Cattle train,Deportation by Nazis,11671.txt,,,50.0389061,19.1712984
+Auschwitz concentration camp,Maehrisch-Weisswasser (Sudetenland),Late 1944,Train (implied),Selected for forced labor at Telefunken electronics factory,11671.txt,50.0389061,19.1712984,,
+Maehrisch-Weisswasser labor camp,Local abandoned homes in Maehrisch-Weisswasser,May 1945,Walking (implied),"Liberation by French forced laborers, hiding from Russian soldiers",11671.txt,,,,
+Maehrisch-Weisswasser,"Cluj (Kolozsvar), Romania",May 1945,"Hitchhiking, wagon, bicycle, train",Returning home after liberation,11671.txt,50.0175347,16.7483582,46.769379,23.5899542
+"Cluj (Kolozsvar), Romania","Budapest, Hungary",Mid-1945,Bus or other provided transport,Moving to displaced persons (DP) camp,11671.txt,46.769379,23.5899542,47.4978789,19.0402383
+"Budapest, Hungary","Szombathely, Hungary",Mid-1945,Bus or other provided transport,Moving between DP camps toward Palestine,11671.txt,47.4978789,19.0402383,47.2291184,16.6187625
+"Szombathely, Hungary","Graz, Austria",Mid-1945,Bus or other provided transport,Moving between DP camps toward Palestine,11671.txt,47.2291184,16.6187625,47.0708678,15.4382786
+"Graz, Austria","Linz, Austria",Mid-1945,Bus or other provided transport,Moving between DP camps toward Palestine,11671.txt,47.0708678,15.4382786,,
+"Linz, Austria","Salzburg, Austria",Mid-1945,Bus or other provided transport,Moving between DP camps toward Palestine,11671.txt,,,47.7981346,13.0464806
+"Salzburg, Austria","Brivio, Italy",August 1946,Bus or other provided transport,Waiting for ship to Palestine,11671.txt,47.7981346,13.0464806,45.7419691,9.4441423
+"Brivio, Italy",Cyprus,August 1946,Ship (Kovkamo),"Attempted immigration to Palestine, intercepted by British",11671.txt,45.7419691,9.4441423,34.9174159,32.8899027
+Cyprus,"Athlit, Palestine",Late 1946,Ship (British transport),Allowed entry to Palestine after detention in Cyprus,11671.txt,34.9174159,32.8899027,,
+"Athlit, Palestine","Binyamina, Palestine",Early 1947,Not mentioned,Joining kibbutz group,11671.txt,,,,
+"Binyamina, Palestine","Chicago, USA",October 1947,Ship (implied),Harold continuing education in the United States,11671.txt,,,41.8755616,-87.6244212
+"Berlin, Germany","Riga, Latvia","September 27, 1942",train,Deportation by Nazis,1172.txt,52.510885,13.3989367,,
+"Riga, Latvia",Estonia,"October 1, 1942",train,Continued deportation,1172.txt,,,58.7523778,25.3319078
+Estonia (initial camp),"Tallinn, Estonia",Spring 1943,bus,Transferred to Tallinn prison camp,1172.txt,,,59.4372155,24.7453688
+"Tallinn, Estonia","Ereda, Estonia",1943,train,Transferred to another labor camp,1172.txt,59.4372155,24.7453688,59.3151238,27.2506629
+"Ereda, Estonia","Goldfields, Estonia",Late 1943,unspecified,Transferred to another labor camp,1172.txt,59.3151238,27.2506629,,
+"Goldfields, Estonia","Lagedi, Estonia",September or October 1944,train,Evacuation due to approaching Russian forces,1172.txt,,,59.3981997,24.9402118
+"Lagedi, Estonia","Danzig, Germany",October 1944,ship,Evacuation from Estonia,1172.txt,59.3981997,24.9402118,51.4807552,6.6168002
+"Danzig, Germany","Stutthof concentration camp, Germany",October 1944,small boats,Transferred to concentration camp,1172.txt,51.4807552,6.6168002,,
+"Stutthof concentration camp, Germany","Ochsenzoll (near Hamburg), Germany",Late 1944,train,Transferred to labor camp to work in ammunition factory,1172.txt,,,,
+"Ochsenzoll, Germany","Bergen-Belsen concentration camp, Germany",April 1945,train,Transferred as war was nearing end,1172.txt,53.6780751,10.0018152,,
+"Bergen-Belsen concentration camp, Germany","Lübeck, Germany",1945,unspecified,Resettlement after liberation,1172.txt,,,,
+"Lübeck, Germany","Frankfurt am Main, Germany",1945,unspecified,Moved to live with friends,1172.txt,,,50.1106444,8.6820917
+"Frankfurt am Main, Germany","Lübeck, Germany",1945-1946,unspecified,Returned to live with sister,1172.txt,50.1106444,8.6820917,,
+"Lübeck, Germany",Israel (Palestine),1949,unspecified,Visit and marriage,1172.txt,,,50.8702394,4.3519777
+Israel (Palestine),"Lübeck, Germany",1949,unspecified,Returned after marriage,1172.txt,50.8702394,4.3519777,,
+"Lübeck, Germany","New York, USA",1951,airplane,Immigration to the United States,1172.txt,,,40.7127281,-74.0060152
+"New York, USA","California, USA",1980s,unspecified,Moved to be closer to family,1172.txt,40.7127281,-74.0060152,36.7014631,-118.755997
+"Warsaw, Poland",Bialystok,"November 15, 1939",horse and buggy,Father sent him away fearing German kidnapping due to owning jewelry stores.,1173.txt,,,,
+Bialystok,"Arkhangelsk Oblast, Russia",May or June 1940,train (cattle car),"Attempted return to Warsaw, but Russians mistrusted and deported them to Russia instead.",1173.txt,,,63.5589686,43.1221646
+Arkhangelsk Oblast train station,Labor camp in Arkhangelsk woods,June 1940,truck,Transferred from train station to forced labor camp.,1173.txt,,,,
+Arkhangelsk labor camp,"Saratov, Russia",1941,train,Transported towards Central Asia; became ill with typhoid fever and hospitalized in Saratov.,1173.txt,,,51.530018,46.034683
+"Saratov, Russia","Tashkent, Uzbekistan",1941,train,Continued journey after hospitalization towards Central Asia.,1173.txt,51.530018,46.034683,41.3123363,69.2787079
+"Tashkent, Uzbekistan","Lenger, Kazakhstan",1941,train,Sent to work in oil exploration.,1173.txt,41.3123363,69.2787079,,
+"Lenger, Kazakhstan",Kolkhoz (collective farm) in Kazakhstan,Late 1941,unspecified,Transferred to agricultural work in a kolkhoz.,1173.txt,,,,
+Kazakhstan kolkhoz,"Posen (Poznań), Poland",April-May 1946,train,Returned to Poland after liberation.,1173.txt,,,52.387384,16.817705
+"Posen (Poznań), Poland","Warsaw, Poland",May 1946,unspecified,Visited hometown to check on family and property.,1173.txt,52.387384,16.817705,,
+"Warsaw, Poland","Waldenburg, Silesia (Poland)",May 1946,train (rode on top),Moved temporarily after finding nothing left in Warsaw.,1173.txt,,,50.785221,16.2846403
+"Waldenburg, Silesia","Lubeck, Germany",1946,"train via Czechoslovakia, Austria, Munich",Reunited with father and brother who survived the Holocaust.,1173.txt,50.785221,16.2846403,,
+"Lubeck, Germany","Tel Aviv, Israel",1949,unspecified,Visited father and family in Israel with fiancée.,1173.txt,,,32.0852997,34.7818064
+"Tel Aviv, Israel","Lubeck, Germany",1950,unspecified,Returned to Germany after marriage in Israel.,1173.txt,32.0852997,34.7818064,,
+"Lubeck, Germany","New York, USA",June 1951,airplane,Immigrated to the United States with wife and newborn son.,1173.txt,,,40.7127281,-74.0060152
+Ejszyszki,Farm of Horbaczewski,"1941, shortly after German occupation",Running,Escaping after confrontation with German soldier looking for sister Judith,11771.txt,,,,
+Farm of Horbaczewski,Ejszyszki synagogue,"Rosh Hashanah, 1941",Walking,Forced by Lithuanian police to gather in synagogue,11771.txt,,,,
+Ejszyszki synagogue,Radun,"Rosh Hashanah night, 1941",Walking,Escaping with sister Judith from synagogue confinement,11771.txt,,,49.892873,17.9432426
+Radun,Ejszyszki,"Same night, Rosh Hashanah 1941",Walking,Attempting to return to rescue father and brother,11771.txt,49.892873,17.9432426,,
+Ejszyszki,Mass grave site near Ejszyszki,September 1941,Walking (forced march),Forced march by Lithuanian police and Germans to execution site,11771.txt,,,,
+Mass grave site near Ejszyszki,Nearby forest,September 1941,Running,Escaping execution after surviving shooting,11771.txt,,,,
+Nearby forest,Farm of Horbaczewski (Juzia),September 1941,Walking,Seeking refuge after escaping execution,11771.txt,,,,
+Farm of Horbaczewski (Juzia),Radun,September 1941,Horse and wagon (hidden under hay),Searching for sister Judith,11771.txt,,,49.892873,17.9432426
+Radun,Voranava,September 1941,Walking,Seeking contact given by sister Judith,11771.txt,49.892873,17.9432426,54.1520519,25.3196741
+Voranava,Nearby forest and peat bog,September 1941,Running,Escaping German capture and beating,11771.txt,54.1520519,25.3196741,,
+Forest and peat bog,Farm of Horbaczewski (Juzia),September 1941,Walking,Returning to refuge after escaping Germans again,11771.txt,,,,
+Farm of Horbaczewski (Juzia),Russian partisan group in forest,May 1942,Walking,Seeking to join resistance fighters,11771.txt,,,,
+Russian partisan group in forest,Farm of Horbaczewski (Juzia),June 1942,Walking,Leaving partisan group due to dissatisfaction and returning to refuge,11771.txt,,,,
+Farm of Horbaczewski (Juzia),Jewish hiding groups in forest,June 1942,Walking,Joining other Jewish survivors hiding in forest,11771.txt,,,,
+Forest hiding places,Farm of Wojewodski,July 1944,Walking,Seeking refuge as Soviet forces approached,11771.txt,,,,
+Farm of Wojewodski,Ejszyszki,July 1944,Walking,Returning to hometown after liberation by Soviet forces,11771.txt,,,,
+Ejszyszki,Germany,Post-1944,Not specified,Fleeing after retaliatory actions against local collaborators,11771.txt,,,,
+Germany,"Haifa, Palestine (Israel)",1947,Exodus ship,Attempting immigration to Palestine,11771.txt,,,,
+"Haifa, Palestine (Israel)",Germany,1947,British ships,Forced return by British authorities after Exodus incident,11771.txt,,,,
+Germany,Israel,Late 1940s,Ship (with false certificates),Successful immigration to Israel,11771.txt,,,30.8124247,34.8594762
+Israel,"New York, United States",1966,Not specified (likely airplane),Immigration to the United States,11771.txt,30.8124247,34.8594762,,
+"Heidelberg, Germany","Amsterdam, Netherlands",January 1939,Train (Rheingold Express),Fleeing Germany after Kristallnacht and increasing persecution,11844.txt,49.4093582,8.694724,52.3730796,4.8924534
+"Amsterdam, Netherlands","Werkdorp Nieuwesluis, Netherlands",January 1939,Not specified,Placement in a camp for young Jewish refugees,11844.txt,52.3730796,4.8924534,,
+"Werkdorp Nieuwesluis, Netherlands","Amsterdam, Netherlands",March 1941,Bus,Forced evacuation by Nazis; taken in by Dutch families,11844.txt,,,52.3730796,4.8924534
+"Amsterdam, Netherlands","Voorburg (suburb of The Hague), Netherlands",July/August 1942,Not specified,Going into hiding with fiancée Laura Pintus,11844.txt,52.3730796,4.8924534,,
+"Voorburg, Netherlands","Amsterdam, Netherlands",November 1942,Not specified,Leaving hiding place after conflicts with fiancée,11844.txt,52.0703201,4.3558561,52.3730796,4.8924534
+"Amsterdam, Netherlands",Various locations within Amsterdam,November 1942 - May 1945,"Bicycle, walking","Living underground, moving frequently to avoid detection and conducting resistance activities",11844.txt,52.3730796,4.8924534,,
+"Amsterdam, Netherlands","Assen/Hooghalen (near Westerbork), Netherlands",During Nazi occupation (1943-1944),Train and bicycle,Rescue operation to help two Jewish prisoners escape from Westerbork camp,11844.txt,52.3730796,4.8924534,,
+"Amsterdam, Netherlands",United States,"June 17, 1947",Ship,Emigration to the United States after the war,11844.txt,52.3730796,4.8924534,,
+United States,"California, United States",July 1948,Not specified,Relocation within the United States for work and new life,11844.txt,,,,
+"Radomsko, Poland","Konskie, Poland","September 1, 1939",pickup truck,Fleeing German bombing at the start of WWII,11964.txt,51.071061,19.4498464,51.1910223,20.4071836
+"Konskie, Poland","Radomsko, Poland","A few days after September 1, 1939",unspecified,Returning home after German occupation reached Konskie,11964.txt,51.1910223,20.4071836,51.071061,19.4498464
+Radomsko Ghetto,"Warsaw, Poland",Late 1942 or early 1943,pickup truck,"Rescued by Henryk Wroblewski, escaping ghetto liquidation",11964.txt,,,,
+"Warsaw, Aryan side",Warsaw Ghetto,Early 1943,unspecified,Seeking refuge after hiding on Aryan side became dangerous,11964.txt,,,52.2497446,20.9942223
+Warsaw Ghetto,Aryan side of Warsaw,Two weeks before April 1943 (Warsaw Ghetto Uprising),unspecified,Escaping imminent danger before the uprising,11964.txt,52.2497446,20.9942223,,
+"Warsaw, Poland","Busko, Poland",Summer 1944,train,Escaping Warsaw due to approaching front and unrest,11964.txt,,,,
+"Busko, Poland","Radomsko, Poland",After liberation (1945),"foot, wagon, train",Returning to hometown to search for family and belongings,11964.txt,,,51.071061,19.4498464
+"Radomsko, Poland","Warsaw, Poland",Shortly after returning to Radomsko (1945),unspecified,Leaving Radomsko due to hostility and lack of surviving community,11964.txt,51.071061,19.4498464,,
+"Warsaw, Poland","Bratislava, Czechoslovakia",1945-1946,"train, truck, boat",Leaving Poland through Aliyah Bet movement to reach Palestine,11964.txt,,,,
+"Bratislava, Czechoslovakia","Mauthausen/Wells, Austria (American Zone)",1945-1946,boat across Danube,Crossing into American zone to reach displaced persons camps,11964.txt,,,,
+"Mauthausen/Wells, Austria","Bad Gastein, Austria",1945-1946,unspecified,Transferred to newly established displaced persons camp,11964.txt,,,47.1144954,13.1352653
+"Bad Gastein, Austria","Bremerhaven, Germany","May 10, 1946",unspecified,Preparing to emigrate to the United States,11964.txt,47.1144954,13.1352653,53.5505392,8.5851945
+"Bremerhaven, Germany","New York, United States","May 18 - June 18, 1946",ship (Marine Fletcher),Emigrating to the United States,11964.txt,53.5505392,8.5851945,,
+"New York, United States","California, United States",1946-1947,unspecified,Joining a cousin in California,11964.txt,,,,
+"California, United States","New York, United States",1947,unspecified,Returning east after dissatisfaction in California,11964.txt,,,,
+"New York, United States","Miami, Florida, United States",June 1951,unspecified,Relocating with husband and family,11964.txt,,,25.7741728,-80.19362
+"Berlin, Germany","Bielsko (Bielitz), Poland",1934,Not mentioned,Forced to leave Germany due to parents' Polish origin and Nazi policies,12051.txt,52.510885,13.3989367,49.8120785,19.0291988
+"Bielsko (Bielitz), Poland","Wieliczka, Poland","September 2, 1939",Bicycle,Fleeing German invasion; parents instructed her to escape,12051.txt,49.8120785,19.0291988,49.9823773,20.0602114
+"Wieliczka, Poland",Towards Russian border (unspecified location),"Shortly after September 2, 1939",Walking,Attempting to escape advancing German forces,12051.txt,49.9823773,20.0602114,,
+Near Russian border (unspecified location),"Wieliczka, Poland",Shortly after previous journey,Walking,Forced to return after being caught by Germans,12051.txt,,,49.9823773,20.0602114
+"Wieliczka, Poland","Krakow, Poland",Late 1939 or early 1940,Car (uncle's car),Moved to Krakow to avoid ghetto restrictions,12051.txt,49.9823773,20.0602114,50.0469432,19.9971534
+"Krakow, Poland","Wieliczka, Poland",Shortly after moving to Krakow,Not mentioned,Forced to leave Krakow due to Nazi restrictions on non-residents,12051.txt,50.0469432,19.9971534,49.9823773,20.0602114
+"Wieliczka, Poland","Biezanow labor camp, Poland",1942,Walking,Fled Wieliczka after liquidation of Jewish community,12051.txt,49.9823773,20.0602114,,
+"Biezanow labor camp, Poland","Prokocim labor camp, Poland",1942,Not mentioned,Transferred by Nazis to another labor camp,12051.txt,,,,
+"Prokocim labor camp, Poland","Plaszow (Julag Number I) labor camp, Poland",1942-1943,Not mentioned,Transferred by Nazis to another labor camp,12051.txt,,,,
+"Plaszow (Julag Number I), Poland","Plaszow main camp, Poland",1943-1944,Not mentioned,Transferred by Nazis after liquidation of Julag Number I,12051.txt,,,,
+"Plaszow main camp, Poland","Skarzysko-Kamienna concentration camp, Poland",1944,Cattle train,Transferred by Nazis to ammunition factory camp,12051.txt,,,,
+"Skarzysko-Kamienna concentration camp, Poland","Czestochowa concentration camp, Poland",Early 1944,Not mentioned,Transferred by Nazis to another ammunition factory camp,12051.txt,,,,
+"Czestochowa concentration camp, Poland",Nearby woods and villages (escaping camp),"January 16, 1945",Walking,Escaped during chaos of Russian advance,12051.txt,,,,
+"Czestochowa area, Poland","Krakow, Poland",Early 1945,Not mentioned,Returning to search for surviving family members,12051.txt,,,50.0469432,19.9971534
+"Krakow, Poland","Bielsko (Bielitz), Poland",1945,Not mentioned,Returning to hometown to search for family and belongings,12051.txt,50.0469432,19.9971534,49.8120785,19.0291988
+"Bielsko (Bielitz), Poland","Prague, Czechoslovakia",1945-1946,Train,Fleeing anti-Semitic violence in Poland,12051.txt,49.8120785,19.0291988,,
+"Prague, Czechoslovakia","Paris, France",1945-1946,Not mentioned,Seeking refuge and safety after the war,12051.txt,,,,
+"Paris, France","Antwerp, Belgium",1947,Not mentioned,"Travelled to Antwerp to marry, as her mother's uncle was a rabbi there",12051.txt,,,51.2211097,4.3997081
+"Antwerp, Belgium","Paris, France",1947,Not mentioned,Returned to Paris after marriage,12051.txt,51.2211097,4.3997081,,
+"Paris, France","New York, United States","November 23, 1947",Ship (Russian boat),Immigrated to the United States for a new life,12051.txt,,,,
+"New York, United States",Canada,After 1947 (exact date not mentioned),Not mentioned,Briefly left the US to re-immigrate due to immigration status issues,12051.txt,,,,
+Canada,"New York, United States",After brief stay in Canada,Not mentioned,Returned to the US after resolving immigration status,12051.txt,,,,
+"New York, United States","Berlin, Germany",Approximately 1993,Not mentioned,Invited by Berlin magistrate for a tour for former residents,12051.txt,,,52.510885,13.3989367
+"Berlin, Germany","New York, United States",Shortly after visit to Berlin,Not mentioned,Returned home after emotional visit,12051.txt,52.510885,13.3989367,,
+"Vienna, Austria","Silesia, Germany (Kreis Gardelegen)",1940,train,Forced labor harvesting asparagus,12674.txt,48.2083537,16.3725042,,
+"Silesia, Germany (Kreis Gardelegen)","Vienna, Austria",1940,train,Returned due to scarlet fever outbreak,12674.txt,,,48.2083537,16.3725042
+"Vienna, Austria","Theresienstadt, Czechoslovakia",November 1943,train,Deportation to concentration camp,12674.txt,48.2083537,16.3725042,,
+"Theresienstadt, Czechoslovakia","Vienna, Austria",July 1945,train (cattle car),Return after liberation from concentration camp,12674.txt,,,48.2083537,16.3725042
+"Vienna, Austria","Deggendorf DP Camp, Germany",September-October 1945,truck and walking,Moved to displaced persons camp to leave Austria permanently,12674.txt,48.2083537,16.3725042,,
+"Deggendorf DP Camp, Germany","Munich, Germany",Late 1946,train,Preparation for emigration to the United States,12674.txt,,,48.1371079,11.5753822
+"Munich, Germany","Bremen, Germany",Late 1946 or early 1947,train,Waiting for ship to the United States,12674.txt,48.1371079,11.5753822,,
+"Bremen, Germany","New York City, United States",February 1947,ship (Ernie Pyle),Emigration to the United States,12674.txt,,,40.7127281,-74.0060152
+"New York City, United States",Israel,1970,airplane,Visiting brother and reconnecting with Jewish heritage,12674.txt,40.7127281,-74.0060152,30.8124247,34.8594762
+Israel,"New York City, United States",1970,airplane,Return home after visit,12674.txt,30.8124247,34.8594762,40.7127281,-74.0060152
+Hamburg,Theresienstadt,July 1942,Train and walking,Deportation of Jews from Hamburg to Theresienstadt,12684.txt,53.550341,10.000654,50.510716,14.149717
+Theresienstadt,Auschwitz,October 1944,Cattle train,Deportation from Theresienstadt to Auschwitz,12684.txt,50.510716,14.149717,50.0382443,19.2214053
+Auschwitz,"Oederan, Saxony",November 1944,Cattle train,Transferred to forced labor camp (munitions factory),12684.txt,50.0382443,19.2214053,50.8614612,13.1694372
+"Oederan, Saxony",Theresienstadt,April 1945,Cattle train and walking,Evacuation from labor camp back to Theresienstadt,12684.txt,50.8614612,13.1694372,50.510716,14.149717
+Theresienstadt,Berlin,Early June 1945,Russian military train,Leaving Theresienstadt after liberation,12684.txt,50.510716,14.149717,,
+Berlin,Hamburg,Early June 1945,Unspecified,Returning home after liberation,12684.txt,,,53.550341,10.000654
+Hamburg,"New York, USA",1950s,Unspecified (likely ship or plane),Emigration to start a new life in the United States,12684.txt,53.550341,10.000654,40.7127281,-74.0060152
+"New York, USA",Barbados,1970s,Unspecified (likely plane),Fulfilling lifelong dream of celebrating birthday under palm trees,12684.txt,40.7127281,-74.0060152,13.1500331,-59.5250305
+"Charlottenlund, Denmark","Hellerup, Denmark",1930,Not mentioned,Family moved to a villa closer to Copenhagen for convenience,12768.txt,55.7552973,12.5671103,55.7336657,12.5655408
+"Hellerup, Denmark","Hornbaek, Denmark",Summers during childhood (1930s-1943),Car,Family vacations at their summer home,12768.txt,55.7336657,12.5655408,56.0879176,12.4587803
+"Hellerup, Denmark","Copenhagen, Denmark",Jewish holidays during childhood (1930s-1943),Train,Attending synagogue for major Jewish holidays,12768.txt,55.7336657,12.5655408,55.6867243,12.5700724
+"Hellerup, Denmark","Hornbaek, Denmark","September 30, 1943",Train,Fleeing German roundup of Danish Jews,12768.txt,55.7336657,12.5655408,56.0879176,12.4587803
+"Hornbaek, Denmark",Fisherman's house south of Hornbaek,Early October 1943,"Bicycle (Bent, Paul, Ralph), Bus (Mother and relatives)",Attempting to escape to Sweden by fishing boat,12768.txt,56.0879176,12.4587803,,
+Fisherman's house south of Hornbaek,"Hornbaek, Denmark","Same night, early October 1943","Bicycle (Bent, Paul, Ralph), Bus (Mother and relatives)",Escape attempt failed; returned to Hornbaek,12768.txt,,,56.0879176,12.4587803
+"Hornbaek, Denmark","Dronningmolle, Denmark","October 5-6, 1943",Not explicitly mentioned,Second attempt to escape to Sweden,12768.txt,56.0879176,12.4587803,56.0976319,12.3875631
+"Dronningmolle, Denmark",Sweden,"October 6, 1943",Fishing boat,Successful escape from Nazi persecution,12768.txt,56.0976319,12.3875631,59.6749712,14.5208584
+Sweden,Denmark,July 1945,Not explicitly mentioned,Returning home after liberation,12768.txt,59.6749712,14.5208584,55.670249,10.3333283
+Denmark,"New York, USA",January 1951,Ship (SS Stockholm),Immigrating to the United States,12768.txt,55.670249,10.3333283,40.7127281,-74.0060152
+"New York, USA",Denmark,Mid-1952,Not explicitly mentioned,Visa expired; required to return temporarily,12768.txt,40.7127281,-74.0060152,55.670249,10.3333283
+Denmark,Israel,1952,"Ship (from Brindisi, Italy)",Traveling with father for a visit,12768.txt,55.670249,10.3333283,30.8124247,34.8594762
+Israel,Denmark,1952,Airplane (SAS),Father became ill; returned home early,12768.txt,30.8124247,34.8594762,55.670249,10.3333283
+Denmark,"New York, USA",Late 1952 or early 1953,Not explicitly mentioned,Returning to the United States permanently,12768.txt,55.670249,10.3333283,40.7127281,-74.0060152
+"New York, USA","Houston, Texas, USA",Early 1950s,Not explicitly mentioned,Seeking employment opportunities,12768.txt,40.7127281,-74.0060152,29.7589382,-95.3676974
+"Houston, Texas, USA",Denmark,1956,Not explicitly mentioned,Parents' golden wedding anniversary,12768.txt,29.7589382,-95.3676974,55.670249,10.3333283
+Denmark,"Los Angeles, California, USA",Late 1950s,Not explicitly mentioned,Relocating after marriage to Marget Blackman,12768.txt,55.670249,10.3333283,34.0536909,-118.242766
+"Los Angeles, California, USA","Simi Valley, California, USA",1960,Not explicitly mentioned,Bought a home in Simi Valley,12768.txt,34.0536909,-118.242766,34.2677404,-118.7538071
+"Simi Valley, California, USA","Canoga Park, California, USA",Early 1960s,Not explicitly mentioned,Moved closer to new job at Litton Industry,12768.txt,34.2677404,-118.7538071,34.2011078,-118.5978087
+"Canoga Park, California, USA","Simi Valley, California, USA",1977,Not explicitly mentioned,Moved due to busing problems and real estate opportunities,12768.txt,34.2011078,-118.5978087,34.2677404,-118.7538071
+Fil'akovo,Revuca,"Frequently until 1938, especially July-August school holidays",,Visiting mother's family during school holidays,13382.txt,,,48.6833333,20.1166667
+Fil'akovo,Bratislava (Pressburg),Around 1936,,To attend Jewish studies school (Yeshiva),13382.txt,,,48.1516988,17.1093063
+Bratislava,Fil'akovo,Around 1937,,Returned home due to illness (stomach ulcer),13382.txt,48.1516988,17.1093063,,
+Fil'akovo,Budapest,1941,,Family moved to avoid increasing anti-Semitism and restrictions,13382.txt,,,47.4978789,19.0402383
+Budapest,Kistarcsa detention camp,March 1944,Train,Father was arrested by Hungarian police and SS at railway station,13382.txt,47.4978789,19.0402383,,
+Budapest apartment,Verseny utca (designated Jewish area),1944,,Forced relocation due to anti-Jewish regulations,13382.txt,47.5193649,19.0566169,,
+Verseny utca,Swedish protected house in Budapest,Late 1944,,Mother and brother Frank moved for protection under Swedish papers,13382.txt,47.5018217,19.0851356,,
+Swedish protected house,Sister Edith's place in Budapest,December 1944,Tram,To escape imminent danger of being killed by Hungarian fascists,13382.txt,,,,
+Edith's place,John's rented apartment in Budapest,December 1944,,To hide mother and brother Frank under false identities,13382.txt,,,,
+John's rented apartment,Budapest Ghetto,Late December 1944,,Mother insisted on returning due to difficulty maintaining false identity,13382.txt,,,,
+Budapest,"Lucenec, Czechoslovakia",Mid-1945,,Family returned to Czechoslovakia after liberation,13382.txt,47.4978789,19.0402383,,
+Lucenec,"Krupina, Czechoslovakia",1945-1946,,To join Zionist youth group (initially motivated by romantic interest),13382.txt,,,,
+Lucenec,Bratislava,March 1946,Train,Beginning journey to Palestine (Aliyah),13382.txt,,,48.1516988,17.1093063
+Bratislava,"Vienna, Austria",1946,,"Illegal Aliyah journey, posing as Greek repatriates",13382.txt,48.1516988,17.1093063,48.2083537,16.3725042
+Vienna,"Salzburg, Austria",1946,Train,Continuing illegal Aliyah journey,13382.txt,48.2083537,16.3725042,47.7981346,13.0464806
+Salzburg,"Ainring, Germany",1946,,Next stage of illegal Aliyah journey,13382.txt,47.7981346,13.0464806,,
+Ainring,Belgium (near Liege),1946,,Waiting for further passage to Palestine,13382.txt,,,,
+Belgium,"France (near Spanish border, Port de Bouc)",1946,Trucks,To board illegal immigration ship to Palestine,13382.txt,50.6402809,4.6667145,,
+"Port de Bouc, France","Haifa, Palestine",1946,Ship,Illegal immigration to Palestine,13382.txt,43.403098,4.9806998,32.8184911,34.9988504
+"Haifa, Palestine",Cyprus internment camp,1946,British Navy ship,Intercepted by British authorities and interned,13382.txt,32.8184911,34.9988504,,
+Cyprus internment camp,Israel,January 1949,,Released from internment after establishment of Israel,13382.txt,,,30.8124247,34.8594762
+Israel,Australia,January 1952,,To reunite with family members who had settled in Australia,13382.txt,30.8124247,34.8594762,-24.7761086,134.755
+"Cracow, Podgorze",Siedleczka near Przeworsk,September 1939,"On foot, occasionally horse-drawn wagon","Fleeing German invasion, seeking refuge with grandparents",13524.txt,50.0411604,19.9592209,,
+Debica area,Cracow,Late 1939,Train,Returning home after realizing Germans were not harming civilians in Cracow,13524.txt,,,50.0469432,19.9971534
+Cracow,Cracow Ghetto,Late 1940 or early 1941,Not specified,Forced relocation by German authorities,13524.txt,50.0469432,19.9971534,,
+Cracow Ghetto,Plaszow labor camp,January or February 1943,Not specified,"Forced labor, part of initial group to build the camp",13524.txt,,,,
+Plaszow labor camp,Auschwitz-Birkenau,1944,Cattle train,Transfer of prisoners as Soviet forces approached,13524.txt,,,50.0346203,19.1807846
+Auschwitz-Birkenau,Bergen-Belsen,"January 17, 1945",Cattle train,Evacuation due to advancing Soviet forces,13524.txt,50.0346203,19.1807846,48.8601371,2.4001275
+Bergen-Belsen,Venusberg labor camp,Early 1945,Cattle train,Selected for forced labor in airplane parts factory,13524.txt,48.8601371,2.4001275,,
+Venusberg labor camp,Mauthausen concentration camp,April 1945,Cattle train and forced march,Evacuation due to approaching Allied forces,13524.txt,,,,
+Mauthausen concentration camp,Czechoslovakia,July 1945,American army trucks,Liberation and repatriation after the war,13524.txt,,,48.257918,14.5007688
+Czechoslovakia,"Cracow, Poland",July 1945,Not specified,Returning home to search for surviving family members,13524.txt,48.257918,14.5007688,50.0469432,19.9971534
+"Cracow, Poland","Budapest, Hungary",Mid to late 1945,Train,Reuniting with sister who had escaped earlier,13524.txt,50.0469432,19.9971534,47.4978789,19.0402383
+"Budapest, Hungary","Vienna, Austria",1946,Illegally crossing the border (on foot),Seeking opportunities to emigrate to America or elsewhere,13524.txt,47.4978789,19.0402383,48.2083537,16.3725042
+"Vienna, Austria","Enns Displaced Persons Camp, Austria",1946,Not specified,Placed in DP camp awaiting emigration,13524.txt,48.2083537,16.3725042,,
+"Enns DP Camp, Austria","Preston, England",1948,Not specified,Accepted by England as a displaced person,13524.txt,,,53.7593363,-2.6992717
+England,"Genoa, Italy",Early 1950s,Not specified,Briefly visiting mother before her departure to Australia,13524.txt,52.5310214,-1.2649062,44.40726,8.9338624
+England,"Sydney, Australia",November 1953,Ship,"Joining mother and family, starting new life",13524.txt,52.5310214,-1.2649062,-33.8698439,151.2082848
+Vilna,Nowogrodek,Late 1941 or early 1942,Truck,"Attempting to escape the Vilna ghetto to reach relatives in Nowogrodek, believing conditions were better there.",13693.txt,54.6870458,25.2829111,52.86548,18.9246
+Nowogrodek,Lida,Late 1941 or early 1942,Train,Fleeing Nowogrodek after realizing the situation was dangerous and Jews were being killed.,13693.txt,52.86548,18.9246,31.9489012,34.8884857
+Lida,Vilna,Mid-1942,Truck (hidden under airplane motor),Escaping the Lida ghetto massacre by hiding in a truck transporting airplane parts back to Vilna.,13693.txt,31.9489012,34.8884857,54.6870458,25.2829111
+Vilna Ghetto,Second Ghetto (Vilna),September 1943,On foot (escaping over rooftops),Escaping the final liquidation of the Vilna Ghetto.,13693.txt,,,,
+Second Ghetto (Vilna),Kailis labor camp (Vilna),September 1943,On foot (under cover of darkness),Seeking refuge and survival after the liquidation of the Vilna Ghetto.,13693.txt,,,,
+Kailis labor camp (Vilna),Partisan forest near Vilna,Late 1943,On foot (escaping through barbed wire),Joining the partisan resistance fighters in the forest.,13693.txt,,,,
+Partisan forest near Vilna,Vilna,July 1944,On foot,Participating in the liberation of Vilna alongside Soviet forces.,13693.txt,,,54.6870458,25.2829111
+Vilna,Lvov,Late 1944,Train,"Leaving Vilna due to emotional trauma and hunger, seeking better conditions.",13693.txt,54.6870458,25.2829111,49.841952,24.0315921
+Lvov,"Lodz, Poland",Late 1944 or early 1945,Train,"Moving westward after the war, joining a kibbutz group in Poland.",13693.txt,49.841952,24.0315921,51.7728245,19.4784857
+Lodz,Katowice,1945,Not specified,Relocating due to anti-Semitic violence in post-war Poland.,13693.txt,51.7728245,19.4784857,50.2137321,19.0058878
+Katowice,Czestochowa,1945,Not specified,Further relocation due to continued anti-Semitism and violence.,13693.txt,50.2137321,19.0058878,50.8120466,19.113213
+Czestochowa,Karpaty Mountains (Polish-Czech border),1945,On foot,Leading a group of Jewish children across the border as part of the Bricha movement.,13693.txt,50.8120466,19.113213,,
+Karpaty Mountains,"Prague, Czechoslovakia",1945,"On foot, then unspecified",Successfully crossing into Czechoslovakia after guiding children through dangerous terrain.,13693.txt,46.7336138,24.5273587,,
+Prague,"Munich, Germany",1945,Not specified,Continuing education and joining fellow survivors from Vilna.,13693.txt,50.0596288,14.4464593,48.1371079,11.5753822
+Munich,"New York, USA",1951,Not specified (likely ship or plane),Immigrating to the United States to continue medical career.,13693.txt,48.1371079,11.5753822,40.7127281,-74.0060152
+New York,"Chicago, Illinois",Early 1950s,Not specified,Relocating to Chicago for medical licensing and residency opportunities.,13693.txt,40.7127281,-74.0060152,41.8755616,-87.6244212
+"Nowy Sacz, Poland","Olesnica, Poland",Summers before 1937,Not mentioned,Family vacations visiting maternal grandparents,36999.txt,49.6249173,20.691346,51.2095314,17.3804559
+"Nowy Sacz, Poland","Cracow, Poland",1937,Not mentioned,Father's business relocation,36999.txt,49.6249173,20.691346,50.0469432,19.9971534
+"Cracow, Poland","Przemysl, Poland","August 30, 1939",Train,Fleeing impending German invasion,36999.txt,50.0469432,19.9971534,49.7835552,22.7885113
+"Przemysl, Poland","Sokal, Poland",Early September 1939,Bus,Seeking safety from advancing German forces,36999.txt,49.7835552,22.7885113,52.5322088,20.5265744
+"Sokal, Poland",Russian border area,Mid-September 1939,Horse-drawn wagons,Attempting to escape German invasion,36999.txt,52.5322088,20.5265744,,
+Russian border area,"Rowne, Poland",Mid-September 1939,Horse-drawn wagons,Following Russian army back into Poland after Soviet invasion,36999.txt,,,50.1910329,17.7304761
+"Rowne, Poland","Lwow, Poland",October-November 1939,Train (rented railroad car),Seeking better living conditions and schooling opportunities,36999.txt,50.1910329,17.7304761,52.4086237,16.9193912
+"Lwow, Poland","Ural region, USSR (Posiolek)","June 29, 1940",Cattle cars (train),Deportation by Soviet authorities due to refusal of Soviet citizenship,36999.txt,52.4086237,16.9193912,,
+"Ural region, USSR (Posiolek)","Fergana, USSR",1942,Train (cattle cars),"Released from forced labor camp, seeking better conditions",36999.txt,,,,
+"Fergana, USSR","Kokanda, near Uzbekistan, USSR",1942,Train (cattle cars),Avoiding forced relocation to remote areas,36999.txt,,,,
+"Kokanda, USSR","Leninabad, Uzbekistan, USSR",1943,Train,Seeking better living conditions and avoiding Soviet citizenship issues,36999.txt,,,,
+"Leninabad, Uzbekistan, USSR","Cracow, Poland",May 1946,Train (cattle cars),Returning to Poland after WWII ended,36999.txt,,,50.0469432,19.9971534
+"Cracow, Poland","Wroclaw, Poland",1946,Not mentioned,Seeking safer conditions after antisemitic violence,36999.txt,50.0469432,19.9971534,,
+"Wroclaw, Poland",Czechoslovakia,September 1946,Walking (guided by Haganah),Fleeing Poland due to antisemitism and violence,36999.txt,,,48.257918,14.5007688
+Czechoslovakia,"Kleinmunchen, near Linz, Austria",September 1946,Not mentioned,Transit camp en route to Germany,36999.txt,48.257918,14.5007688,,
+"Kleinmunchen, Austria","Bad Reichenhall, Germany",Late 1946,Not mentioned,Temporary stay awaiting DP camp placement,36999.txt,48.2549271,14.310982,47.7222676,12.8760923
+"Bad Reichenhall, Germany","Bamberg, Germany",Late 1946,Not mentioned,Placement in DP camp with family connections,36999.txt,47.7222676,12.8760923,49.8916044,10.8868478
+"Bamberg, Germany","Frankfurt, Germany",1947,Not mentioned,Attending university studies,36999.txt,49.8916044,10.8868478,50.1106444,8.6820917
+"Frankfurt, Germany","Bamberg, Germany",Early 1949,Not mentioned,Returning to family after graduation,36999.txt,50.1106444,8.6820917,49.8916044,10.8868478
+"Bamberg, Germany","Bremerhaven, Germany",July 1949,Not mentioned,Emigration to the United States,36999.txt,49.8916044,10.8868478,53.5505392,8.5851945
+"Bremerhaven, Germany","Boston, USA",August 1949,Ship (General Haan),Immigration to the United States,36999.txt,53.5505392,8.5851945,42.3554334,-71.060511
+"Boston, USA","New York City, USA",August 1949,Train,Joining family and settling in the United States,36999.txt,42.3554334,-71.060511,40.7127281,-74.0060152
+"New York City, USA","Flemington, New Jersey, USA",After 1955,Not mentioned,Moving closer to family and husband's work,36999.txt,40.7127281,-74.0060152,40.5130953,-74.8591333
+"Svalava, Czechoslovakia","Mukacevo (Munkacs), Czechoslovakia",April 1944,Unknown,Forced relocation to the ghetto in Mukacevo after being gathered in the synagogue.,37605.txt,,,,
+"Mukacevo (Munkacs), Czechoslovakia","Auschwitz-Birkenau, Poland",May 1944,Cattle train,Deportation to concentration camp.,37605.txt,,,50.0346203,19.1807846
+"Auschwitz-Birkenau, Poland","Ravensbruck, Germany",January 1945,Walking (Death march),Forced evacuation due to approaching Russian forces.,37605.txt,50.0346203,19.1807846,53.1895808,13.1707778
+"Ravensbruck, Germany","Neustadt, Germany (near Hamburg)",Early 1945,Unknown,Transferred for forced labor.,37605.txt,53.1895808,13.1707778,,
+"Neustadt, Germany",Unknown German towns,May 1945,Unknown,Liberation by English soldiers; survivors dispersed into nearby towns.,37605.txt,49.3539802,8.1350021,,
+Unknown German towns,"Prague, Czechoslovakia",May 1945,Truck (organized by Russian soldiers),Returning home after liberation.,37605.txt,,,,
+"Prague, Czechoslovakia","Budapest, Hungary",Mid-1945,Unknown,Attempting to return home and find surviving family.,37605.txt,,,47.4978789,19.0402383
+"Budapest, Hungary","Svalava, Czechoslovakia",Mid-1945,Military train,Returning to hometown to search for family.,37605.txt,47.4978789,19.0402383,,
+"Svalava, Czechoslovakia",Hungary (grandfather's town),Mid-1945,Train,Searching for surviving relatives after finding no family in Svalava.,37605.txt,,,,
+Hungary (grandfather's town),"Budapest, Hungary",Late 1945,Unknown,Decided to leave Hungary and go to Israel.,37605.txt,,,47.4978789,19.0402383
+"Budapest, Hungary","Bad Gastein, Austria",Late 1945 or early 1946,Walking (illegally crossing border),"Escaping communism, moving towards DP camp.",37605.txt,47.4978789,19.0402383,47.1144954,13.1352653
+"Bad Gastein, Austria","Rome, Italy",1946,Walking (illegally crossing Alps),Seeking immigration opportunities to America or Israel.,37605.txt,47.1144954,13.1352653,41.8933203,12.4829321
+"Rome, Italy","Bari, Italy",1946,Unknown,Joining relatives and acquaintances in another DP camp.,37605.txt,41.8933203,12.4829321,41.1257843,16.8620293
+"Bari, Italy","Genoa, Italy",Early 1947,Unknown,Preparing to emigrate to the United States.,37605.txt,41.1257843,16.8620293,44.40726,8.9338624
+"Genoa, Italy","New York, United States",March or April 1947,Ship (Marine Perch),Immigration to the United States.,37605.txt,44.40726,8.9338624,,
+"New York, United States","Newport, Rhode Island, United States",1947,Unknown,Uncle accepted a rabbinical position.,37605.txt,,,,
+"Newport, Rhode Island, United States","Bronx, New York, United States",1947,Unknown,Uncle decided not to stay in Newport; moved to Bronx.,37605.txt,,,40.8466508,-73.8785937
+"Bronx, New York, United States","East Side (East 4th Street), New York, United States",Late 1940s,Unknown,Moved to a permanent apartment.,37605.txt,40.8466508,-73.8785937,,
+"East Side, New York, United States","Williamsburg, Brooklyn, New York, United States",1952,Unknown,Moved after marriage.,37605.txt,43.5658627,-73.8747168,40.714622,-73.95345
+"Williamsburg, Brooklyn, New York, United States","Borough Park, Brooklyn, New York, United States",Approximately 1960s,Unknown,Moved to a quieter neighborhood.,37605.txt,40.714622,-73.95345,40.633993,-73.9968059
+"Frankfurt am Main, Germany","Bonneville, France",May or June 1933,Train,"Left Germany after Hitler's rise to power, stayed temporarily with a French family.",38078.txt,50.1106444,8.6820917,50.082567,2.2486687
+"Bonneville, France","Amsterdam, Netherlands",July or August 1933,Train,Joined her family who had settled in Amsterdam after fleeing Germany.,38078.txt,50.082567,2.2486687,52.3730796,4.8924534
+"Amsterdam, Netherlands",Suburb of Amsterdam (Naarden),Late 1930s,Not mentioned,Moved after marriage to live in a suburban area.,38078.txt,52.3730796,4.8924534,,
+"Naarden, Netherlands","IJmuiden, Netherlands",May 1940,Car,Attempted to flee the German invasion of the Netherlands by boat.,38078.txt,52.2957628,5.1633636,52.4574236,4.6111981
+"IJmuiden, Netherlands","Naarden, Netherlands",May 1940,Not mentioned,Failed escape attempt; returned home.,38078.txt,52.4574236,4.6111981,52.2957628,5.1633636
+"Naarden, Netherlands","Amsterdam, Netherlands",1941,Not mentioned,Forced by German orders for Jews to move from suburbs into Amsterdam.,38078.txt,52.2957628,5.1633636,52.3730796,4.8924534
+"Amsterdam, Netherlands","Dordrecht, Netherlands",1942,Not mentioned,Went into hiding separately from her children to avoid Nazi persecution.,38078.txt,52.3730796,4.8924534,51.7689546,4.6867891
+"Dordrecht, Netherlands","Westerbork Transit Camp, Netherlands","February 24, 1944",Train,Voluntarily joined her children who had been captured and sent to Westerbork.,38078.txt,51.7689546,4.6867891,,
+"Westerbork Transit Camp, Netherlands","Bergen-Belsen Concentration Camp, Germany","April 4 or 7, 1944",Train,Deported from Westerbork to Bergen-Belsen as part of Nazi deportations.,38078.txt,,,,
+"Bergen-Belsen Concentration Camp, Germany","Biberach, Germany",February 1945,Train,Selected for a prisoner exchange due to holding foreign (Paraguayan) passports; taken off the train before reaching Switzerland and interned in Biberach.,38078.txt,,,48.0984413,9.7899938
+"Biberach, Germany","Frankfurt am Main, Germany","June 21 or 22, 1945",Jeep,"Brother Hans, serving as a GI, came to pick her up after liberation.",38078.txt,48.0984413,9.7899938,50.1106444,8.6820917
+"Frankfurt am Main, Germany","Amsterdam, Netherlands",October 1945,Open truck (displaced persons transport),Returned to Amsterdam to reunite with her mother and sister after the war.,38078.txt,50.1106444,8.6820917,52.3730796,4.8924534
+"Amsterdam, Netherlands","Havana, Cuba",March 1946,Ship (the Macalan),Reunited with her husband who had fled to Cuba earlier.,38078.txt,52.3730796,4.8924534,,
+"Havana, Cuba","New York City, United States",March 1949,Airplane,Immigrated to the United States to settle permanently.,38078.txt,,,40.7127281,-74.0060152
+Wolbrom,Plaszow,Spring or Summer 1941,Truck,Captured by German soldiers and forcibly taken to Plaszow labor camp,38093.txt,50.3848386,19.7598844,,
+Plaszow,Wolbrom,"Shortly after arrival in Plaszow, 1941","On foot, escaped",Escaped from Plaszow labor camp with other boys,38093.txt,,,50.3848386,19.7598844
+Wolbrom,Rozwadow (Stalowa Wola),First week of September 1942,Train (cattle cars),Deportation of Jews from Wolbrom,38093.txt,50.3848386,19.7598844,,
+Rozwadow (Stalowa Wola),Tarnow,Late 1942 (close to winter),Truck,Transferred to hospital in Tarnow due to injuries,38093.txt,,,53.7784289,12.017412
+Tarnow hospital,Tarnow Ghetto A,Late 1942,"On foot, under guard",Discharged from hospital and moved to Ghetto A,38093.txt,,,,
+Tarnow Ghetto A,Tarnow Ghetto B,Late 1942 or early 1943,"On foot, under guard",Moved to working ghetto (Ghetto B) from Ghetto A,38093.txt,,,,
+Tarnow Ghetto B,Rymanow,Early 1943,Truck,Transferred to labor camp in Rymanow,38093.txt,,,49.576131,21.8676433
+Rymanow,Szebnie,1943,On foot (march),Transferred to Szebnie detention camp,38093.txt,49.576131,21.8676433,,
+Szebnie,Auschwitz-Birkenau,Late 1943,Train (cattle cars),Transferred to Auschwitz concentration camp,38093.txt,,,50.0346203,19.1807846
+Auschwitz-Birkenau,Fürstengrube,Late 1943 or early 1944,On foot (march),Volunteered for coal mine labor to escape conditions in Auschwitz,38093.txt,50.0346203,19.1807846,48.9735673,12.2615218
+Fürstengrube,Dora,Winter 1944-1945,"On foot (death march), then train",Evacuation due to advancing Russian army,38093.txt,48.9735673,12.2615218,33.7286935,-87.0904188
+Dora,Nordhausen,Early 1945,On foot,Transferred to Nordhausen labor camp,38093.txt,33.7286935,-87.0904188,51.5051574,10.7925317
+Nordhausen,Halle prison,Early 1945,"On foot, under guard by Hitler Youth","Evacuated after bombing raids, transferred to prison in Halle",38093.txt,51.5051574,10.7925317,,
+Halle prison,Theresienstadt,Spring 1945,Train (cattle cars),Transferred to Theresienstadt concentration camp,38093.txt,,,50.510716,14.149717
+Theresienstadt,Prague,May 1945 (after liberation),Not specified,Left Theresienstadt after liberation by Russian army,38093.txt,50.510716,14.149717,50.0596288,14.4464593
+Prague,Linz,Mid-1945,Not specified,Searching for surviving family members,38093.txt,50.0596288,14.4464593,48.3059078,14.286198
+Linz,Poland (Czestochowa),Mid-1945,Not specified,Attempted to find surviving family members in Poland,38093.txt,48.3059078,14.286198,50.8089997,19.1244089
+Czestochowa,Wroclaw (Breslau),Mid-1945,Not specified,Searching for surviving family members,38093.txt,50.8120466,19.113213,51.1134658,17.0365781
+Wroclaw (Breslau),Linz,Mid-1945,Not specified,Returning after finding no surviving family in Poland,38093.txt,51.1134658,17.0365781,48.3059078,14.286198
+Linz,Munich,Mid-1945,Not specified,Searching for brother who survived,38093.txt,48.3059078,14.286198,48.1371079,11.5753822
+Munich,Weilheim,Mid-1945,Not specified,Reunited with brother Icek (Leon) Secemski,38093.txt,48.1371079,11.5753822,47.6582006,8.2413047
+Germany,"Montreal, Canada",January 1948,Ship,Emigrated due to Berlin blockade and desire to leave Europe,38093.txt,,,45.5031824,-73.5698065
+"Montreal, Canada","New York, USA",Late 1940s,Not specified,Moved to New York after marriage,38093.txt,45.5031824,-73.5698065,40.7127281,-74.0060152
+New York,St. Louis,Post-war period (late 1940s or early 1950s),Not specified,Moved for employment as a fashion designer,38093.txt,40.7127281,-74.0060152,38.6280278,-90.1910154
+St. Louis,Chicago,Post-war period (1950s or later),Not specified,Moved for employment opportunities,38093.txt,38.6280278,-90.1910154,41.8755616,-87.6244212
+"Nuremberg, Germany",Czechoslovakia,1937,,To attend hotel training school,39048.txt,49.453872,11.077298,48.257918,14.5007688
+"Nuremberg, Germany",Luxembourg,1938,,Practical experience in catering after hotel training,39048.txt,49.453872,11.077298,,
+"Nuremberg, Germany",England,July 1939,"Steamer up the Rhine to Rotterdam, then ferry from Hoek of Holland to Harwich",Emigration as agricultural trainee due to Nazi persecution,39048.txt,49.453872,11.077298,52.5310214,-1.2649062
+"London, England","Lockington, near Loughborough, England",Summer 1939,Train,Sent by Jewish Refugee Committee to work as farm trainee,39048.txt,,,,
+"Lockington, England","York, England",June 1940,,Internment as enemy alien,39048.txt,53.897125,-0.4878622,,
+"York, England","Douglas, Isle of Man",June 1940,Boat from Liverpool,Transferred to internment camp,39048.txt,,,54.149774,-4.4779021
+"Douglas, Isle of Man","Liverpool, England",July 1940,Boat,To board ship for internment in Australia,39048.txt,54.149774,-4.4779021,53.4071991,-2.99168
+"Liverpool, England","Sydney, Australia",July - September 1940,Ship (Dunera),"Internment as enemy alien, transported overseas",39048.txt,53.4071991,-2.99168,-33.8698439,151.2082848
+"Sydney, Australia","Hay, New South Wales, Australia",September 1940,Train,Transferred to internment camp,39048.txt,-33.8698439,151.2082848,-34.1573005,144.890393
+"Hay, New South Wales, Australia","Orange, New South Wales, Australia",1941,Train,Transferred to another internment camp,39048.txt,-34.1573005,144.890393,-33.2820463,149.0971567
+"Orange, New South Wales, Australia","Tatura, Victoria, Australia",1941,Train,Transferred to another internment camp,39048.txt,-33.2820463,149.0971567,-36.439972,145.2329614
+"Tatura, Victoria, Australia","Liverpool, England",July or August 1942,Ship,Return to England after internment ended,39048.txt,-36.439972,145.2329614,53.4071991,-2.99168
+"Liverpool, England","London, England",1942,Train,Return to civilian life after internment,39048.txt,53.4071991,-2.99168,,
+"Pécs, Hungary",Friend's farm near Pécs,"Shortly after March 19, 1944",Not mentioned,Attempted hiding from German occupation,39069.txt,46.0765092,18.2280317,,
+Friend's farm near Pécs,"Pécs, Hungary",About one week after arrival,Not mentioned,Discovered by Hungarian authorities and forced to return,39069.txt,,,46.0765092,18.2280317
+"Pécs, Hungary",Another friend's place (unspecified location),Shortly after returning from first hiding,Not mentioned,Second attempt at hiding,39069.txt,46.0765092,18.2280317,,
+Second friend's place,"Pécs, Hungary",Shortly after arrival,Not mentioned,Discovered again and forced to return,39069.txt,,,46.0765092,18.2280317
+"Pécs, Hungary",Ghetto in outskirts of Pécs,Late May or early June 1944,Not mentioned,Forced relocation of Jewish population,39069.txt,46.0765092,18.2280317,,
+Ghetto in outskirts of Pécs,Barn near Pécs,Late June or early July 1944,Not mentioned,Preparation for deportation,39069.txt,,,,
+Barn near Pécs,Auschwitz concentration camp,"July 4, 1944",Cattle train,Deportation to concentration camp,39069.txt,,,50.0389061,19.1712984
+Auschwitz concentration camp,Bergen-Belsen concentration camp,October 1944,Cattle train,Transfer due to approaching Russian front,39069.txt,50.0389061,19.1712984,,
+Bergen-Belsen concentration camp,Duderstadt labor camp,November 1944,Cattle train,Selected for forced labor in munitions factory,39069.txt,,,,
+Duderstadt labor camp,Theresienstadt concentration camp,April 1945,Cattle train,Evacuation due to Allied advance,39069.txt,,,52.5754089,14.2386437
+Theresienstadt concentration camp,"Budapest, Hungary",Late May or early June 1945,Coal train,Returning home after liberation,39069.txt,52.5754089,14.2386437,47.4978789,19.0402383
+"Budapest, Hungary","Pécs, Hungary",July 1945,Not mentioned,Returning to hometown after liberation,39069.txt,47.4978789,19.0402383,46.0765092,18.2280317
+"Pécs, Hungary","Sydney, Australia",March 1947,Ship,Migration to join uncle in Australia,39069.txt,46.0765092,18.2280317,-33.8698439,151.2082848
+"Sydney, Australia","Adelaide, Australia",1964,Not mentioned,Husband's appointment at Elder Conservatorium,39069.txt,-33.8698439,151.2082848,-34.9281805,138.5999312
+"Adelaide, Australia","Sydney, Australia",1974,Not mentioned,Husband's relocation,39069.txt,-34.9281805,138.5999312,-33.8698439,151.2082848
+"Sydney, Australia","Adelaide, Australia",1974,Not mentioned,Return to Adelaide after separation,39069.txt,-33.8698439,151.2082848,-34.9281805,138.5999312
+"Adelaide, Australia","Auschwitz, Poland",1992,Not mentioned,Visit to Auschwitz with son,39069.txt,-34.9281805,138.5999312,50.0382443,19.2214053
+"Paris, France","Lublin, Poland",1929,Not mentioned,Visiting mother's family,39237.txt,,,51.2181945,22.5546776
+"Paris, France","Les Touches, France",Early 1940,Train,Evacuation of women and children from Paris due to German bombing,39237.txt,,,47.4423506,-1.4313813
+"Les Touches, France","Paris, France",Early 1940,Not mentioned,Returning to Paris to work at Renault factory,39237.txt,47.4423506,-1.4313813,,
+"Paris, France","Marseille, France",June 1942,"Walking, occasional train rides, hiding in a train water tank",Fleeing Paris to avoid wearing the yellow star and persecution,39237.txt,,,43.2961743,5.3699525
+"Marseille, France","Casablanca, Morocco",July or August 1942,Ship,Joining the French Marines to reach family in Casablanca,39237.txt,43.2961743,5.3699525,33.5945144,-7.6200284
+"Casablanca, Morocco","Marrakesh, Morocco",Late 1942,Not mentioned,Military training with the French Marines,39237.txt,33.5945144,-7.6200284,31.6258257,-7.9891608
+"Marrakesh, Morocco","Corsica, France",Early 1944,Ship,Military deployment to liberate Corsica,39237.txt,31.6258257,-7.9891608,42.1880896,9.0684138
+"Corsica, France","Elba, Italy",1944,Landing Ship Transport (LST),Military operation to liberate Elba from Italian forces,39237.txt,42.1880896,9.0684138,42.7902379,10.3402239
+"Elba, Italy","Corsica, France",1944,Landing Ship Transport (LST),Returning after successful military operation,39237.txt,42.7902379,10.3402239,42.1880896,9.0684138
+"Corsica, France","Toulon, France",August 1944,Ship and Landing Ship Transport (LST),Military operation to liberate Toulon,39237.txt,42.1880896,9.0684138,43.1257311,5.9304919
+"Toulon, France","Mulhouse, France",Late 1944 - January 1945,"Military transport, walking","Advancing northward, liberating towns from German occupation",39237.txt,43.1257311,5.9304919,47.7467233,7.3389937
+"Mulhouse, France","Montpellier, France",January 1945,Military medical transport,Evacuated after being wounded in combat,39237.txt,47.7467233,7.3389937,43.6112422,3.8767337
+"Montpellier, France","Spanish border area, France",Early 1945,Military medical transport,Further medical recovery after injury,39237.txt,43.6112422,3.8767337,,
+"Spanish border area, France","Mulhouse, France",Early 1945,Military transport,Rejoining regiment after recovery,39237.txt,,,47.7467233,7.3389937
+"Mulhouse, France","Paris, France",1945,Train,"Returning to Paris after war, avoiding deployment to Vietnam",39237.txt,47.7467233,7.3389937,,
+"Paris, France","Marseille area, France",1945,Train,Locating and rescuing two cousins hidden in a convent,39237.txt,,,,
+"Marseille area, France","Paris, France",1945,Train,Returning to Paris after locating cousins,39237.txt,,,,
+"Paris, France","Brooklyn, New York, USA",1947,Not mentioned (likely ship),Immigrating to join aunt and start a new life,39237.txt,,,40.6526006,-73.9497211
+"Brooklyn, New York, USA","Florida, USA",After 1972,Not mentioned,Relocating for work at Loehmann's Department Store,39237.txt,40.6526006,-73.9497211,27.7567667,-81.4639835
+"Berlin, Germany","Antwerp, Belgium",1937,Not mentioned,To attend a French school due to lack of educational opportunities in Germany,39358.txt,52.510885,13.3989367,51.2211097,4.3997081
+"Antwerp, Belgium","Berlin, Germany",1938,Not mentioned,Returned home after completing one year of schooling,39358.txt,51.2211097,4.3997081,52.510885,13.3989367
+"Berlin, Germany","London, England",February 1939,Not mentioned,To escape Nazi persecution; obtained temporary visa for England,39358.txt,52.510885,13.3989367,,
+"Berlin, Germany",Belgium,"April 20, 1939",Not mentioned,Mother and sister took a vacation before joining narrator in England,39358.txt,52.510885,13.3989367,50.6402809,4.6667145
+Belgium,"London, England",Mid-1939,Not mentioned,Mother and sister joined narrator in England after vacation,39358.txt,50.6402809,4.6667145,,
+"London, England","Baden-on-Sea, England",September 1939,Not mentioned,Vacation at the seaside; stayed temporarily due to fear of bombing in London,39358.txt,,,,
+"Baden-on-Sea, England","London, England",Late 1939,Not mentioned,Returned to London after temporary stay at seaside,39358.txt,,,,
+"London, England",Various coastal locations in England,November 1941,Not mentioned,"Joined British Women's Auxiliary Air Force (WAFS), stationed along the coast",39358.txt,,,,
+England,United States (New Jersey),September 1946,Not mentioned,To marry an American soldier she met during the war,39358.txt,52.5310214,-1.2649062,40.0757384,-74.4041622
+United States,"Berlin, Germany",April 1996,Not mentioned,Returned to Berlin for reunion and to revisit childhood locations,39358.txt,,,52.510885,13.3989367
+"Svalava, Czechoslovakia","Budapest, Hungary",1942-1943,train,To check official records to confirm her father's citizenship status.,39385.txt,,,47.4978789,19.0402383
+"Svalava, Czechoslovakia","Mukachevo, Czechoslovakia","April 18, 1944",cattle train,Forced deportation by Hungarian authorities to a brick factory ghetto.,39385.txt,,,,
+"Mukachevo, Czechoslovakia","Auschwitz-Birkenau, Poland",May 1944,cattle train,Forced deportation to concentration camp.,39385.txt,,,50.0346203,19.1807846
+"Auschwitz-Birkenau, Poland","Ravensbrück, Germany","January 18, 1945","walking (death march), then cattle train",Evacuation of Auschwitz due to approaching Soviet forces.,39385.txt,50.0346203,19.1807846,53.1944796,13.1478107
+"Ravensbrück, Germany","Malchow, Germany",Early 1945,walking,Forced march to another camp.,39385.txt,53.1944796,13.1478107,53.4775641,12.4245172
+"Malchow, Germany","Leipzig, Germany",Early 1945,cattle train,Transfer to forced labor in ammunition factory.,39385.txt,53.4775641,12.4245172,,
+"Leipzig, Germany",Unknown rural area near Leipzig,Spring 1945,walking (death march),Forced evacuation due to Allied advances.,39385.txt,,,,
+Unknown rural area near Leipzig,Nearby village,Spring 1945,walking,Seeking shelter and food after liberation by Soviet forces.,39385.txt,,,53.3206084,-6.3947006
+Nearby village,Refugee gathering camp,Spring 1945,"walking, assisted by Yugoslavian slave laborers",Seeking organized assistance and repatriation.,39385.txt,53.3206084,-6.3947006,,
+Refugee gathering camp,"Prague, Czechoslovakia",Spring 1945,bus,Repatriation organized by Czech authorities.,39385.txt,,,,
+"Prague, Czechoslovakia","Baden, Germany",Early 1946,train,To attend her sister Olga's wedding.,39385.txt,,,,
+"Baden, Germany","New York, USA","June 24, 1946",ship (Marine Perch),"Immigration to the United States, sponsored by relatives.",39385.txt,,,40.7127281,-74.0060152
+"Paris, France","Bordeaux, France",Summer 1940,Train,Fleeing German invasion and bombing threats,39538.txt,,,44.841225,-0.5800364
+"Bordeaux, France","Paris, France",Fall 1940,Train,Return home after German occupation of Bordeaux,39538.txt,44.841225,-0.5800364,,
+"Paris, France","Clermont-Ferrand, France",1942,Train and on foot (crossing demarcation line at night),Fleeing occupied zone to join relatives in unoccupied zone,39538.txt,,,45.7774551,3.0819427
+"Clermont-Ferrand, France","Lyon, France",1942,Not specified,Leaving relatives' home to find work and independence,39538.txt,45.7774551,3.0819427,45.7578137,4.8320114
+"Lyon, France","Suburb of Lyon, France",1943,Not specified,Leaving job due to conflict with employer,39538.txt,45.7578137,4.8320114,,
+"Lyon, France","Antibes, France",Early 1943,Not specified,"Seeking safety further south, joining friend",39538.txt,45.7578137,4.8320114,43.5812868,7.1262071
+"Antibes, France","Paris, France",September 1943,Train,Returning younger sister Lea to parents in Paris,39538.txt,43.5812868,7.1262071,,
+"Paris, France","La Roquette Prison, Paris, France",March 1944,Police transport,Arrested by French police after being denounced,39538.txt,,,48.8592066,2.3853468
+"La Roquette Prison, Paris, France","German-administered prison, Paris, France",June 1944,Police transport,Transferred to German-administered prison,39538.txt,48.8592066,2.3853468,,
+"German-administered prison, Paris, France","Drancy internment camp, France","July 24, 1944",Bus,Transferred to Drancy for deportation,39538.txt,,,,
+"Drancy internment camp, France","Auschwitz concentration camp, Poland","July 31, 1944",Cattle car train,Deportation to concentration camp,39538.txt,,,50.0389061,19.1712984
+"Auschwitz concentration camp, Poland","Kratzau (Chrastava), Czechoslovakia",October 1944,Train,Transferred to forced labor in armament factory,39538.txt,50.0389061,19.1712984,,
+"Kratzau (Chrastava), Czechoslovakia","Paris, France",May 1945,Various trains,Returning home after liberation,39538.txt,,,,
+"Paris, France","New York, USA",1949,Ship,Joining husband Nicolas Spulber in the United States,39538.txt,,,40.7127281,-74.0060152
+"New York, USA","Paris, France",1949,Ship,Returning temporarily to France due to visa requirements,39538.txt,40.7127281,-74.0060152,,
+"Paris, France","New York, USA",1950,Ship (George Washington),Permanent immigration to the United States,39538.txt,,,40.7127281,-74.0060152
+"New York, USA","Cambridge, Massachusetts, USA",1952,Not specified,Husband's academic position at MIT,39538.txt,40.7127281,-74.0060152,42.3656347,-71.1040018
+"Cambridge, Massachusetts, USA","Bloomington, Indiana, USA",1954,Not specified,Husband's academic position at Indiana University,39538.txt,42.3656347,-71.1040018,,
+"Zabno, Poland",Towards Russian border,1939,Horse and buggy,Family attempted to flee the approaching German army,39906.txt,,,,
+Towards Russian border,"Zabno, Poland",1939,Horse and buggy,Returned home because sister became ill,39906.txt,,,,
+"Zabno, Poland","Pudelko's house, nearby village",July-August 1942,Walking,Mother arranged temporary hiding place to avoid ghetto,39906.txt,,,,
+Pudelko's house,"Farmhouse of poor widow (unknown name), village near Zabno",August 1942,Walking,Mother sought a longer-term hiding place after leaving Pudelko's house,39906.txt,,,,
+Farmhouse hiding place,Zabno ghetto,Late 1942,Walking at night,Brief visit to retrieve belongings and assess situation,39906.txt,,,,
+Farmhouse hiding place,Woods near village,Mid-1944,Walking,"Forced out by widow and her brother, temporary hiding in woods",39906.txt,,,,
+Woods near village,"Barn hiding place (with Chaim Fertig), nearby village",Mid-1944,Walking,Found new hiding place arranged by boys who helped them,39906.txt,,,,
+Barn hiding place,"Zabno, Poland",January 1945,"Wheelbarrow (for mother), walking","Liberation by Russian army, returned to hometown to find survivors",39906.txt,,,,
+"Zabno, Poland","Tarnow, Poland",Early 1945,Not specified,Moved to larger city due to threats from Polish underground (AK),39906.txt,,,50.0259883,20.9640584
+"Tarnow, Poland","Berlin (Schlachtensee), Germany",1946,Truck (smuggled across borders),"Left Poland due to ongoing antisemitism and threats, aiming to reach the United States",39906.txt,50.0259883,20.9640584,,
+"Berlin (Schlachtensee), Germany","Fürth (near Nuremberg), Germany",1946,Not specified,Assigned to a Displaced Persons (DP) camp,39906.txt,,,,
+"Fürth, Germany","Montreal, Canada",October 1948,Boat,Immigrated to Canada after waiting unsuccessfully for U.S. visa,39906.txt,49.4885711,10.9587203,45.5031824,-73.5698065
+"Montreal, Canada","Brooklyn, New York, USA",Around 1955,Not specified,Moved to the United States after obtaining visa,39906.txt,45.5031824,-73.5698065,40.6526006,-73.9497211
+"Hamburg, Germany","Frankfurt am Main, Germany",Late 1920s,,Father received a promotion to become artistic director of the Frankfurter Schauspielhaus.,39923.txt,53.550341,10.000654,50.1106444,8.6820917
+"Frankfurt am Main, Germany","Hiddensee Island, Germany",Summer 1931,,Family summer vacation.,39923.txt,50.1106444,8.6820917,54.5315962,13.0949219
+"Hiddensee Island, Germany","Frankfurt am Main, Germany",Summer 1931,,"Returned home early for school, accompanied by grandmother and maid.",39923.txt,54.5315962,13.0949219,50.1106444,8.6820917
+"Frankfurt am Main, Germany","Berlin, Germany",Fall 1931,,Mother moved to Berlin to be near aunt after father's death.,39923.txt,50.1106444,8.6820917,52.510885,13.3989367
+"Berlin, Germany","Merano, Italy",April 1933,Train,Mother fled Germany due to fear of Nazi persecution and passport confiscation.,39923.txt,52.510885,13.3989367,46.6695547,11.1594185
+"Merano, Italy","Trieste, Italy",Spring 1933,,To board a ship to Palestine after receiving visa.,39923.txt,46.6695547,11.1594185,,
+"Trieste, Italy","Jaffa, Palestine",Spring 1933,Ship (Martha Washington),Immigration to Palestine.,39923.txt,,,32.0539873,34.75508
+"Jaffa, Palestine","Tel Aviv, Palestine",Spring 1933,,Settled temporarily with mother's friends.,39923.txt,32.0539873,34.75508,32.0539873,34.75508
+"Tel Aviv, Palestine","Ramot ha-Shavim, Palestine",Around 1935,,Placed in foster care with the Brandeis family due to mother's work and lack of supervision.,39923.txt,32.0539873,34.75508,,
+"Ramot ha-Shavim, Palestine","Tel Aviv, Palestine",Late 1937 or early 1938,,Returned to live with mother due to financial difficulties.,39923.txt,,,32.0539873,34.75508
+"Haifa, Palestine","New York City, USA",April 1938,Ship (SS Conte de Savoia),Moved to America to live with aunt and pursue education.,39923.txt,32.8184911,34.9988504,40.7127281,-74.0060152
+"New York City, USA","Little Rock, Arkansas, USA",March 1943,,"Drafted into the U.S. Army, basic training at Camp Robinson.",39923.txt,40.7127281,-74.0060152,34.7465071,-92.2896267
+"Little Rock, Arkansas, USA","Fordham University, New York City, USA",1943,,Selected for Army Specialized Training Program (ASTP).,39923.txt,34.7465071,-92.2896267,40.8617344,-73.8860317
+"Fordham University, New York City, USA","Camp Ritchie, Maryland, USA",1944,,Training in prisoner of war interrogation and military intelligence.,39923.txt,40.8617344,-73.8860317,,
+"Camp Ritchie, Maryland, USA","Liverpool, England",1944,Ship (convoy),Deployment to Europe during WWII.,39923.txt,,,53.4071991,-2.99168
+"Liverpool, England","Litchfield, England",1944,,Temporary stationing before further deployment.,39923.txt,53.4071991,-2.99168,51.2826256,-1.3388563
+"Litchfield, England","Broadway (near Stratford-on-Avon), England",1944,,Military intelligence headquarters.,39923.txt,51.2826256,-1.3388563,,
+"Southampton, England","Normandy, France","June 13, 1944 (D+6)",Landing craft,Participation in the Normandy invasion.,39923.txt,,,49.0677708,0.3138532
+"Normandy, France","Nordhausen, Germany",April 1945,Jeep,"Advancing with U.S. Army, liberation of Nordhausen concentration camp.",39923.txt,49.0677708,0.3138532,51.5051574,10.7925317
+"Nordhausen, Germany","Leipzig, Germany",April 1945,Jeep,"Continued advance eastward, linking up with Russian forces.",39923.txt,51.5051574,10.7925317,,
+"Leipzig, Germany","Deggendorf, Bavaria, Germany",Summer 1945,,Assigned to interrogate German POWs post-war.,39923.txt,,,48.7814115,13.0006423
+"Deggendorf, Bavaria, Germany","Étampes, France",1945,,Preparation for demobilization and return to the U.S.,39923.txt,48.7814115,13.0006423,48.4344621,2.1614464
+"Étampes, France","Nuremberg, Germany",Late 1945,Airplane,Accepted position as interpreter at Nuremberg Trials.,39923.txt,48.4344621,2.1614464,49.453872,11.077298
+"Nuremberg, Germany","New York City, USA",June 1946,,Returned to the U.S. to resume education at Columbia University.,39923.txt,49.453872,11.077298,40.7127281,-74.0060152
+"Sieradz, Poland","Lódz, Poland",around 1919-1920,not mentioned,Family moved after father's death for economic support and to be near relatives.,40060.txt,51.6017529,18.7399015,,
+"Lódz, Poland",mountains in Poland and Czechoslovakia,August 1939,walking,Tourist trip anticipating the outbreak of war.,40060.txt,,,,
+"Lódz, Poland","Warsaw, Poland",early September 1939,"walking, occasionally hitchhiking on horse carriages","Fleeing German invasion, seeking safety with relatives in Warsaw.",40060.txt,,,,
+"Warsaw, Poland","Lódz, Poland",late September 1939,walking,Returning home after Warsaw surrendered to German forces.,40060.txt,,,,
+"Lódz, Poland","Lódz Ghetto, Poland",early 1940,"walking, carrying belongings",Forced relocation by German authorities into the ghetto.,40060.txt,,,,
+"Lódz Ghetto, Poland","Auschwitz-Birkenau, Poland",September 1944,train (cattle cars),Liquidation of the Lódz Ghetto by German authorities.,40060.txt,,,50.0346203,19.1807846
+"Auschwitz-Birkenau, Poland",Coal mine labor camp (sub-camp of Auschwitz),late 1944,not explicitly mentioned,Volunteered for labor to escape harsh conditions in Auschwitz.,40060.txt,50.0346203,19.1807846,,
+Coal mine labor camp,"Breslau (Wrocław), Germany",January 1945,forced march (death march),Evacuation of camps due to advancing Soviet forces.,40060.txt,,,51.1062021,17.0421314
+"Breslau, Germany","Dachau concentration camp, Germany",early 1945,train (open cattle cars),Transfer of prisoners to Dachau.,40060.txt,51.1062021,17.0421314,47.6978718,10.3244047
+"Dachau concentration camp, Germany","Seefeld area, Germany",late April 1945,train,"Final transport of prisoners, intended execution thwarted by approaching American forces.",40060.txt,47.6978718,10.3244047,,
+"Seefeld area, Germany","Feldafing DP camp, Germany",May 1945,organized transport by UNRRA,Liberation and relocation to displaced persons camp.,40060.txt,,,,
+"Feldafing DP camp, Germany","Munich, Germany",around 1946,not explicitly mentioned,"Moved to Munich after DP camp closed, started working and living independently.",40060.txt,,,48.1371079,11.5753822
+"Munich, Germany","Boston, Massachusetts, USA",1951,ship (SS Taylor),"Emigration to the United States, sponsored by Jewish organization.",40060.txt,48.1371079,11.5753822,42.3554334,-71.060511
+"Zdzieciol (Zhetel), Poland","Dworez, Poland",August 1942,Walking,"Escaping the liquidation of the Zdzieciol ghetto, seeking safety in Dworez ghetto",40913.txt,,,,
+"Dworez ghetto, Poland","Lipiczany Forest, Poland",Late 1942 or early 1943,"Walking, guided by scouts",Escaping the ghetto to join partisan groups in the forest,40913.txt,,,,
+Lipiczany Forest (initial partisan camp),"Bielski partisan camp, Lipiczany Forest",Summer or Fall 1943,"Walking, guided by partisans",Joining the Bielski partisan group for better protection and survival,40913.txt,,,,
+"Bielski partisan camp, Lipiczany Forest","Nowogródek, Poland",Mid-1944,Walking,"Liberation by the Soviet Army, leaving the forest after the war",40913.txt,,,,
+"Nowogródek, Poland","Łódź, Poland",Late 1944 or 1945,Not specified,Moving westward after liberation,40913.txt,,,51.7687323,19.4569911
+"Łódź, Poland","Displaced Persons Camp, American Zone, Germany",1945-1946,Not specified,Seeking refuge and awaiting immigration opportunities,40913.txt,51.7687323,19.4569911,,
+"Displaced Persons Camp, Germany","Bremerhaven, Germany",Late 1949,Not specified,Preparing to emigrate to the United States,40913.txt,,,53.5505392,8.5851945
+"Bremerhaven, Germany","New York, United States",January 1950,Ship (General Heintzelman),Immigration to the United States,40913.txt,53.5505392,8.5851945,,
+"New York, United States","Baltimore, Maryland, United States",January 1950,Not specified,Joining relatives (uncle and aunt) in Baltimore,40913.txt,,,39.2908816,-76.610759
+"Baltimore, Maryland, United States","San Francisco, California, United States",1950,Not specified,Joining sisters and brother-in-law who had settled in California,40913.txt,39.2908816,-76.610759,37.7792588,-122.4193286
+"San Francisco, California, United States","Burlingame, California, United States",1962,Not specified,"Moving after marriage to Gina Einstein Rosnow, closer to their workplaces",40913.txt,37.7792588,-122.4193286,37.5780965,-122.3473099
+"Dresden, Germany","Biel, Switzerland",1933-1934,,"Family emigrated due to rising antisemitism in Germany, seeking a more peaceful life.",41844.txt,51.0493286,13.7381437,47.1402077,7.2439029
+"Biel, Switzerland","Dresden, Germany",1934-1935,,"Father could not obtain work permission in Switzerland, forcing the family to return to Germany.",41844.txt,47.1402077,7.2439029,51.0493286,13.7381437
+"Dresden, Germany","Wolfratshausen, Bavaria, Germany",Spring 1938,,Sent to a Jewish boarding school after Jewish children were expelled from regular schools.,41844.txt,51.0493286,13.7381437,47.9104632,11.4266377
+"Wolfratshausen, Bavaria, Germany","Dresden, Germany",Late 1938,,"Returned home after approximately six months, possibly due to school closure or increasing danger.",41844.txt,47.9104632,11.4266377,51.0493286,13.7381437
+"Dresden, Germany","Berlin, Germany",Late 1938,,Mother took her to Berlin to join a Kindertransport to Holland.,41844.txt,51.0493286,13.7381437,52.510885,13.3989367
+"Berlin, Germany","The Hague, Holland",Late 1938,Train (Kindertransport),Sent to safety in Holland via Kindertransport.,41844.txt,52.510885,13.3989367,52.0799838,4.3113461
+"The Hague, Holland","Bussum, Holland",1940,,"Forced relocation by German decree, moving Jews away from coastal areas.",41844.txt,52.0799838,4.3113461,52.2773656,5.1630646
+"Bussum, Holland","Amsterdam, Holland",1941,,Parents thought Amsterdam would be safer; worked as domestic help.,41844.txt,52.2773656,5.1630646,52.3730796,4.8924534
+"Amsterdam, Holland","Asterdorp, Holland",1941,,Returned to parents after feeling unsafe and unhappy in Amsterdam.,41844.txt,52.3730796,4.8924534,,
+"Asterdorp, Holland","Amsterdam, Holland",1941,Tram,Father took her to a hiding place arranged by a church organization to avoid deportation.,41844.txt,,,52.3730796,4.8924534
+"Amsterdam, Holland","Farm near Amsterdam, Holland",1941,Bicycle (at night),Smuggled out of Amsterdam to a temporary hiding place.,41844.txt,52.3730796,4.8924534,,
+"Farm near Amsterdam, Holland","District nurse's house, Holland",1941,Bicycle (at night),Taken to a long-term hiding place arranged by resistance contacts.,41844.txt,,,,
+"District nurse's house, Holland","Nearby farm, Holland",1944,On foot (at night),Forced to flee after being warned of betrayal and imminent SS raid.,41844.txt,,,,
+"Nearby farm, Holland","Temporary safe house, Holland",1944,Bicycle (at night),Taken by resistance contacts to temporary safe house after fleeing betrayal.,41844.txt,,,,
+"Temporary safe house, Holland","Another temporary address, Holland",1944,,Moved again due to safety concerns and inability to stay at previous location.,41844.txt,,,,
+"Temporary address, Holland","Farm (long-term hiding place), Holland",1944,,Taken to a farm where she stayed safely hidden for 18 months until liberation.,41844.txt,,,,
+"Farm (long-term hiding place), Holland","Amsterdam, Holland",May 1945,Bicycle,"After liberation, traveled to Amsterdam to witness Canadian troops entering the city.",41844.txt,,,52.3730796,4.8924534
+"Amsterdam, Holland","Uncle Felix's home, Holland",May 1945,Bicycle,Reunited with uncle and aunt after liberation.,41844.txt,52.3730796,4.8924534,,
+"Uncle Felix's home, Holland","Uncle Ernst's home, Bussum, Holland",Late 1945,,Moved to live with other uncle after difficulties living with Uncle Felix.,41844.txt,,,,
+"Bussum, Holland","Marseilles, France",1946,,Traveled to Marseilles to board a ship emigrating to Australia.,41844.txt,52.2773656,5.1630646,,
+"Marseilles, France","Melbourne, Australia",1946,Ship,Emigrated to Australia to reunite with her brother.,41844.txt,,,-37.8142454,144.9631732
+"Melbourne, Australia","Sydney, Australia",Late 1940s,,Moved to Sydney for better opportunities and to join friends.,41844.txt,-37.8142454,144.9631732,-33.8698439,151.2082848
+"Sydney, Australia",England,1954,,"Moved to England after marrying Ron, who was stationed there with the British Navy.",41844.txt,-33.8698439,151.2082848,52.5310214,-1.2649062
+"Frankfurt am Main, Germany","Berlin, Germany",around 1928,train,Family moved due to father's business and financial difficulties,42042.txt,50.1106444,8.6820917,52.510885,13.3989367
+"Berlin, Germany","Mohrung (Morag), East Prussia (now Poland)",1931,train,Visit grandmother on her deathbed,42042.txt,52.510885,13.3989367,,
+"Berlin, Germany",Switzerland,"around 1928, just before moving to Berlin",unknown,Visit uncle Max Günzburger,42042.txt,52.510885,13.3989367,46.7985624,8.2319736
+"Berlin, Germany",Denmark (near Helsingør),around 1934 (age 10),train and boat,Attending a Jewish summer camp,42042.txt,52.510885,13.3989367,,
+"Berlin, Germany",United States,1946,ship (Marine Perch),Emigration after surviving the Holocaust,42042.txt,52.510885,13.3989367,,
+"Berlin, Germany","Stuttgart, Germany",1939,Not mentioned,To find a man who had taken money promising immigration assistance,42338.txt,52.510885,13.3989367,48.7784485,9.1800132
+"Berlin, Germany","Bielitz, Germany (now Bielsko-Biała, Poland)",January 1943,"Train (planned, but not completed)",Attempt to join relatives in a police camp,42338.txt,52.510885,13.3989367,,
+"Berlin, Germany",Various hiding places within Berlin,January 1943 - April 1944,"Walking, local transport",Went into hiding after mother and brother were arrested,42338.txt,52.510885,13.3989367,,
+"Berlin, Germany","Theresienstadt (Terezín), Czechoslovakia",April 1944,Train,Deported after being captured while in hiding,42338.txt,52.510885,13.3989367,,
+"Theresienstadt (Terezín), Czechoslovakia","Deggendorf, Germany",July 1945,"Train, then military trucks",Relocation to a DP camp after liberation,42338.txt,,,48.7814115,13.0006423
+"Deggendorf, Germany","Munich, Germany",1946,Not mentioned,To visit the American consulate for immigration processing,42338.txt,48.7814115,13.0006423,48.1371079,11.5753822
+"Deggendorf, Germany","New York City, USA",July 1946,Ship (Marine Perch),Immigration to the United States,42338.txt,48.7814115,13.0006423,40.7127281,-74.0060152
+"Lwów, Poland",Outside Lwów (small country vacation spots),Before 1939,Train,Family vacations,42450.txt,50.0634977,19.9422938,,
+Lwów apartment (first floor),"Lwów apartment (third floor, same building)",Around 1937-1938,Not mentioned,Moved to a bigger apartment,42450.txt,,,,
+Lwów apartment (third floor),Another apartment in Lwów,June 1941,Not mentioned,Forced eviction by German officer,42450.txt,,,,
+Second apartment in Lwów,Multiple apartments within Lwów,1941-1942,Not mentioned,Repeated forced relocations by Germans,42450.txt,,,,
+Apartment in Lwów,Lwów Ghetto,1942,Not mentioned,Forced relocation into the ghetto,42450.txt,49.8332616,24.0215091,,
+Lwów Ghetto apartment,Basement hiding place in Lwów Ghetto,1943,Walking,Preparation for hiding from liquidation of the ghetto,42450.txt,,,,
+Basement hiding place in Lwów Ghetto,Sewers beneath Lwów,1943 (during liquidation of Lwów Ghetto),"Walking, crawling",Escape and hiding from German liquidation of the ghetto,42450.txt,,,,
+Initial sewer hiding place,Second sewer hiding place,1943,Crawling through sewer tunnels,"Discovered by sewer workers, forced to relocate",42450.txt,,,,
+Second sewer hiding place,Third sewer hiding place (final location),1943,Crawling through sewer tunnels,Seeking safer and more suitable hiding place,42450.txt,,,,
+Sewers beneath Lwów,Surface in Lwów,1944 (liberation by Russians),Climbing out of sewer,Liberation by Russian forces,42450.txt,,,,
+Lwów,"Przemyśl, Poland",1944-1945,Train,Escape from Soviet suspicion and threat of deportation to Siberia,42450.txt,49.841952,24.0315921,49.7835552,22.7885113
+"Przemyśl, Poland","Cracow, Poland",Winter 1944-1945,"Train, Russian army trucks",Seeking safer and more stable living conditions,42450.txt,49.7835552,22.7885113,50.0469432,19.9971534
+"Cracow, Poland",Israel,1957,Not explicitly mentioned (likely ship or plane),Emigration to Israel,42450.txt,50.0469432,19.9971534,30.8124247,34.8594762
+Israel,United States,1968,Not explicitly mentioned (likely plane),"Initially planned temporary stay, eventually settled permanently",42450.txt,30.8124247,34.8594762,,
+"Copenhagen, Denmark","Vienna, Austria",Late 1920s,Not mentioned,Studied music with pianist Victor Schioler,43379.txt,55.6867243,12.5700724,48.2083537,16.3725042
+"Vienna, Austria","Berlin, Germany",Around 1930,Not mentioned,Continued music studies,43379.txt,48.2083537,16.3725042,52.510885,13.3989367
+"Copenhagen, Denmark","Berlin, Germany",Early 1930s,Night train,Monthly music studies,43379.txt,55.6867243,12.5700724,52.510885,13.3989367
+"Copenhagen, Denmark","Stockholm, Sweden",1939,Not mentioned,"Concerned about Nazi threat, arranged performance engagement",43379.txt,55.6867243,12.5700724,,
+"Stockholm, Sweden","Copenhagen, Denmark",Shortly after April 1940,Not mentioned,Briefly visited ill mother under disguise,43379.txt,,,55.6867243,12.5700724
+"Copenhagen, Denmark","Stockholm, Sweden",Shortly after April 1940,Not mentioned,Returned to continue performance engagement,43379.txt,55.6867243,12.5700724,,
+"Stockholm, Sweden","Helsinki, Finland",1940,Not mentioned,Traveling to board ship to America,43379.txt,,,60.1674881,24.9427473
+"Helsinki, Finland","Petsamo, Finland",1940,Airplane,To board the ship 'American Legion' to America,43379.txt,60.1674881,24.9427473,,
+"Petsamo, Finland","New York, United States",August 1940,Ship (American Legion),"Escaping Nazi threat, emigrating to America",43379.txt,,,,
+"New York, United States","Palm Beach, Florida, United States",Early 1940s,Train,Seeking performance opportunities,43379.txt,,,,
+"Palm Beach, Florida, United States","New York, United States",Early 1940s,Not mentioned,Returned after performances in Florida,43379.txt,,,,
+"New York, United States","California, United States",Early 1940s,Car,"Drove a friend's car to California, seeking opportunities",43379.txt,,,,
+United States,"Copenhagen, Denmark",1948,Ship and train,First return visit after WWII,43379.txt,,,55.6867243,12.5700724
+"Quakenbrück, Germany","Hamburg, Germany",Late 1938,Not mentioned,Sent by mother to Jewish orphanage in Hamburg after father's death and increasing persecution,43762.txt,52.6757127,7.9567402,53.550341,10.000654
+"Hamburg, Germany","London, England",18 July 1939,Train and boat (Kindertransport),Evacuation from Nazi Germany to safety in England,43762.txt,53.550341,10.000654,,
+"London, England","Hurstpierpoint, England",Late July 1939,Train,Placement with a foster family arranged by refugee committee,43762.txt,,,50.933463,-0.1781416
+"Hurstpierpoint, England","London, England",July 1940,Not mentioned,Apprenticeship in a dressmaking establishment,43762.txt,50.933463,-0.1781416,,
+"London, England","Oxford, England",Early 1941,Not mentioned,Moved to join sister and work in a dress shop,43762.txt,,,,
+"Oxford, England","Boars Hill, near Oxford, England",1941,Not mentioned,Employment at a residential nursery after health issues,43762.txt,,,,
+"Boars Hill, near Oxford, England","Ashford, Staines, England",1942,Not mentioned,Accepted for nurse training at Ashford County Hospital,43762.txt,,,,
+"Ashford, Staines, England","Bromsgrove, England",June 1946,Not mentioned,Moved after marriage to join husband who was working near Bromsgrove,43762.txt,,,52.3353816,-2.0597449
+"Bromsgrove, England","Pershore, Worcestershire, England",Late 1940s,Not mentioned,Husband's new job as area manager,43762.txt,52.3353816,-2.0597449,52.1096993,-2.0754758
+"Pershore, Worcestershire, England","Manchester, England",1950s,Not mentioned,"Family relocation, possibly related to husband's career",43762.txt,52.1096993,-2.0754758,53.4794892,-2.2451148
+"Manchester, England","Quakenbrück, Germany",Early 1950s,Train,Visit to family graves and hometown after the war,43762.txt,53.4794892,-2.2451148,52.6757127,7.9567402
+"Zamosc, Poland","Izbica, Poland",Late 1939,Buggy with horses,"Family fled Zamosc due to German invasion, seeking safety in father's hometown.",44859.txt,50.7212452,23.2595799,50.8927773,23.1587974
+"Izbica, Poland",Nearby woods,Late 1939,On foot,"Escaped heavy bombardment in Izbica, hiding in the woods.",44859.txt,50.8927773,23.1587974,,
+Woods near Izbica,"Izbica, Poland",Late 1939,On foot,"Returned after bombardment ceased, seeking family members.",44859.txt,,,50.8927773,23.1587974
+"Izbica, Poland","Zamosc, Poland",Late 1939,Buggy with horses,Returned home after temporary refuge in Izbica.,44859.txt,50.8927773,23.1587974,50.7212452,23.2595799
+"Zamosc, Poland","Wlodzimierz, Ukraine",End of 1939,Buggy with horses,Attempted to escape German occupation by crossing into Soviet-controlled territory.,44859.txt,50.7212452,23.2595799,50.8474669,24.319319
+"Wlodzimierz, Ukraine","Siberia, USSR",1940,Train (cattle cars),Deported by Soviet authorities after refusing Soviet citizenship.,44859.txt,50.8474669,24.319319,56.5086361,84.5184035
+"Siberia, USSR","Sverdlovsk, USSR",1942,Train (cattle cars),Transferred by Soviet authorities after release from Siberian imprisonment.,44859.txt,56.5086361,84.5184035,56.8400508,60.6347485
+"Sverdlovsk, USSR","Odessa, USSR",1942,Train (cattle cars),Further transfer by Soviet authorities.,44859.txt,56.8400508,60.6347485,,
+"Odessa, USSR","Kiev, USSR",1942,Train (cattle cars),Continued transfer by Soviet authorities.,44859.txt,,,50.4507554,30.5156729
+"Kiev, USSR","Uzbekistan, USSR",Late 1942,Train and on foot,Final relocation by Soviet authorities to Uzbekistan.,44859.txt,50.4507554,30.5156729,41.2820342,69.2125834
+Uzbekistan village (kolkhoz),"Andijan, Uzbekistan",1943,Not specified,"Moved to city after father's death, entered Polish foster home.",44859.txt,41.1388596,69.0298145,40.7833471,72.3506746
+"Andijan, Uzbekistan","Bielsko, Poland",1945 (after liberation),Train,Returned to Poland after liberation with Polish children's transport.,44859.txt,40.7833471,72.3506746,52.607327,15.9228416
+"Bielsko, Poland","Tarnów, Poland",1945-1946,Train,"Joined cousin Adela Blechman, preparing for emigration to Palestine.",44859.txt,52.607327,15.9228416,50.0123784,20.9880739
+"Tarnów, Poland","Antwerp, Belgium",1946,Not specified,Moved to secret location in Belgium to prepare for illegal immigration to Palestine.,44859.txt,50.0123784,20.9880739,51.2211097,4.3997081
+"Antwerp, Belgium","Marseille, France",Early 1947,On foot and possibly other land transport,Secretly traveled to board ship for Palestine.,44859.txt,51.2211097,4.3997081,43.2961743,5.3699525
+"Marseille, France","Near Tel Aviv, Palestine",Early 1947,Ship (Theodor Herzl),Attempted illegal immigration to Palestine.,44859.txt,43.2961743,5.3699525,,
+"Near Tel Aviv, Palestine","Haifa, Palestine",Early 1947,British ship,Captured by British authorities and taken to Haifa.,44859.txt,,,32.8184911,34.9988504
+"Haifa, Palestine",Cyprus,Early 1947,British ship,Interned by British authorities in Cyprus detention camp.,44859.txt,32.8184911,34.9988504,34.9174159,32.8899027
+Cyprus,Israel,December 1947,Ship,Allowed entry into Palestine (soon to be Israel) after internment.,44859.txt,34.9174159,32.8899027,30.8124247,34.8594762
+Israel,"New York, USA","August 28, 1955",Ship (Shalom),Joined husband Carl Reitzenstein in the United States.,44859.txt,30.8124247,34.8594762,40.7127281,-74.0060152
+Wysokie Litewskie,Hajnowka,Between 1939 and 1941,Not mentioned,"Family moved due to Russian occupation, father lost his position and home.",45233.txt,,,52.7317575,23.5712488
+Hajnowka,Pruzana,"Around September 4, 1941","Lorries for women and children, men on foot",Forced evacuation by German Gestapo.,45233.txt,52.7317575,23.5712488,52.5581924,24.456711
+Pruzana Ghetto,Narew,Shortly after September 1941,Horse-drawn wagon hidden under straw,Escape from the ghetto using false papers arranged by mother.,45233.txt,,,53.2262351,22.0692701
+Narew,Brest-Litovsk,Shortly after liberation by Russians in 1944 or early 1945,Not mentioned,Attempt to reclaim family home after liberation.,45233.txt,53.2262351,22.0692701,52.093751,23.6851851
+Brest-Litovsk,Lodz,Around June 1945 (on narrator's birthday),Cattle wagons,"Relocation to Lodz, a central gathering place for Jewish survivors after the war.",45233.txt,52.093751,23.6851851,51.7728245,19.4784857
+Lodz,New York,Early 1960,Not mentioned,Emigration due to disillusionment with political situation and mother's encouragement.,45233.txt,51.7728245,19.4784857,40.7127281,-74.0060152
+New York,Scotland,1965,Not mentioned,"Marriage to Scottish husband, Andrew Boddy.",45233.txt,40.7127281,-74.0060152,,
+"Kiev, Ukraine","Meldorf, Germany",May-June 1942,Train (boxcar),Forced deportation by Nazis during WWII,45714.txt,50.4500336,30.5241361,54.08988,9.070633
+"Meldorf, Germany","St. Petersburg (Frau Schwartz resort), Germany",Between 1942-1945,Train,Forced labor to assist wounded German soldiers,45714.txt,54.08988,9.070633,,
+"St. Petersburg (Frau Schwartz resort), Germany","Meldorf, Germany",Between 1942-1945,Train,Return to main concentration camp after temporary labor assignment,45714.txt,,,54.08988,9.070633
+"Meldorf, Germany","Neustadt, Germany",Between 1942-1945,Truck,Transferred to another labor camp,45714.txt,54.08988,9.070633,49.3539802,8.1350021
+"Neustadt, Germany","Meldorf, Germany",Between 1942-1945,Truck,Return to main concentration camp after temporary labor assignment,45714.txt,49.3539802,8.1350021,54.08988,9.070633
+"Meldorf, Germany","Bergedorf/Hamburg area, Germany",May 1945,American military trucks,Liberation by American and British forces,45714.txt,54.08988,9.070633,,
+Germany,"Ellis Island, New York, USA","May 19, 1950",Ship (General Howze),Immigration to the United States as a displaced person,45714.txt,,,40.6985935,-74.0420135
+"Ellis Island, New York, USA","Kentucky, USA",1950,Not explicitly mentioned,Assigned to work for sponsor picking tobacco worms,45714.txt,40.6985935,-74.0420135,37.5726028,-85.1551411
+"Kentucky, USA","Madison Heights, Michigan, USA",Late 1950 or early 1951,Not explicitly mentioned,Moved to Michigan for better employment opportunities,45714.txt,37.5726028,-85.1551411,42.4858692,-83.1052028
+"Madison Heights, Michigan, USA","Royal Oak, Michigan, USA",Not explicitly mentioned,Not explicitly mentioned,Relocation within Michigan after remarriage,45714.txt,42.4858692,-83.1052028,42.4894801,-83.1446485
+"Royal Oak, Michigan, USA","Comins, Michigan, USA",Not explicitly mentioned,Not explicitly mentioned,Later life relocation,45714.txt,42.4894801,-83.1446485,44.8058487,-84.0513917
+"Comins, Michigan, USA","Kiev, Ukraine",November 1991,Airplane,Reunion with brother after 50 years,45714.txt,44.8058487,-84.0513917,50.4500336,30.5241361
+"Kiev, Ukraine","Comins, Michigan, USA",Late 1991,Airplane,Return home after visiting brother,45714.txt,50.4500336,30.5241361,44.8058487,-84.0513917
+"Swinemünde, Pomerania","Greifswald, Eastern Germany",1945,,Family relocation after the war and parents' separation,46030.txt,53.9097477,14.2510703,,
+Greifswald,Holland,circa 1947,,Mother sent Konrad and two siblings to relatives due to difficulty managing seven children alone,46030.txt,54.095791,13.3815238,,
+Holland,"Berlin, Germany",late 1940s,,Mother established herself professionally in Berlin and called children back,46030.txt,,,52.510885,13.3989367
+Berlin,"Bavaria, Germany",1950s,,Attended boarding school for three years,46030.txt,,,48.9467562,11.4038717
+Bavaria,Berlin,late 1950s,,Returned to Berlin to complete high school,46030.txt,,,,
+Berlin,"Amsterdam, Holland",1963,,Continued university studies and worked at the Institute for War Documentation,46030.txt,,,52.3730796,4.8924534
+Amsterdam,Berlin,1965,,Returned to complete PhD,46030.txt,52.3730796,4.8924534,,
+Berlin,"Sydney, Australia",1976,,Accepted academic position at University of New South Wales,46030.txt,,,-33.8698439,151.2082848
+"Sydney, Australia","Oxford, England",circa 1979,,Spent one and a half years at St. Antony's College following divorce,46030.txt,-33.8698439,151.2082848,,
+"Oxford, England","Sydney, Australia",circa 1980-1981,,Returned to Australia after resolving marital issues,46030.txt,,,-33.8698439,151.2082848
+"Sydney, Australia","Heidelberg, Germany",mid-1980s,,Visiting professorship at Jewish high school in Heidelberg,46030.txt,-33.8698439,151.2082848,49.4093582,8.694724
+"Heidelberg, Germany","Sydney, Australia",1987,,Returned to Australia and began involvement with Special Investigations Unit (SIU),46030.txt,49.4093582,8.694724,-33.8698439,151.2082848
+"Sydney, Australia","Eastern Europe (various locations including Moscow, Prague, Riga)",late 1980s - early 1990s,,Conducted archival research for Australian War Crimes Commission,46030.txt,-33.8698439,151.2082848,,
+"Sydney, Australia","Washington D.C., USA",mid-1990s,,Research fellowship at the Holocaust Museum,46030.txt,-33.8698439,151.2082848,38.8950368,-77.0365427
+"Washington D.C., USA","Sydney, Australia",mid-1990s,,Returned to Australia after fellowship,46030.txt,38.8950368,-77.0365427,-33.8698439,151.2082848
+"Sydney, Australia","Frankfurt, Germany",late 1990s,,Visiting professorship teaching Jewish Studies,46030.txt,-33.8698439,151.2082848,50.1106444,8.6820917
+"Frankfurt, Germany","Sydney, Australia",late 1990s,,Returned to Australia after teaching in Frankfurt,46030.txt,50.1106444,8.6820917,-33.8698439,151.2082848
+"Sydney, Australia","Chicago, USA",late 1990s,,Expert witness in war crimes deportation trials,46030.txt,-33.8698439,151.2082848,41.8755616,-87.6244212
+"Sydney, Australia","Toronto, Canada",late 1990s,,Expert witness in war crimes deportation trials,46030.txt,-33.8698439,151.2082848,,
+"Sydney, Australia","Vancouver, Canada",1998,,Expert witness in war crimes deportation trial,46030.txt,-33.8698439,151.2082848,49.2608724,-123.113952
+"Polana, Czechoslovakia",School building in Polana,April 1944 (first day after Passover),Not specified,Rounded up by Hungarian authorities and held temporarily before deportation,46187.txt,,,,
+Polana,Svalava (Szolyva),April 1944,Possibly small train (used for wood transport),Deportation to ghetto,46187.txt,49.5514067,23.6826782,48.5460735,22.9895489
+Svalava (Szolyva),Munkacs (Mukacevo) ghetto,April 1944,Regular train,Deportation to ghetto,46187.txt,48.5460735,22.9895489,,
+Munkacs (Mukacevo) ghetto,Auschwitz concentration camp,May 1944,Boxcar train,Deportation to concentration camp,46187.txt,,,50.0389061,19.1712984
+Auschwitz concentration camp,Mauthausen concentration camp,May 1944 (around Shavuot),Boxcar train,Transferred to another concentration camp,46187.txt,50.0389061,19.1712984,,
+Mauthausen concentration camp,Melk labor camp,Summer 1944,Not specified (likely train),Transferred to forced labor camp,46187.txt,,,,
+Melk labor camp,Mauthausen concentration camp,Late March 1945,Not specified (likely train),Evacuation due to approaching Allied forces,46187.txt,,,,
+Mauthausen concentration camp,Gunskirchen concentration camp,April 1945,Forced march (on foot),Evacuation to avoid liberation by Soviet forces,46187.txt,,,,
+Gunskirchen concentration camp,Linz area (American-run displaced persons camp),May 1945 (after liberation),On foot,"Seeking food, shelter, and medical assistance after liberation",46187.txt,,,,
+Linz area (DP camp),"Plzen, Czechoslovakia",May-June 1945,Truck,Returning home after liberation,46187.txt,,,,
+"Plzen, Czechoslovakia","Budapest, Hungary",June 1945,"Train (interrupted by bombed bridges, partial walking)",Continuing journey home,46187.txt,,,47.4978789,19.0402383
+"Budapest, Hungary",Munkacs (Mukacevo),June 1945,Train,Continuing journey home,46187.txt,47.4978789,19.0402383,48.4294746,22.7116263
+Munkacs (Mukacevo),"Bilky, Czechoslovakia",June 1945,Not specified,"Heard his brother Mendel was there, went to reunite with him",46187.txt,48.4294746,22.7116263,,
+"Bilky, Czechoslovakia","Polana, Czechoslovakia",Summer 1945,Not specified,Brief visit to obtain birth certificate,46187.txt,,,,
+"Bilky, Czechoslovakia","Uzhorod, Czechoslovakia",Late summer 1945,Not specified,To obtain false passports and leave Soviet-controlled area,46187.txt,,,,
+"Uzhorod, Czechoslovakia","Bratislava, Czechoslovakia",Late summer 1945,Not specified,"Escaping Soviet-controlled area, heading towards Prague",46187.txt,,,,
+"Bratislava, Czechoslovakia","Prague, Czechoslovakia",Late summer 1945,Train,Reuniting with sister Cilia and other family members,46187.txt,,,,
+"Prague, Czechoslovakia","Karlovy Vary (Carlsbad), Czechoslovakia",Late 1945,Not specified,Living with sister Cilia and brother-in-law Fred Moss,46187.txt,,,,
+"Karlovy Vary, Czechoslovakia",Denmark,1946,Bus,Emigrating to the United States,46187.txt,,,55.670249,10.3333283
+Denmark,Sweden,1946,Not specified,Continuing journey to the United States,46187.txt,55.670249,10.3333283,59.6749712,14.5208584
+Sweden,"New York, USA",1946,Ship (Gripsholm),Immigrating to the United States,46187.txt,59.6749712,14.5208584,40.7127281,-74.0060152
+Sighet,Sighet Ghetto,April 1944,Walking,Forced relocation by Hungarian gendarmerie into the ghetto,46499.txt,47.9283242,23.8915583,,
+Sighet Ghetto,Sighet Synagogue,May 1944,Walking,Gathering point before deportation,46499.txt,,,,
+Sighet Synagogue,Auschwitz-Birkenau,"May 7, 1944",Train (cattle car),Deportation to concentration camp,46499.txt,,,50.0346203,19.1807846
+Auschwitz-Birkenau,Christianstadt (between Katowice and Cracow),Summer 1944 (around August),Train,Transferred to forced labor camp,46499.txt,50.0346203,19.1807846,,
+Christianstadt,Bergen-Belsen,December 1944 - March 1945,Walking (death march),Evacuation due to advancing Soviet forces,46499.txt,50.7663351,15.0627662,48.8601371,2.4001275
+Bergen-Belsen,DP hospital in Bergen-Belsen,April 1945,Unknown (likely carried or assisted),Hospitalization after liberation due to severe illness,46499.txt,48.8601371,2.4001275,,
+Bergen-Belsen DP hospital,DP camp in Bergen-Belsen,Mid-1945,Unknown,Recovery and relocation to DP camp,46499.txt,,,,
+Bergen-Belsen DP camp,Nuremberg,1945,Unknown,Reunited with husband and moved temporarily,46499.txt,,,49.453872,11.077298
+Nuremberg,Ulm DP camp,1946,Unknown,Moved to DP camp to prepare for emigration,46499.txt,49.453872,11.077298,,
+Ulm DP camp,"Rome, Italy",1946,Train,Accompanied groups of Jewish refugees for illegal immigration to Palestine,46499.txt,,,41.8933203,12.4829321
+"Rome, Italy",Ulm DP camp,1946,Train,Returned after delivering refugees,46499.txt,41.8933203,12.4829321,,
+Ulm DP camp,"Paris, France",1946,Train,Accompanied groups of Jewish refugees for illegal immigration to Palestine,46499.txt,,,,
+"Paris, France",Ulm DP camp,1946,Train,Returned after delivering refugees,46499.txt,,,,
+Ulm DP camp,Bremerhaven,Early 1947,Unknown (likely train),Departure point for emigration to the United States,46499.txt,,,53.5505392,8.5851945
+Bremerhaven,"New York, USA","February 7, 1947",Ship (Marine Perch),Emigration to the United States,46499.txt,53.5505392,8.5851945,40.7127281,-74.0060152
+New York,"Brooklyn, New York",February 1947,Unknown,Temporary stay upon arrival in the USA,46499.txt,40.7127281,-74.0060152,,
+"Brooklyn, New York","Cleveland, Ohio",1947,Unknown,Settled and raised family,46499.txt,,,41.4996574,-81.6936772
+"Cleveland, Ohio","Upper Nazareth, Israel",1982,Airplane,Remarriage and relocation to Israel,46499.txt,41.4996574,-81.6936772,32.7023065,35.3183216
+"Lututów, Poland","Serock, Poland",June 1939,Not mentioned,Drafted into the Polish army,46852.txt,51.3712494,18.4346007,52.5135193,21.0731162
+"Serock, Poland","Warsaw, Poland",September 1939,Walking,Fleeing German invasion during the war,46852.txt,52.5135193,21.0731162,,
+"Warsaw, Poland","Forests near Lublin, Poland",September 1939,"Walking, horse and wagon",Escaping German bombing and advancing troops,46852.txt,,,51.2281286,22.5375042
+"Forests near Lublin, Poland","Lodz, Poland",Late 1939,Walking,Returning home after the Polish defeat,46852.txt,51.2281286,22.5375042,51.7728245,19.4784857
+"Lodz, Poland","Lututów, Poland",January 1940,Not mentioned,Returning home to family,46852.txt,51.7728245,19.4784857,51.3712494,18.4346007
+"Lututów, Poland","Piotrków Trybunalski, Poland",Winter 1940,Not mentioned,Visiting father who had been imprisoned and then released to Piotrków,46852.txt,51.3712494,18.4346007,51.4082625,19.696167
+"Lututów, Poland","Wieluń, Poland",June 1942,Truck,Deportation from Lututów ghetto,46852.txt,51.3712494,18.4346007,,
+"Wieluń, Poland","Lodz Ghetto, Poland",August 1942,Not mentioned,Transferred to Lodz Ghetto after deportation,46852.txt,,,51.7899871,19.4603117
+"Lodz Ghetto, Poland","Auschwitz-Birkenau, Poland",July 1944,Train (cattle cars),Final deportation from Lodz Ghetto,46852.txt,51.7899871,19.4603117,50.0346203,19.1807846
+"Auschwitz-Birkenau, Poland","Siegmar-Schönau, Germany",Late summer 1944,Train,Sent to forced labor in airplane parts factory,46852.txt,50.0346203,19.1807846,50.8218544,12.8817304
+"Siegmar-Schönau, Germany","Chemnitz, Germany",Late 1944,Truck,"Factory bombed, transferred to another forced labor factory",46852.txt,50.8218544,12.8817304,50.8323531,12.918914
+"Chemnitz, Germany",Near Czechoslovakia (death march),March-April 1945,Walking (death march),Forced evacuation due to advancing Allied forces,46852.txt,50.8323531,12.918914,,
+Near Czechoslovakia,"Farm near Bratislava, Czechoslovakia","May 5, 1945",Walking,Liberation and seeking shelter after war ended,46852.txt,,,,
+"Farm near Bratislava, Czechoslovakia","Prague, Czechoslovakia",June 1945,"Horse and buggy, then walking and trucks",Seeking assistance from Red Cross after liberation,46852.txt,,,,
+"Prague, Czechoslovakia","Mauthausen, Austria",Summer 1945,"Walking, trucks",Reuniting with wife's mother and sisters,46852.txt,,,,
+"Mauthausen, Austria","Modena, Italy",Late 1945,Organized transport (Joint Distribution Committee),Relocation to displaced persons camp,46852.txt,,,44.5384728,10.9359609
+"Modena, Italy","United States (via Hoboken, New Jersey)","November 29, 1949",Ship,Immigration to the United States,46852.txt,44.5384728,10.9359609,,
+United States,"Lututów, Poland",1990,"Airplane, car",Visit hometown and memorialize family and experiences,46852.txt,,,51.3712494,18.4346007
+"Plock, Poland",Dzialdowo (Soldau) concentration camp,"February 28, 1941",Truck,Expulsion of Jews from Plock by German authorities,47180.txt,52.5464521,19.7008606,,
+Dzialdowo (Soldau) concentration camp,Skarzysko-Kamienna,Early March 1941,Passenger train,Transfer from concentration camp to General Government area,47180.txt,,,,
+Skarzysko-Kamienna,Bodzentyn,Early March 1941,Horse-drawn wagons,Relocation to a small town after arrival in General Government,47180.txt,,,50.9409927,20.9573478
+Bodzentyn,Skarzysko-Kamienna labor camp (HASAG factory),May 1942,Truck,Captured by German and Polish police and sent to forced labor,47180.txt,50.9409927,20.9573478,,
+Skarzysko-Kamienna labor camp (Division A),Skarzysko-Kamienna labor camp (Division B),Mid-1942,On foot,Volunteered as mechanic to escape harsh conditions in Division A,47180.txt,,,,
+Skarzysko-Kamienna labor camp,Tschenstochau labor camp,August 1944,Not explicitly mentioned,Transfer due to approaching Soviet forces,47180.txt,,,,
+Tschenstochau labor camp,"Radomsko, Poland","January 12, 1945",On foot,Escape from labor camp as Soviet forces approached,47180.txt,,,51.071061,19.4498464
+Radomsko,"Piotrkow, Poland",Mid-January 1945,On foot and partly by train,Journey back towards hometown after liberation,47180.txt,51.071061,19.4498464,,
+Piotrkow,"Lodz, Poland",Mid-January 1945,On foot and partly by train,Continuing journey back towards hometown,47180.txt,51.412854,19.6886837,51.7728245,19.4784857
+Lodz,"Plock, Poland","January 23, 1945",On foot and partly by train,Returning to hometown after liberation,47180.txt,51.7728245,19.4784857,52.5464521,19.7008606
+Plock,"Warsaw, Poland",1946,Not explicitly mentioned,Marriage to Charlotte Ziegler,47180.txt,52.5353471,19.7136301,,
+"Warsaw, Poland","Munich, Germany",1946,Not explicitly mentioned,Decision to leave Poland and study at Munich Institute of Technology,47180.txt,,,48.1371079,11.5753822
+"Munich, Germany","New Orleans, USA",February 1952,Ship (implied),Immigration to the United States,47180.txt,48.1371079,11.5753822,29.9759983,-90.0782127
+"New Orleans, USA","Los Angeles, California, USA",February 1952,Train,Joining family members and settling in California,47180.txt,29.9759983,-90.0782127,34.0536909,-118.242766
+"Utrecht, Holland","Scheveningen, Holland",Childhood (1920s-1930s),Train,Family vacation,47654.txt,52.0907006,5.1215634,52.1067449,4.2736937
+"Utrecht, Holland","Amsterdam, Holland",1930s,Train,Family visits to relatives,47654.txt,52.0907006,5.1215634,52.3730796,4.8924534
+"Utrecht, Holland","Amsterdam, Holland",1941-1942,Not mentioned,Moved to work as a student nurse at the Jewish hospital,47654.txt,52.0907006,5.1215634,52.3730796,4.8924534
+"Amsterdam, Holland","Haarlem, Holland",1943,Train,Went into hiding arranged by Reverend Ader,47654.txt,52.3730796,4.8924534,52.3885317,4.6388048
+"Haarlem, Holland","Nieuw-Vennep (near Schiphol Airport), Holland",1943,Train,Moved to a safer hiding place at the nursing home 'Friedewald',47654.txt,52.3885317,4.6388048,,
+"Nieuw-Vennep, Holland","Amstelveen, Holland","June 28, 1945",Not mentioned,Marriage to Don Zilversmit,47654.txt,,,52.3028209,4.8596844
+Holland,"Charleston, South Carolina, USA",December 1945,Army ship,Immigration to join husband Don in the United States,47654.txt,,,32.7884363,-79.9399309
+"Charleston, South Carolina, USA","San Francisco, California, USA",December 1945,Train,Traveling to reunite with husband Don,47654.txt,32.7884363,-79.9399309,,
+"Salonika, Greece","Athens, Greece","1943, after May 30",Train,Escaping German occupation in Salonika; Athens was under Italian control and safer for Italian citizens.,47902.txt,40.6543246,22.9314753,37.9755648,23.7348324
+Athens residence,"Haidari prison, Athens","March 25, 1944",Bus,Taken by Germans after being reported by locals; forced to join husband and family members.,47902.txt,37.9855123,23.7209488,,
+"Haidari prison, Athens","Bergen-Belsen concentration camp, Germany",Late March to April 1944,Cattle train,Deported by Germans; told they were going to Germany to live in houses and work.,47902.txt,,,,
+Bergen-Belsen concentration camp,Unknown destination (towards Auschwitz),April or May 1945,Cattle train,Transported by Germans as the Allies approached; intended destination was Auschwitz.,47902.txt,,,,
+Stopped train near Bergen-Belsen,"Hillersleben, Germany",May 1945,Unknown (likely by foot or Allied transport),Liberated by American soldiers; provided temporary housing after liberation.,47902.txt,,,52.2725686,11.493312
+"Hillersleben, Germany","Courbevoie, Paris, France",Mid-1945,Train (arranged by American forces),Seeking medical treatment for husband's severe illness.,47902.txt,52.2725686,11.493312,,
+"Paris, France","Salonika, Greece (via Marseille, Bari, Sicily, Athens)",Late 1945,Ship and train,Repatriation to Greece after the war.,47902.txt,,,,
+"Salonika, Greece","Syracuse, New York, USA",1951,Ship (likely),Immigration to the United States due to loss of property and difficult conditions in Greece.,47902.txt,40.6543246,22.9314753,43.0481221,-76.1474244
+"Syracuse, New York","Charlotte, North Carolina, USA",Unknown (before 1998),Unknown,Relocation within the United States; living in Charlotte at the time of the interview.,47902.txt,,,35.2272086,-80.8430827
+Danzig,"New York City, USA","June 3, 1939",Ship (SS Batory),Fleeing Nazi persecution,48189.txt,,,40.7127281,-74.0060152
+"New York City, USA","Chicago, USA",June 1939,Train,Joining family (aunt Sonia Rosenberg),48189.txt,40.7127281,-74.0060152,41.8755616,-87.6244212
+"Chicago, USA","St. Louis, Missouri, USA",After marriage (approximately late 1940s or early 1950s),Not mentioned,"Relocation after marriage to first husband, Elgie Richman",48189.txt,41.8755616,-87.6244212,,
+"St. Louis, Missouri, USA",Israel,1971,Not mentioned,Husband David Kovensky accepted a three-year engineering contract in Israel,48189.txt,,,30.8124247,34.8594762
+Israel,United States,1974,"Car (driving through Europe, including Germany)",End of husband's contract and family responsibilities in the US,48189.txt,30.8124247,34.8594762,,
+"Vienna, Austria",Greece (via Yugoslavia and Bulgaria),June 1938,Train,"Fleeing Nazi persecution, organized illegal transport to Palestine",48208.txt,48.2083537,16.3725042,,
+Greece,Palestine (via Mediterranean Sea),June-July 1938,"Ships (initially a decoy ship, then small fishing boats)",Continuation of illegal immigration journey to Palestine,48208.txt,38.9953683,21.9877132,,
+Palestine coast (near Binyamina),"Tel Aviv, Palestine",July 1938,Bus,Arrival and initial settlement in Palestine,48208.txt,,,32.0539873,34.75508
+"Tel Aviv, Palestine","Ra'anana, Palestine",July 1938,Not specified,Joining a kibbutz for agricultural work,48208.txt,32.0539873,34.75508,,
+"Ra'anana, Palestine","Kfar HaMaccabi, Palestine",Late 1938,Not specified,Joining main kibbutz affiliated with Maccabi Ha'Zaír,48208.txt,,,,
+"Kfar HaMaccabi, Palestine","Hadera, Palestine",Late 1938,Not specified,Establishing a new kibbutz with fellow youth group members,48208.txt,,,,
+"Hadera, Palestine","Jerusalem, Palestine",Late 1938 or early 1939,Not specified,Arranging immigration papers and visas for parents,48208.txt,,,33.61327,-87.855317
+"Jerusalem, Palestine","Kfar HaHoresh, Palestine",1939,Not specified,Joining kibbutz group relocated to Kfar HaHoresh,48208.txt,33.61327,-87.855317,,
+"Kfar HaHoresh, Palestine","Degania Alef, Palestine",1939-1940,Bus,Experiencing life in an established kibbutz,48208.txt,,,,
+"Degania Alef, Palestine",Various British Army camps in Sinai Peninsula and Gaza area,1940-1945,Not specified,Serving in British Royal Engineers during World War II,48208.txt,,,,
+Sinai Peninsula/Gaza area,"Tel Aviv, Palestine",1945,Not specified,Returning after World War II service,48208.txt,,,32.0539873,34.75508
+"Tel Aviv, Israel","Paris, France",1949,Not specified,Working as a journalist and assisting at the Israeli legation,48208.txt,32.0852997,34.7818064,,
+"Paris, France","New York, United States",May 1952,Ship,Immigrating to the United States after receiving a visa,48208.txt,,,,
+"Manhattan, New York","Demarest, New Jersey",1968,Not specified,Moving for better schooling opportunities for daughter,48208.txt,40.7896239,-73.9598939,40.9573205,-73.9634708
+"Demarest, New Jersey","Haworth, New Jersey",1981,Not specified,Relocating within New Jersey,48208.txt,40.9573205,-73.9634708,40.9609315,-73.9901383
+"Hechtsheim, Germany","Mainz, Germany",1935,Bicycle or walking,To attend apprenticeship as an upholsterer,48402.txt,,,49.9995205,8.2736253
+"Mainz, Germany","Karlsruhe, Germany",1937,Train,To work at a Jewish furniture manufacturer,48402.txt,49.9995205,8.2736253,49.0068705,8.4034195
+"Karlsruhe, Germany","Gurs, France",October 1940,Train,Deported by Nazis to internment camp,48402.txt,49.0068705,8.4034195,,
+"Gurs, France","Rivesaltes, France",1941,Not specified,Transferred to another internment camp,48402.txt,,,42.7683568,2.8709277
+"Rivesaltes, France","Brest, France",1941,Train (boxcar),Forced labor at submarine bunker construction,48402.txt,42.7683568,2.8709277,48.3905283,-4.4860088
+"Brest, France","Rivesaltes, France",1941,Train (boxcar),Returned after Jews were no longer allowed to work on German projects,48402.txt,48.3905283,-4.4860088,42.7683568,2.8709277
+"Rivesaltes, France","Les Milles, France",1941-1942,Not specified,Transferred to another internment camp,48402.txt,42.7683568,2.8709277,43.5036881,5.3873997
+"Les Milles, France","Bivert (near Gardane), France",Early 1942,Not specified,Forced labor in coal mines,48402.txt,43.5036881,5.3873997,,
+"Bivert, France","Marseille, France",1942,Walking and train,Escaped from coal mine labor camp,48402.txt,,,43.2961743,5.3699525
+"Marseille, France","Perpignan, France",1942,Train,Attempted to cross into Spain,48402.txt,43.2961743,5.3699525,42.6985304,2.8953121
+"Perpignan, France","Marseille, France",1942,Train,Returned after failing to cross into Spain,48402.txt,42.6985304,2.8953121,43.2961743,5.3699525
+"Marseille, France","Limoges, France",1942,Train,Seeking refuge with acquaintances,48402.txt,43.2961743,5.3699525,45.8354243,1.2644847
+"Limoges, France","Marseille, France",Late 1942,Train,Attempting to find safety after escaping again,48402.txt,45.8354243,1.2644847,43.2961743,5.3699525
+"Marseille, France","Annecy, France",Late 1942,Train,Attempting to cross into Switzerland,48402.txt,43.2961743,5.3699525,,
+"Annecy, France","Annemasse, France",Late 1942,Walking,Attempting to cross into Switzerland,48402.txt,,,46.1934005,6.2341093
+"Annemasse, France",Switzerland,October 1942,Walking (guided by Red Cross),Escaped into neutral Switzerland,48402.txt,46.1934005,6.2341093,46.7985624,8.2319736
+Switzerland,Holland,Early 1946,Airplane,Visiting surviving cousins after the war,48402.txt,46.7985624,8.2319736,,
+Holland,"Antwerp, Belgium",Early 1946,Train,Waiting for passage to the United States,48402.txt,,,51.2211097,4.3997081
+"Antwerp, Belgium","New Orleans, USA",Early 1946,Ship (banana boat),Immigrating to the United States,48402.txt,51.2211097,4.3997081,29.9759983,-90.0782127
+"New Orleans, USA","New York, USA",Early 1946,Train,Joining relatives in New York,48402.txt,29.9759983,-90.0782127,40.7127281,-74.0060152
+"New York, USA","Long Island, USA",After 1946,Not specified,Settling and starting family life,48402.txt,40.7127281,-74.0060152,,
+"Long Island, USA","Sevierville, Tennessee, USA",1996,Not specified,Moved closer to daughter Sherri,48402.txt,,,,
+Breslau,Berlin,1938,Not mentioned,Sent to Berlin to study cello due to lack of Jewish cello teachers in Breslau.,48608.txt,51.1263106,16.9781963,,
+Berlin,Breslau,November 1938 (after Kristallnacht),Not mentioned,Returned home after Kristallnacht and her cello teacher emigrated.,48608.txt,,,51.1263106,16.9781963
+Family apartment in Breslau,Aunt's apartment in Breslau,Around 1940,Not mentioned,Forced to leave their own apartment due to Nazi restrictions.,48608.txt,,,,
+Aunt's apartment in Breslau,Jewish orphanage in Breslau,Early 1940s,Not mentioned,Parents deported; Anita and her sister Renata placed under guardianship and moved to orphanage.,48608.txt,,,,
+Breslau,Attempted escape to Paris (unsuccessful),Early 1940s (during the war),Train,Attempted escape using forged papers; arrested at the station.,48608.txt,51.1263106,16.9781963,,
+Breslau prison,Auschwitz concentration camp,December 1943,Prison train,Deported after imprisonment for forgery and attempted escape.,48608.txt,,,50.0389061,19.1712984
+Auschwitz concentration camp,Bergen-Belsen concentration camp,November 1944,Cattle truck train,Transferred westward as the Soviet army advanced.,48608.txt,50.0389061,19.1712984,,
+Bergen-Belsen concentration camp,Bergen-Belsen displaced persons camp (former army barracks nearby),May 1945,Not mentioned,Moved after liberation by British forces; original camp burned down.,48608.txt,,,,
+Bergen-Belsen displaced persons camp,"London, England",March 1946,Not mentioned,Emigrated to join her elder sister Marianne after finally receiving permission from the British Home Office.,48608.txt,,,,
+"London, England","Paris, France",Late 1940s (after settling in England),Not mentioned,"Went on holiday to Paris, where she reconnected with her future husband, Peter Wallfisch.",48608.txt,,,,
+"London, England","Bergen-Belsen, Germany",Approximately 1990 (45 years after liberation),Not mentioned,"Returned to visit Bergen-Belsen for the first time since liberation, as part of a trip with her orchestra.",48608.txt,,,52.7580569,9.9117992
+"Topolcany, Czechoslovakia","Vienna, Austria",Summers during childhood (1920s-1930s),Not explicitly mentioned,Visiting father's family in Vienna,49918.txt,,,48.2083537,16.3725042
+"Topolcany, Czechoslovakia","Bratislava, Czechoslovakia",March 1942,Train,Deportation of young Jewish women,49918.txt,,,,
+"Bratislava, Czechoslovakia","Auschwitz, Poland",March 1942,Cattle car train,Deportation to concentration camp,49918.txt,,,50.0382443,19.2214053
+Auschwitz main camp,"Birkenau, Poland",Summer 1942,Walking,Transfer to harsher conditions after Hess's visit,49918.txt,,,,
+"Birkenau, Poland","Brzezinka (near Birkenau), Poland",Summer 1944,Not explicitly mentioned,Assigned as barber during Hungarian deportations,49918.txt,,,,
+"Auschwitz-Birkenau, Poland","Hindenburg, Germany",Around October 1944,Train,Evacuation from Auschwitz due to approaching Russian army,49918.txt,50.0346203,19.1807846,52.7533929,11.9288673
+"Hindenburg, Germany","Bergen-Belsen, Germany",January 1945,Death march (walking) followed by open train,Evacuation due to advancing Allied forces,49918.txt,52.7533929,11.9288673,52.7580569,9.9117992
+"Bergen-Belsen, Germany","Celle, Germany","After April 15, 1945",Not explicitly mentioned,Recuperation after liberation,49918.txt,52.7580569,9.9117992,,
+"Celle, Germany","Bratislava, Czechoslovakia",Summer 1945,Train,Returning home after liberation,49918.txt,,,,
+"Bratislava, Czechoslovakia","Topolcany, Czechoslovakia",Summer 1945,Train,Returning to hometown after liberation,49918.txt,,,,
+"Topolcany, Czechoslovakia","Prague, Czechoslovakia",Late 1945,Not explicitly mentioned,Seeking employment and new life after war,49918.txt,,,,
+"Prague, Czechoslovakia",United States,January 1947,Not explicitly mentioned (likely ship),Immigration to join relatives and start new life,49918.txt,,,,
+"Graz, Austria","Zagreb, Yugoslavia",Summer 1938,Not mentioned,Family fled Austria after the Anschluss to join mother's family in Yugoslavia.,49933.txt,47.0708678,15.4382786,,
+"Zagreb, Yugoslavia",Italian border (unsuccessful attempt),1939 or 1940,Walking,Family attempted to escape Yugoslavia to Italy but were caught by border patrol.,49933.txt,,,,
+"Zagreb, Yugoslavia",Ljubljana border area (unsuccessful attempt),1940 or 1941,Car (taxi),Another attempt to escape to Italy; mother fell out of the car and was injured.,49933.txt,,,,
+"Zagreb, Yugoslavia","Samobor, Yugoslavia",1940-1941,Not mentioned,Family was interned in Samobor area due to being Jewish.,49933.txt,,,,
+Yugoslavia,"Montecatini, Italy",Fall or Spring 1941,Not mentioned,"Family successfully escaped Yugoslavia with false papers, joining relatives already in Italy.",49933.txt,23.0412366,-81.5261419,37.1112121,13.9343705
+"Montecatini, Italy","Femmina Morta, Italy",Summer 1942,Not mentioned,Forced to leave Montecatini due to local authorities needing housing for tourists.,49933.txt,37.1112121,13.9343705,44.1750131,10.533336
+"Femmina Morta, Italy","Quarrata, Italy",1942,Not mentioned,Family moved again due to housing needs; found shelter in Quarrata through help from local landowner Lenzi.,49933.txt,44.1750131,10.533336,43.8475005,10.9777009
+"Quarrata (villa), Italy",Farmhouse in hills near Quarrata,September 1943,Walking,Germans approaching; family fled to farmhouse arranged by Lenzi.,49933.txt,43.8883234,10.7016036,,
+Farmhouse near Quarrata,"Buco (small stone house), hills near Quarrata",Late 1943,Walking,Family moved again due to safety concerns and bombing in the area.,49933.txt,,,,
+"Buco, hills near Quarrata","Guidotti family farmhouse, hills near Quarrata",Late 1943 or early 1944,Walking,Family moved to deeper hiding due to increased German patrols.,49933.txt,,,,
+Guidotti farmhouse,"Bardi family farmhouse, hills near Quarrata",April 1944,Walking,Family moved again due to suspicion and denunciation risk at previous location.,49933.txt,,,,
+Bardi farmhouse,Allied encampment near Quarrata,September 1944,Jeep,Liberated by Allied soldiers.,49933.txt,,,,
+Allied encampment near Quarrata,Villa in Quarrata,September 1944,Not mentioned,"Returned to villa previously occupied, now used by Allies.",49933.txt,,,,
+"Quarrata, Italy","Florence, Italy",Late 1944,Not mentioned,Family moved to Florence to rebuild life after liberation.,49933.txt,43.8475005,10.9777009,43.7697955,11.2556404
+"Florence, Italy","Miazzina, Italy",1945-1946,Not mentioned,Father hospitalized with tuberculosis; family moved to be near him.,49933.txt,43.7697955,11.2556404,45.976377,8.522223
+"Miazzina, Italy","Merano, Italy",1947,Not mentioned,Father transferred to another sanatorium; family followed.,49933.txt,45.976377,8.522223,46.6695547,11.1594185
+"Merano, Italy","Florence, Italy",Late 1948,Not mentioned,"After father's death, family returned to Florence.",49933.txt,46.6695547,11.1594185,43.7697955,11.2556404
+"Florence, Italy","Bagnoli DP camp near Naples, Italy",1949-1950,Train,Processing for immigration to the United States.,49933.txt,43.7697955,11.2556404,,
+"Bagnoli DP camp, Italy","Bremerhaven DP camp, Germany",1951,Train,Final processing before embarking to the United States.,49933.txt,,,,
+"Bremerhaven, Germany","New York, United States",March 1951,Ship (Captain Muir),Immigration to the United States.,49933.txt,53.5505392,8.5851945,,
+"New York, United States","Los Angeles, California, United States",1951,Not mentioned,Moved to join relatives and settle permanently.,49933.txt,,,,
+"Karlsruhe, Germany",England,1937,,Sent by parents to continue education after being expelled from German public school due to antisemitic policies.,50199.txt,49.0068705,8.4034195,52.5310214,-1.2649062
+England,"Karlsruhe, Germany",June 1938,,Returned home at father's request to prepare for emigration to America.,50199.txt,52.5310214,-1.2649062,49.0068705,8.4034195
+"Karlsruhe, Germany","New York, USA",August 1938,Ship (Nieuw Amsterdam),Family emigrated to escape Nazi persecution.,50199.txt,49.0068705,8.4034195,40.7127281,-74.0060152
+"New York, USA","San Francisco, USA",October 1938,"Ship (Panama Pacific Line, City of Newport News)",Family moved to settle permanently in San Francisco.,50199.txt,40.7127281,-74.0060152,37.7792588,-122.4193286
+"San Francisco, USA","Washington, D.C., USA",circa 1945,Train,Transferred by Office of War Information to their Washington bureau.,50199.txt,37.7792588,-122.4193286,,
+"Washington, D.C., USA","Nuremberg, Germany",Late September or October 1945,,Accepted position as interpreter at the Nuremberg Trials.,50199.txt,,,49.453872,11.077298
+"Nuremberg, Germany","Karlsruhe, Germany",1946,,Visited hometown and encountered former classmates after the war.,50199.txt,49.453872,11.077298,49.0068705,8.4034195
+"Nuremberg, Germany","Salzburg, Austria",1946,,Attended the first postwar Salzburg music festival.,50199.txt,49.453872,11.077298,47.7981346,13.0464806
+"Nuremberg, Germany","New York, USA",Late 1946,Troop ship,Returned to the United States after completion of the Nuremberg Trials.,50199.txt,49.453872,11.077298,40.7127281,-74.0060152
+"San Francisco, USA","Rome and Milan, Italy",circa early 1950s,,Accompanied husband on a professional assignment studying the metal mechanical industry.,50199.txt,37.7792588,-122.4193286,,
+"San Francisco, USA",Philippines,1979,,Assigned by the Asia Foundation to work on democratization and civil society projects.,50199.txt,37.7792588,-122.4193286,12.7503486,122.7312101
+Philippines,Taiwan,circa late 1980s,,Assigned by the Asia Foundation to support democratization efforts in Taiwan.,50199.txt,12.7503486,122.7312101,23.5983227,120.8353769
+"San Francisco, USA",Benin,circa mid-1990s,Airplane,Participated as an election observer.,50199.txt,37.7792588,-122.4193286,9.5293472,2.2584408
+"San Francisco, USA","Sarajevo, Bosnia",circa late 1990s,,"Visited daughter Sandy, who was working with the International Crisis Group.",50199.txt,37.7792588,-122.4193286,43.8519774,18.3866868
+"Berlin, Germany",Switzerland,Annually during childhood (late 1920s - early 1930s),,Family vacations and skiing trips,50642.txt,52.510885,13.3989367,46.7985624,8.2319736
+"Berlin, Germany",Denmark,Annually during childhood (late 1920s - early 1930s),,Family vacations,50642.txt,52.510885,13.3989367,55.670249,10.3333283
+"Berlin, Germany",France,Annually during childhood (late 1920s - early 1930s),,Family vacations,50642.txt,52.510885,13.3989367,46.603354,1.8883335
+"Berlin, Germany",Tatra Mountains,Winter during childhood (late 1920s - early 1930s),,Family skiing trips,50642.txt,52.510885,13.3989367,,
+"Berlin, Germany","Gliwice, Silesia",Regular visits during childhood,,Visiting maternal grandparents,50642.txt,52.510885,13.3989367,50.3011314,18.6623472
+"Berlin, Germany",Dornbirn (near Swiss border),Early 1943,Train,Resistance mission to deliver technical drawings to Switzerland,50642.txt,52.510885,13.3989367,,
+Dornbirn,Ludwigshafen prison,"February 5, 1943",Train,Transferred after arrest by Gestapo,50642.txt,,,,
+Ludwigshafen prison,"Moabit prison, Berlin",Early 1943,Prison transport trains,Transferred through multiple prisons back to Berlin,50642.txt,,,,
+"Moabit prison, Berlin","Gestapo headquarters, Berlin",Early 1943,Taxi (forced by Gestapo),Re-arrested by Gestapo after brief release,50642.txt,,,,
+"Berlin, Germany",Auschwitz-Birkenau concentration camp,"April 20-23, 1943",Cattle train,Deportation by Nazis,50642.txt,52.510885,13.3989367,50.0389061,19.1712984
+Auschwitz-Birkenau,Auschwitz main camp (staff quarters),Late 1944,,Transferred to work in SS staff quarters,50642.txt,50.0346203,19.1807846,,
+Auschwitz,"Mecklenburg, Germany",Late January 1945,"Death march, then train, then walking",Escaped from death march and sought refuge,50642.txt,50.0382443,19.2214053,53.7448113,11.7950982
+"Mecklenburg, Germany","Berlin, Germany",Late January 1945,Train,Returning to Berlin after liberation,50642.txt,53.7448113,11.7950982,52.510885,13.3989367
+"Berlin, Germany","Mecklenburg, Germany","January 29, 1945",,Seeking refuge from bombing in Berlin,50642.txt,52.510885,13.3989367,53.7448113,11.7950982
+"Mecklenburg, Germany",Western Germany (British-controlled area),"After May 5, 1945",,Working for British Control Commission after liberation,50642.txt,53.7448113,11.7950982,,
+Germany,"Glasgow, Scotland",1947,,Married Ross Brewster and moved to his family home,50642.txt,,,55.861155,-4.2501687
+"Glasgow, Scotland","Kent, England",Late 1940s,,Working as a physiotherapist,50642.txt,55.861155,-4.2501687,51.2070748,0.7210362
+"Kent, England","Devon, England",Early 1950s,,Husband's veterinary practice,50642.txt,51.2070748,0.7210362,50.7241405,-3.6607788
+"Devon, England",Nigeria,1953,,Husband's veterinary posting,50642.txt,50.7241405,-3.6607788,9.6000359,7.9999721
+Nigeria,Cameroon,Late 1950s,,Husband's veterinary posting,50642.txt,9.6000359,7.9999721,4.6125522,13.1535811
+Cameroon,England,1962,,Returning to England for children's education,50642.txt,4.6125522,13.1535811,52.5310214,-1.2649062
+England,"Edmonton, Canada",1969,,Husband recruited by Canadian government,50642.txt,52.5310214,-1.2649062,,
+"Edmonton, Canada","Coutts, Alberta, Canada",After 1969,,Husband's veterinary posting,50642.txt,,,49.0017307,-111.9638892
+"Nyírmada, Hungary","Kisvárda, Hungary",March-April 1944,Train (cattle cars),Forced relocation to the ghetto,50849.txt,48.067926,22.1877049,48.2257593,22.0784247
+"Kisvárda, Hungary","Auschwitz, Poland",April-May 1944,Train (cattle cars),Deportation to concentration camp,50849.txt,48.2257593,22.0784247,50.0382443,19.2214053
+"Auschwitz, Poland","Taucha (near Leipzig), Germany",January-February 1945,Train (cattle cars),Transferred to forced labor at Krupp munitions factory,50849.txt,50.0382443,19.2214053,,
+"Taucha, Germany",Unknown location near Prague,April-May 1945,Walking (death march),Forced evacuation due to approaching Allied forces,50849.txt,51.3799905,12.4936336,,
+Unknown location near Prague,"Prague, Czechoslovakia",May 1945,Russian military jeep,Liberation and taken to Red Cross facility,50849.txt,,,,
+"Prague, Czechoslovakia","Nyírmada, Hungary",1945,Not specified,Returning home after liberation,50849.txt,,,48.067926,22.1877049
+"Nyírmada, Hungary","Munich, Germany",1947,Not specified,Leaving Hungary to join aunt and prepare for emigration,50849.txt,48.067926,22.1877049,48.1371079,11.5753822
+"Munich, Germany","Boston, United States",December 1949,Ship (General Muir),Immigration to the United States,50849.txt,48.1371079,11.5753822,42.3554334,-71.060511
+"Boston, United States","Woodbury, Connecticut, United States",December 1949,Not specified,Joining cousin who sponsored her immigration,50849.txt,42.3554334,-71.060511,41.5445404,-73.2090025
+"Woodbury, Connecticut, United States","New York City, United States",Early 1950,Not specified,Moving to New York City to find work and settle permanently,50849.txt,41.5445404,-73.2090025,40.7127281,-74.0060152
+Nagyvarad,Marghita,"During school holidays, starting around age 7",Train,Visiting maternal grandparents,51024.txt,47.0549163,21.9285231,47.34662,22.3414987
+Nagyvarad,Local ghetto in Nagyvarad,Summer 1944,Walking,Forced relocation by Hungarian soldiers and authorities,51024.txt,47.0549163,21.9285231,,
+Nagyvarad ghetto,Auschwitz,Late 1944,Train (cattle cars),Deportation by German soldiers,51024.txt,,,50.0382443,19.2214053
+Auschwitz,Weisswasser (forced labor camp),Late 1944 or early 1945,Train,Selected for forced labor in a factory,51024.txt,50.0382443,19.2214053,,
+Weisswasser,Bergen-Belsen,Spring 1945,Walking (death march),Evacuation due to approaching Allied forces,51024.txt,50.5014795,14.8041263,48.8601371,2.4001275
+Bergen-Belsen,Hospital in Bergen,April 1945,Unknown (likely ambulance or military transport),Liberation by Allied forces and hospitalization due to severe illness,51024.txt,48.8601371,2.4001275,,
+Bergen hospital,"Malmö, Sweden",1945,Red Cross transport (likely ship),Medical care and rehabilitation after liberation,51024.txt,51.4864952,4.3146583,,
+"Malmö, Sweden","Göteborg, Sweden",Approximately 1946,Unknown,Transferred to a school for child survivors,51024.txt,,,57.7072326,11.9670171
+"Göteborg, Sweden","Bordeaux, France",Approximately 1946-1947,Unknown (likely train or ship),Preparation for immigration to Israel,51024.txt,57.7072326,11.9670171,44.841225,-0.5800364
+"Bordeaux, France","Marseille, France",1947,Train,Traveling to port city for immigration to Israel,51024.txt,44.841225,-0.5800364,43.2961743,5.3699525
+"Marseille, France",Israel,1947,Ship,Immigration to Israel (Aliyah),51024.txt,43.2961743,5.3699525,30.8124247,34.8594762
+Immigrant camp in Israel,"Kibbutz Afikim, Israel",1947,Unknown,Settlement and education in Israel,51024.txt,,,32.093311,34.96999
+"Kibbutz Afikim, Israel","Kibbutz Hatzerim, Israel",End of 1947,Unknown,Establishment of new kibbutz settlement,51024.txt,32.093311,34.96999,,
+Israel,"Cape Town, South Africa",Around 1950,Unknown (likely ship or airplane),To meet husband's family and eventually settle,51024.txt,30.8124247,34.8594762,,
+"Cape Town, South Africa","Johannesburg, South Africa",1960,Unknown,Relocation for husband's employment,51024.txt,,,-26.205,28.049722
+Berbesti,Grandmother's house (unspecified town),Around 1932 (age 4),Sled with horses,Taken by aunt after brother's girlfriend's death; stayed for two years,51559.txt,44.9888658,23.8686348,,
+Grandmother's house,Berbesti,Around 1934 (age 6),Unspecified,Returned home to start school,51559.txt,16.848993,96.1799398,44.9888658,23.8686348
+Berbesti,Sighet,May 1944,Walking and horse-drawn wagons,Forced relocation to Sighet ghetto,51559.txt,44.9888658,23.8686348,47.9283242,23.8915583
+Sighet,Auschwitz-Birkenau,"May 1944 (arrived May 21, 1944)",Train (cattle cars),Deportation to concentration camp,51559.txt,47.9283242,23.8915583,50.0346203,19.1807846
+Auschwitz-Birkenau,Breslau-Hundsfeld (subcamp of Gross-Rosen),July 1944 (after 8 weeks in Auschwitz),Train,Selected for forced labor in ammunition factory (Krupp factory),51559.txt,50.0346203,19.1807846,,
+Breslau-Hundsfeld,Gross-Rosen,January 1945,Forced march (death march),Evacuation due to approaching Russian army,51559.txt,,,50.9983479,16.2749658
+Gross-Rosen,Mauthausen,February 1945,Open train wagons,Further evacuation as Allies advanced,51559.txt,50.9983479,16.2749658,48.2404063,14.5162667
+Mauthausen,Bergen-Belsen,February/March 1945,Regular train (overcrowded),Continued evacuation and relocation,51559.txt,48.2404063,14.5162667,48.8601371,2.4001275
+Bergen-Belsen,"Berbesti, Romania",October 1945,Unspecified,Returning home after liberation,51559.txt,48.8601371,2.4001275,44.9888658,23.8686348
+"Berbesti, Romania",Austria,Around 1947,Unspecified,"Left Romania after two years, seeking better life",51559.txt,44.9888658,23.8686348,47.59397,14.12456
+Austria,Israel,Around 1949,Unspecified,Immigrated to Israel,51559.txt,47.59397,14.12456,30.8124247,34.8594762
+Israel,United States,Around 1957,Unspecified,"Moved to America, eventually married and settled",51559.txt,30.8124247,34.8594762,,
+Izbica,Łódź,Childhood (1920s-1930s),Bus,School trip,51694.txt,,,,
+Izbica,Various nearby towns,1941,Horse and buggy,Fleeing persecution after being hidden by Hans Krantz,51694.txt,,,,
+Various towns,Międzyrzec Podlaski Ghetto,1941-1942,Not specified,Seeking refuge from persecution,51694.txt,9.9903769,105.1033268,,
+Międzyrzec Podlaski Ghetto,Podlasie Forest (Partisans),1942-1943,Walking,Escaping ghetto to join partisan resistance,51694.txt,,,,
+Podlasie Forest,Parczew,December 1943,Walking (captured by Germans),Captured by Germans while fetching water,51694.txt,,,51.639,22.9
+Parczew (Police Station),Podlasie Forest (return to partisans),December 1943,Walking (escaped captivity),Escaped German captivity and returned to partisan group,51694.txt,,,,
+Podlasie Forest,Makoszka village area,1944,Walking,Relocated by partisan group after injury and husband's death,51694.txt,,,,
+Makoszka area,Lublin,Spring 1944,Walking,"Liberation by Russian army, seeking refuge and assistance",51694.txt,,,51.250559,22.5701022
+Lublin,Izbica,1945,Train,Returning home after liberation,51694.txt,51.250559,22.5701022,,
+Izbica,Łódź,1945,Not specified,Fleeing antisemitic threats after returning home,51694.txt,,,,
+Łódź,"Munich, Germany",1945-1946,Truck provided by American authorities,Seeking safety and joining relatives after war,51694.txt,,,48.1371079,11.5753822
+"Munich, Germany","Los Angeles, USA",1948,Ship,Immigration sponsored by cousin in Los Angeles,51694.txt,48.1371079,11.5753822,34.0536909,-118.242766
+Los Angeles,"Arcadia, California",Late 1940s,Not specified,Moved to start chicken ranch business,51694.txt,34.0536909,-118.242766,34.1362075,-118.0401497
+"Poznan, Poland","Oberreichenbach, Germany",May 1940,train and truck,Captured by Nazi Stormtroopers and sent for forced labor on a farm,51743.txt,52.4006632,16.9197326,49.58994,10.7698859
+"Oberreichenbach, Germany","Unter-Sorg by Alsfeld, Germany",1940,unknown,Transferred to another farm after being caught escaping from the first farm,51743.txt,49.58994,10.7698859,,
+"Unter-Sorg by Alsfeld, Germany","Giessen, Germany",around 1942,train,Arrested by Gestapo for spreading anti-German propaganda,51743.txt,,,50.5808795,8.6938161
+"Giessen, Germany","Buchenwald concentration camp, near Weimar, Germany",around 1942,train and truck,Transferred to concentration camp after imprisonment and interrogation,51743.txt,50.5808795,8.6938161,,
+Buchenwald concentration camp,"Ellrich Nordhausen concentration camp, Germany",around 1943-1944,train,Transferred to work in tunnels for V1 and V2 rocket production,51743.txt,51.0235423,11.2522682,,
+Ellrich Nordhausen concentration camp,"Bergen-Belsen concentration camp, Germany",April 1945,train (death train),Evacuated by Nazis as Allies approached,51743.txt,,,,
+Bergen-Belsen concentration camp,"Displaced Persons camp near Dusseldorf, Germany",1945-1946,unknown,Liberated by British forces and moved to DP camp,51743.txt,,,,
+"Dusseldorf, Germany",England,1948,unknown,Moved as a displaced person seeking new life opportunities,51743.txt,51.2254018,6.7763137,52.5310214,-1.2649062
+England,"New York, United States",1952,ship (Queen Mary),Immigrated to the United States sponsored by Catholic organization,51743.txt,52.5310214,-1.2649062,,
+"New York, United States","Hampton, New Hampshire, United States",1952,car,Moved to live and work with the Weber family who offered him employment and housing,51743.txt,,,42.9417199,-70.8378746
+"Hampton, New Hampshire","Lawrence, Massachusetts, United States",1950s,unknown,Moved for employment opportunities and eventually married and settled,51743.txt,,,,
+"Lawrence, Massachusetts","Dummer, New Hampshire, United States",around 1970s-1980s,unknown,Purchased land and built a home after receiving compensation from the German government,51743.txt,,,44.6107948,-71.2007508
+"Zywiec, Poland","Stanislawów, Poland",1939,Horse and wagon,Fleeing German invasion and bombing,51747.txt,49.6890338,19.20305,52.291113,21.5491157
+"Stanislawów, Poland",Nearby village (grandmother's home),Before ghetto formation (~1941),Not mentioned,Sent by parents for safety,51747.txt,52.291113,21.5491157,,
+Nearby village (grandmother's home),"Stanislawów, Poland",After Yom Kippur massacre (~1941),On foot,"Escaped massacre, returned to parents",51747.txt,,,52.291113,21.5491157
+Stanislawów Ghetto,"Warsaw, Poland",Late 1942,Not mentioned,Escaped ghetto with false identity papers,51747.txt,48.922573,24.7061251,,
+"Warsaw, Poland","Dresden, Germany",After brother's arrest (~1943),Train,Fled after Gestapo came looking for her; sent by Dr. Fink to a friend in Dresden,51747.txt,,,51.0493286,13.7381437
+"Dresden, Germany","Wiesbaden, Germany",Early 1945,Train,Fled Dresden as war was ending to reunite with mother,51747.txt,51.0493286,13.7381437,,
+"Wiesbaden, Germany","Bremerhaven, Germany",May 1946,Not mentioned,Travelled to port city to board ship to America,51747.txt,,,53.5505392,8.5851945
+"Bremerhaven, Germany","New York City, USA","May 20, 1946",Ship (Marine Flasher),Immigration to America after liberation,51747.txt,53.5505392,8.5851945,40.7127281,-74.0060152
+"Paris, France","Angouleme, France",June 1940,train,Fleeing German invasion of Paris,51762.txt,,,45.6484505,0.1561947
+"Angouleme, France","Jarnac, France",Summer 1940,unknown,Seeking temporary refuge after fleeing Paris,51762.txt,45.6484505,0.1561947,,
+"Jarnac, France","Paris, France",Late Summer/Early Fall 1940,unknown,Encouraged by authorities to return home after initial German occupation,51762.txt,,,,
+"Paris, France",Farmhouse near Paris,Summer 1942,car,Hiding from German roundups (Vel' d'Hiv roundup),51762.txt,,,,
+Farmhouse near Paris,"Paris, France",Late Summer 1942,car,Returning briefly to Paris to prepare for escape to free zone,51762.txt,,,,
+"Paris, France","Vierzon, France",Late Summer 1942,train,Traveling towards the free zone to escape German occupation,51762.txt,,,47.2217489,2.0691421
+"Vierzon, France",Free Zone (near Vierzon),Late Summer 1942,walking,Crossing clandestinely into the free zone to escape German occupation,51762.txt,47.2217489,2.0691421,,
+Free Zone (near Vierzon),"Sardent, France",Late Summer 1942,unknown,Joining relatives who had established themselves in Sardent,51762.txt,,,46.0513851,1.8559426
+"Sardent, France","Villevegoux, France",Late 1942,unknown,Settling in a rented farmhouse to live inconspicuously,51762.txt,46.0513851,1.8559426,46.0219089,1.8645969
+"Villevegoux, France","Guéret, France",Late 1942,unknown,Attending school in Guéret,51762.txt,46.0219089,1.8645969,,
+"Guéret, France","Sardent, France",1943,bus or similar,Fleeing after being threatened by French militia,51762.txt,,,46.0513851,1.8559426
+"Sardent, France","Paris, France",Late 1944,unknown,Returning home after liberation,51762.txt,46.0513851,1.8559426,,
+"Paris, France","Cherbourg, France",August 1948,train,Departing France to emigrate to the United States,51762.txt,,,49.5127198,-1.5755441
+"Cherbourg, France","New York, USA",August 1948,ship (Queen Mary),Emigrating to join maternal family in the United States,51762.txt,49.5127198,-1.5755441,40.7127281,-74.0060152
+"New York, USA","Boston, USA",August 1948,car,Joining relatives who lived in Boston,51762.txt,40.7127281,-74.0060152,42.3554334,-71.060511
+"Vienna, Austria","Brussels, Belgium",April 1939,Train,"Fleeing Nazi persecution, traveling with brother Ludwig to meet their aunt Minna who had already emigrated.",52091.txt,48.2083537,16.3725042,50.8465573,4.351697
+"Brussels, Belgium","Antwerp, Belgium",April 1939,Not explicitly mentioned,To board the ship to America.,52091.txt,50.8465573,4.351697,51.2211097,4.3997081
+"Antwerp, Belgium","Hoboken, New Jersey, USA",April 1939,Ship (SS Gerolstein),Emigration to the United States as Jewish refugees.,52091.txt,51.2211097,4.3997081,40.7433066,-74.0323752
+"Hoboken, New Jersey, USA","Brooklyn, New York, USA",April 1939,Not explicitly mentioned,To live with grandparents and uncle after arriving in the United States.,52091.txt,40.7433066,-74.0323752,40.6526006,-73.9497211
+"Brooklyn, New York, USA","Cambridge, Massachusetts, USA",1948,Not explicitly mentioned,To attend Harvard University.,52091.txt,40.6526006,-73.9497211,42.3656347,-71.1040018
+"Cambridge, Massachusetts, USA","New York City, New York, USA",1952,Not explicitly mentioned,To attend medical school at NYU.,52091.txt,42.3656347,-71.1040018,40.7127281,-74.0060152
+"New York City, New York, USA","Bethesda, Maryland, USA",1956,Not explicitly mentioned,To work at the National Institutes of Health (NIH).,52091.txt,40.7127281,-74.0060152,38.9812725,-77.1233587
+"Bethesda, Maryland, USA","Paris, France",Around 1962,Not explicitly mentioned,To work with Ladislav Tauc on the snail Aplysia.,52091.txt,38.9812725,-77.1233587,,
+"Paris, France","Boston, Massachusetts, USA",Around 1963-1964,Not explicitly mentioned,To complete residency training and continue research at Harvard.,52091.txt,,,42.3554334,-71.060511
+"Boston, Massachusetts, USA","New York City, New York, USA",1974,Not explicitly mentioned,To join Columbia University faculty.,52091.txt,42.3554334,-71.060511,40.7127281,-74.0060152
+"New York City, New York, USA","Stockholm, Sweden",December 2000,Not explicitly mentioned,To receive the Nobel Prize in Physiology or Medicine.,52091.txt,40.7127281,-74.0060152,,
+Korzec,Bogdanówka,Fall 1942 (around Rosh Hashanah/Yom Kippur),Walking,Escaping the ghetto after being warned of an impending Aktion; mother had arranged hiding place with a Ukrainian woman.,52105.txt,50.9627778,15.61,,
+Bogdanówka,Tudorów,Fall 1942 (approximately two weeks after arrival in Bogdanówka),Walking,Forced to leave hiding place after the woman informed them of killings in Korzec; sought work and shelter elsewhere.,52105.txt,,,50.5894333,26.7886488
+Tudorów,Korzec,Spring 1944 (around Passover),Russian military jeep,Returning to hometown after liberation by Russian forces to search for surviving family members.,52105.txt,50.5894333,26.7886488,50.9627778,15.61
+Korzec,Waldenburg,Post-1944 (after approximately one year in Korzec),Not specified,Left Korzec after registering as a survivor; moved to a kibbutz in Waldenburg.,52105.txt,50.9627778,15.61,48.7503918,7.1965445
+Waldenburg,Wasseralfingen,Post-1945 (after a few months in Waldenburg),Not specified,Relocated from kibbutz to a displaced persons camp.,52105.txt,48.7503918,7.1965445,48.8653366,10.1047551
+Wasseralfingen,"New York (Ellis Island), USA",1949,Ship (General Sturgis),Immigrated to the United States sponsored by husband's uncle.,52105.txt,48.8653366,10.1047551,,
+"New York (Ellis Island), USA","Detroit, Michigan, USA",1949,Not specified,Moved to Detroit to live with husband's uncle and start a new life.,52105.txt,,,42.3315509,-83.0466403
+"Cracow, Poland","Warsaw, Poland",1930s,Train,Attending private school outside Warsaw,55698.txt,50.0469432,19.9971534,,
+"Warsaw, Poland","Cracow, Poland",1930s,Train,Returned home after deciding not to stay at school,55698.txt,,,50.0469432,19.9971534
+"Cracow, Poland","Lwow, Poland",September 1939,Bus or hired car,Fleeing Cracow with father to avoid forced labor after German invasion,55698.txt,50.0469432,19.9971534,52.4086237,16.9193912
+"Lwow, Poland","Stanislawów, Poland",September 1939,Train,Continuing escape from German forces,55698.txt,52.4086237,16.9193912,52.291113,21.5491157
+"Stanislawów, Poland","Bohorodczany, Poland",September 1939,Not specified,Staying with father's sister to avoid German persecution,55698.txt,52.291113,21.5491157,,
+"Bohorodczany, Poland","Cracow Ghetto, Poland",1941,Not specified,Mother sent a Polish policeman to bring him back to the ghetto,55698.txt,,,,
+"Cracow Ghetto, Poland","Wieliczka, Poland",Late 1942,Not specified,Sent to work cleaning apartments after deportation of Jews from Wieliczka,55698.txt,,,49.9823773,20.0602114
+"Wieliczka, Poland","Cracow Ghetto, Poland",Late 1942,Not specified,Returned to ghetto after work assignment ended,55698.txt,49.9823773,20.0602114,,
+"Cracow Ghetto, Poland","Plaszow Concentration Camp, Poland","March 13, 1943",Walking,Liquidation of Cracow Ghetto,55698.txt,,,,
+"Plaszow Concentration Camp, Poland","Mauthausen Concentration Camp, Austria",August 1944,Train,Transferred from Plaszow to Mauthausen,55698.txt,,,,
+"Mauthausen Concentration Camp, Austria","Linz, Austria",Late 1944,Not specified,Transferred to subcamp of Mauthausen for forced labor,55698.txt,,,,
+"Linz, Austria","Leonding, Austria",May 1945,Not specified,Assigned housing after liberation,55698.txt,,,48.2793314,14.2487457
+"Leonding, Austria","Mauthausen, Austria",1945,Not specified,Searching for sisters after liberation,55698.txt,48.2793314,14.2487457,,
+Austria,"Hanover, Germany",1945,Freight train,Searching for wife's sister after liberation,55698.txt,47.59397,14.12456,52.3744779,9.7385532
+Austria,"Cracow, Poland",1945,Not specified,Returning to Poland to search for family,55698.txt,47.59397,14.12456,50.0469432,19.9971534
+"Cracow, Poland","Zakopane, Poland",1946,Not specified,Seeking medical treatment for tuberculosis,55698.txt,50.0469432,19.9971534,49.2969114,19.9504753
+"Zakopane, Poland","Merano, Italy",Late 1946,Not specified,Seeking medical treatment for tuberculosis,55698.txt,49.2969114,19.9504753,46.6695547,11.1594185
+"Merano, Italy","Cortina d'Ampezzo, Italy",Late 1946,Not specified,Further medical treatment for tuberculosis,55698.txt,46.6695547,11.1594185,46.5383332,12.1373506
+Italy,"Cracow, Poland",July 1947,Not specified,Returning to Poland after medical treatment,55698.txt,42.6384261,12.674297,50.0469432,19.9971534
+"Cracow, Poland","Prague, Czechoslovakia",August 1947,Not specified,Traveling with future wife and her father en route to Belgium,55698.txt,50.0469432,19.9971534,,
+"Prague, Czechoslovakia","Brussels, Belgium",August 1947,Not specified,Moving to Belgium with future wife and her father,55698.txt,,,50.8465573,4.351697
+"Brussels, Belgium",Israel,1950 or 1951,Not specified,Visiting aunt and considering immigration,55698.txt,50.8465573,4.351697,30.8124247,34.8594762
+Israel,"Brussels, Belgium",1950 or 1951,Not specified,Returning to Belgium after deciding not to settle in Israel,55698.txt,30.8124247,34.8594762,50.8465573,4.351697
+"Brussels, Belgium","New York, USA","December 26, 1951",Ship (Vulcania),Immigrating to the United States,55698.txt,50.8465573,4.351697,40.7127281,-74.0060152
+"Debrecen, Hungary","Debrecen Ghetto, Hungary",Early 1944,Walking,Forced relocation by Hungarian authorities,55736.txt,,,,
+"Debrecen Ghetto, Hungary","Auschwitz-Birkenau, Poland",Spring 1944,Train (cattle car),Deportation by Nazis,55736.txt,,,50.0346203,19.1807846
+"Auschwitz-Birkenau, Poland","Dachau concentration camp, Germany",Late 1944,Death march and train,Transfer by Nazis as Soviet forces approached,55736.txt,50.0346203,19.1807846,47.6978718,10.3244047
+"Dachau concentration camp, Germany","Feldafing DP Camp, Germany",1945,Organized transport by American liberators,Liberation and recovery after the war,55736.txt,47.6978718,10.3244047,,
+"Feldafing DP Camp, Germany","Berlin, Germany",1946,"Various (hitchhiking, trains)",Attempting to find a way back to Hungary,55736.txt,,,52.510885,13.3989367
+"Berlin, Germany","Debrecen, Hungary",1946,Russian military truck,Returning home to find his father,55736.txt,52.510885,13.3989367,,
+"Debrecen, Hungary",Italy,1950,Not specified,Traveling to Palestine (Israel),55736.txt,,,42.6384261,12.674297
+Italy,"Jaffa, Israel",1950,Ship (Abbazia),Immigration to Palestine (Israel),55736.txt,42.6384261,12.674297,32.0443395,34.7509908
+"Jaffa, Israel","Be'er Sheva, Israel",1950,Not specified,Settling in Israel and joining the IDF,55736.txt,32.0443395,34.7509908,,
+Israel,"Los Angeles, California, USA",1975,Airplane,"Visiting America, meeting future wife Margaret",55736.txt,30.8124247,34.8594762,34.0536909,-118.242766
+"Los Angeles, California, USA",Israel,Around 1980s or 1990s,Airplane,Taking his family to visit Israel and show them his past,55736.txt,34.0536909,-118.242766,30.8124247,34.8594762
+"Los Angeles, California, USA","Dachau, Germany",Around 2013,Airplane,Visiting Dachau with his daughters for memorial events,55736.txt,34.0536909,-118.242766,48.2592477,11.4354419
+"Los Angeles, California, USA","Berlin, Germany",2016,Airplane,Attending the trial of Nazi guard Reinhold Hanning,55736.txt,34.0536909,-118.242766,52.510885,13.3989367
