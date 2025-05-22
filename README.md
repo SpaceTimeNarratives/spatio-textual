@@ -13,7 +13,7 @@ This will:
   - Create a venv/ folder
   - Activate it 
   - Install everything from requirements.txt
-  - Download the defaul model, spacy's `en-core-web-trf` 
+  - Download the current default model, spacy's `en-core-web-trf` 
 
 **3. Activate virtual environment**
 ```bash
