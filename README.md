@@ -3,11 +3,11 @@ A library for spatial textual analysis with a focus on the Corpus of Lake Distri
 
 **1. Clone this repo**
 ```bash
-git clone https://github.com/SpaceTimeNarratives/spatio-textual.git
+$ git clone https://github.com/SpaceTimeNarratives/spatio-textual.git
 ```
 **2. Run `setup.sh`**
 ```bash
-./setup.sh
+$ ./setup.sh
 ```
 This will:
   - Create a venv/ folder
@@ -17,10 +17,10 @@ This will:
 
 **3. Activate virtual environment**
 ```bash
-source venv/bin/activate
+$ source venv/bin/activate
 ```
 
 **4. Run `entity annotator.py` on the segments**
 ```bash
-python entity_annotator.py -i segments.jsonl -o out_dir -r resources -w 4
+$ python entity_annotator.py -i segments.jsonl -o out_dir -r resources -w 4
 ```
