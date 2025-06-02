@@ -6,7 +6,11 @@ import argparse
 import asyncio
 from typing import Dict, List
 
+from dotenv import load_dotenv
 import openai
+from openai import AsyncOpenAI
+
+aclient = AsyncOpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 from tenacity import (
     retry,
     stop_after_attempt,
@@ -17,8 +21,8 @@ from dotenv import load_dotenv
 from tqdm import tqdm
 
 # —— 0) Load environment variables — including OPENAI_API_KEY — from .env
+
 load_dotenv()
-openai.api_key = os.getenv("OPENAI_API_KEY")
 if not openai.api_key:
     print("[Error] OPENAI_API_KEY not set; please add it to your .env", file=sys.stderr)
     sys.exit(1)
@@ -49,15 +53,13 @@ def get_prompt(model: str, text: str) -> str:
     reraise=True,
     stop=stop_after_attempt(5),
     wait=wait_exponential(min=1, max=60),
-    retry=retry_if_exception_type((openai.error.RateLimitError, openai.error.Timeout)),
+    retry=retry_if_exception_type((openai.RateLimitError, openai.Timeout)),
 )
 async def call_gpt_async(prompt: str, model: str) -> str:
-    resp = await openai.ChatCompletion.acreate(
-        model=model,
-        messages=[{"role": "system", "content": "You extract journeys."},
-                  {"role": "user",   "content": prompt}],
-        temperature=0.0,
-    )
+    resp = await aclient.chat.completions.create(model=model,
+    messages=[{"role": "system", "content": "You extract journeys."},
+              {"role": "user",   "content": prompt}],
+    temperature=0.0)
     return resp.choices[0].message.content
 
 # —— 3) Per-transcript processing
