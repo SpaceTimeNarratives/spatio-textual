@@ -125,7 +125,7 @@ class JourneyExtractor:
             # 2.5) Remove leading 'json\n' if present
             if resp.lower().startswith("json\n"):
                 resp = resp[5:].lstrip()
-                # print(f"--- DEBUG: Removed 'json\\n' prefix for {name} ---\n{resp!r}\n") ## uncommend for raw responses
+                print(f"--- DEBUG: Removed 'json\\n' prefix for {name} ---\n{resp!r}\n") ## uncommend for raw responses
 
             # 3) Try JSON parsing, now catching only JSONDecodeError
             try:
