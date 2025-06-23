@@ -1,98 +1,132 @@
 import os
-import json
+import sys
 import argparse
-import openai
-import requests
-import pandas as pd
+import json
+import zipfile
+import rarfile
+import tarfile
+from pathlib import Path
+from concurrent.futures import ProcessPoolExecutor, as_completed
 from tqdm import tqdm
-from multiprocessing import Pool, cpu_count
-from typing import Tuple, Dict, List
+from typing import List, Dict, Tuple, Set, Optional
+from functools import lru_cache
 
-# this reads the .env file and adds its vars to os.environ
+from openai import OpenAI
 from dotenv import load_dotenv
+import backoff
+from json import JSONDecodeError
+
+# Load environment variables from .env if available
 load_dotenv()
-# api_key = os.getenv("OPENAI_API_KEY")
 
-# -- Configuration -------------------------------------------------------------
-PROMPT_TEMPLATE = """
-You are an expert analyst of historical survivor testimonies. Your task is to extract all the journeys embarked on by the narrator from the transcript below.
+# ----------------------------------------
+# Prompt template for LLM journey extraction
+# ----------------------------------------
+EXTRACTION_PROMPT = '''
+You are a historical researcher. Extract all unique journeys/movements described in the following transcript snippet.
+Return a JSON array where each element has these keys:
+- from_location: str
+- to_location: str
+- approx_date: str or "Not mentioned"
+- mode_of_transport: str or "Not mentioned"
+- reason: str or "Not mentioned"
+- context: short evidence sentence(s)
 
-Instructions:
-1. Identify all instances where the narrator travels from one location to another.
-2. For each journey, extract the following:
-   - `from_location`: The place departed from.
-   - `to_location`: The destination.
-   - `approx_date`: An approximate date or time period if mentioned.
-   - `mode_of_transport`: If mentioned (e.g., train, walking, cart).
-   - `reason`: Brief reason or context for the journey.
-3. Arrange all journeys in **chronological order** based on available clues.
-
-Return the result as a **JSON array** of objects, each with the keys: `from_location`, `to_location`, `approx_date`, `mode_of_transport`, and `reason`.
-
-Transcript:
-"{text}"
+Transcript snippet:
 """
+{chunk}
+"""
+'''
 
-# -- Helper Functions ----------------------------------------------------------
-def get_api_key(cli_key: str = None) -> str:
-    return cli_key or os.getenv("OPENAI_API_KEY")
+# ----------------------------------------
+# File handling: archives and plaintext
+# ----------------------------------------
+def extract_texts_from_path(path: Path) -> List[Tuple[str, str]]:
+    texts = []
+    if path.is_file():
+        suffix = path.suffix.lower()
+        if suffix == '.txt':
+            texts.append((path.name, path.read_text(encoding='utf-8', errors='ignore')))
+        elif suffix in {'.zip', '.tar', '.gz', '.tgz', '.bz2', '.xz', '.rar'}:
+            texts.extend(_extract_from_archive(path))
+    elif path.is_dir():
+        for child in path.rglob('*'):
+            texts.extend(extract_texts_from_path(child))
+    return texts
 
-def call_gpt(prompt: str, model: str) -> str:
-    messages = [
-        {"role": "system", "content": "You are a careful and structured extractor of data from historical testimonies."},
-        {"role": "user", "content": prompt}
-    ]
-
-    if model.startswith("o"):  # for o-X models like o3, o3-mini, o4
-        response = openai.ChatCompletion.create(
-            model=model,
-            messages=messages
-        )
+def _extract_from_archive(archive_path: Path) -> List[Tuple[str, str]]:
+    texts = []
+    if archive_path.suffix == '.zip':
+        with zipfile.ZipFile(archive_path, 'r') as z:
+            for name in z.namelist():
+                if name.lower().endswith('.txt'):
+                    texts.append((Path(name).name, z.read(name).decode('utf-8', 'ignore')))
+    elif archive_path.suffix == '.rar':
+        with rarfile.RarFile(archive_path, 'r') as r:
+            for info in r.infolist():
+                if info.filename.lower().endswith('.txt'):
+                    texts.append((Path(info.filename).name, r.read(info).decode('utf-8', 'ignore')))
     else:
-        response = openai.ChatCompletion.create(
-            model=model,
-            messages=messages,
-            temperature=0.0
-        )
+        with tarfile.open(archive_path, 'r') as t:
+            for member in t.getmembers():
+                if member.isfile() and member.name.lower().endswith('.txt'):
+                    f = t.extractfile(member)
+                    texts.append((Path(member.name).name, f.read().decode('utf-8', 'ignore')))
+    return texts
 
-    return response.choices[0].message.content
+# ----------------------------------------
+# Chunking logic
+# ----------------------------------------
+def chunk_text(text: str, max_tokens: int = 10000) -> List[str]:
+    paras = text.split('\n\n')
+    chunks, current = [], []
+    for p in paras:
+        current.append(p)
+        if sum(len(x.split()) for x in current) > max_tokens:
+            chunks.append('\n\n'.join(current[:-1]))
+            current = [p]
+    if current:
+        chunks.append('\n\n'.join(current))
+    return chunks
 
-
-def geocode_location(location: str) -> Tuple[float, float]:
-    """
-    Geocode a location name to (lat, lon). Returns (None, None) on failure.
-    """
-    try:
-        url = "https://nominatim.openstreetmap.org/search"
-        params = {"q": location, "format": "json", "limit": 1}
-        headers = {"User-Agent": "LLM-Journey-Extractor"}
-        resp = requests.get(url, params=params, headers=headers)
-        resp.raise_for_status()
-        data = resp.json()
-        if data:
-            lat, lon = float(data[0]['lat']), float(data[0]['lon'])
-            return lat, lon
-    except:
-        pass
-    return None, None
-
-
-def load_transcripts(input_path: str) -> Dict[str, str]:
-    transcripts = {}
-    if os.path.isdir(input_path):
-        for fn in os.listdir(input_path):
-            if fn.lower().endswith('.txt'):
-                with open(os.path.join(input_path, fn), 'r', encoding='utf-8') as f:
-                    transcripts[fn] = f.read()
+# ----------------------------------------
+# Client configuration
+# ----------------------------------------
+def get_llm_client(api_key: Optional[str], provider: str):
+    if provider == 'openai':
+        key = api_key or os.getenv("OPENAI_API_KEY")
+    elif provider == 'groq':
+        key = api_key or os.getenv("GROQ_API_KEY")
     else:
-        with open(input_path, 'r', encoding='utf-8') as f:
-            transcripts[os.path.basename(input_path)] = f.read()
-    return transcripts
+        print(f"[ERROR] Unsupported provider: {provider}", file=sys.stderr)
+        sys.exit(1)
 
+    if not key:
+        print(
+            f"[ERROR] API key for {provider} not provided.\n"
+            f"Use --api-key or set {provider.upper()}_API_KEY in your environment/.env.",
+            file=sys.stderr
+        )
+        sys.exit(1)
 
-def validate_journey(j: dict) -> bool:
-    keys = {"from_location", "to_location", "approx_date", "mode_of_transport", "reason"}
-    return keys.issubset(j.keys())
+    return OpenAI(api_key=key, base_url=("https://api.groq.com/openai/v1" if provider == 'groq' else None))
+
+# def get_llm_client(api_key: Optional[str], provider: str):
+#     if provider == 'openai':
+#         key = api_key or os.getenv("OPENAI_API_KEY")
+#         openai.api_key = key
+#         openai.base_url = "https://api.openai.com/v1"
+#     elif provider == 'groq':
+#         key = api_key or os.getenv("GROQ_API_KEY")
+#         openai.api_key = key
+#         openai.base_url = "https://api.groq.com/openai/v1"
+#     else:
+#         print(f"[ERROR] Unsupported provider: {provider}", file=sys.stderr)
+#         sys.exit(1)
+
+#     if not openai.api_key:
+#         print(f"[ERROR] API key for {provider} not provided. Use --api-key or set {provider.upper()}_API_KEY.", file=sys.stderr)
+#         sys.exit(1)
 
 # -- Core Pipeline -------------------------------------------------------------
 class JourneyExtractor:
@@ -125,7 +159,7 @@ class JourneyExtractor:
             # 2.5) Remove leading 'json\n' if present
             if resp.lower().startswith("json\n"):
                 resp = resp[5:].lstrip()
-                print(f"--- DEBUG: Removed 'json\\n' prefix for {name} ---\n{resp!r}\n") ## uncommend for raw responses
+                # print(f"--- DEBUG: Removed 'json\\n' prefix for {name} ---\n{resp!r}\n") ## uncommend for raw responses
 
             # 3) Try JSON parsing, now catching only JSONDecodeError
             try:
@@ -151,48 +185,67 @@ class JourneyExtractor:
         # gather unique locations
         locs = set()
         for j in journeys:
-            locs.update([j['from_location'], j['to_location']])
-        locs = list(locs)
+            key = (j['from_location'], j['to_location'], j['approx_date'])
+            if key not in seen:
+                deduped.append(j)
+                seen.add(key)
+        # write results
+        output_path.parent.mkdir(parents=True, exist_ok=True)
+        with output_path.open('a', encoding='utf-8') as fout:
+            for entry in deduped:
+                fout.write(json.dumps(entry, ensure_ascii=False) + '\n')
+        save_gazetteer(gaz, gazetteer)
+        if verbose:
+            print(f"[DONE] {filename}: {len(deduped)} journeys")
+    except Exception as e:
+        print(f"[ERROR] {filename} failed: {e}", file=sys.stderr)
 
-        # parallel geocoding
-        with Pool(self.workers) as pool:
-            coords = pool.map(geocode_location, locs)
-        geo_map = dict(zip(locs, coords))
-
-        # attach to journeys
-        for j in journeys:
-            j['source_lat'], j['source_lon'] = geo_map.get(j['from_location'], (None, None))
-            j['target_lat'], j['target_lon'] = geo_map.get(j['to_location'], (None, None))
-        return journeys
-
-    def export_jsonl(self, journeys: List[dict]):
-        path = os.path.join(self.out, f'journeys_{self.model}.jsonl')
-        with open(path, 'w', encoding='utf-8') as f:
-            for j in journeys:
-                f.write(json.dumps(j) + "\n")
-        print(f"JSONL saved: {path}")
-
-    def export_csv(self, journeys: List[dict]):
-        df = pd.DataFrame(journeys)
-        path = os.path.join(self.out, f'journeys_{self.model}.csv')
-        df.to_csv(path, index=False)
-        print(f"CSV saved: {path}")
-
-    def run_all(self, transcripts: Dict[str, str]):
-        journeys = self.extract(transcripts)
-        journeys = self.geocode_all(journeys)
-        self.export_jsonl(journeys)
-        self.export_csv(journeys)
-
-# -- CLI ----
-if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description="Extract, geocode, and export journeys.")
-    parser.add_argument('--input', '-i', required=True, help="Path to .txt file or folder.")
-    parser.add_argument('--output', '-o', required=True, default="journeys", help="Output directory.")
-    parser.add_argument('--model', '-M', default="gpt-4-turbo", help="OpenAI model to use.")
-    parser.add_argument('--api_key', help="OpenAI API key (or set via environment).")
+# ----------------------------------------
+# Main
+# ----------------------------------------
+def main():
+    parser = argparse.ArgumentParser(
+        description="Extract survivor journeys from transcripts and geocode locations"
+    )
+    parser.add_argument('-i', '--input', type=Path, required=True, help=".txt file, folder, or archive to process")
+    parser.add_argument('-o', '--output', type=Path, default=Path('journey/journeys.jsonl'), help="Output JSONL file")
+    parser.add_argument('-g', '--gazetteer', type=Path, default=Path('journey/gazetteer.json'), help="Local gazetteer JSON file")
+    parser.add_argument('-w', '--workers', type=int, default=4, help="Number of parallel workers")
+    parser.add_argument('-k', '--api-key', type=str, default=None, help="LLM API key (overrides environment variable)")
+    parser.add_argument('-m', '--model', type=str, default='gpt-4', help="Model to use (e.g., gpt-4, llama3-70b-8192")
+    parser.add_argument('-p', '--provider', type=str, default='openai', choices=['openai', 'groq'], help="LLM provider")
+    parser.add_argument('-v', '--verbose', action='store_true', help="Verbose output")
     args = parser.parse_args()
-    api_key = get_api_key(args.api_key)
-    trans = load_transcripts(args.input)
-    ext = JourneyExtractor(model=args.model, api_key=api_key, output_dir=args.output)
-    ext.run_all(trans)
+
+    items = extract_texts_from_path(args.input)
+    if args.verbose:
+        print(f"[INFO] Found {len(items)} transcripts to process.")
+
+    if args.output.exists():
+        args.output.unlink()
+
+    with ProcessPoolExecutor(max_workers=args.workers) as exe:
+        futures = [
+            exe.submit(
+                process_transcript,
+                item,
+                args.gazetteer,
+                args.output,
+                args.model,
+                args.api_key,
+                args.provider,
+                args.verbose
+            ) for item in items
+        ]
+        for fut in tqdm(as_completed(futures), total=len(futures), desc="Transcripts"):
+            try:
+                fut.result()
+            except Exception as e:
+                print(f"[ERROR] A transcript failed: {e}", file=sys.stderr)
+
+    if args.verbose:
+        print(f"Extraction complete. Results saved to {args.output}")
+        print(f"Updated gazetteer saved to {args.gazetteer}")        
+
+if __name__ == '__main__':
+    main()

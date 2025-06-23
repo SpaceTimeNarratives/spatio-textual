@@ -1,3 +1,15 @@
+<<<<<<< HEAD
 spacy>=3.0.0
 geonamescache
 tqdm
+=======
+python-dotenv
+pandas
+tqdm
+openai
+groq
+rarfile
+unrar
+backoff
+requests
+>>>>>>> ac5a7335c28214afc1602bae663f2f5f5aac01bf
