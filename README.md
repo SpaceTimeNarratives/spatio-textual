@@ -1,6 +1,5 @@
 # spatio-textual
 
-<<<<<<< HEAD
 **spatio-textual** is a Python library for spatial entity recognition and verb relation extraction from text. It is designed to support spatial analysis in digital humanities projects, with initial applications to:
 
 - the *Corpus of Lake District Writing* (CLDW)
@@ -11,40 +10,17 @@ This package leverages spaCy and gazetteer-based classification to identify and 
 ---
 
 ## 🚀 Installation
-=======
-**1. Clone this repo**
-```bash
-$ git clone https://github.com/SpaceTimeNarratives/spatio-textual.git
-```
-**2. Run `setup.sh`**
-```bash
-$ ./setup.sh
-```
-This will:
-  - Create a venv/ folder
-  - Activate it 
-  - Install everything from requirements.txt
-  - Download the current default model, spacy's `en-core-web-trf` 
->>>>>>> ac5a7335c28214afc1602bae663f2f5f5aac01bf
 
 ```bash
-<<<<<<< HEAD
-pip install spatio-textual
-=======
 $ source venv/bin/activate
->>>>>>> ac5a7335c28214afc1602bae663f2f5f5aac01bf
 ```
 
 Or from source:
 
 ```bash
-<<<<<<< HEAD
 git clone https://github.com/your-username/spatio-textual.git
 cd spatio-textual
 pip install .
-=======
-$ python entity_annotator.py -i segments.jsonl -o out_dir -r resources -w 4
->>>>>>> ac5a7335c28214afc1602bae663f2f5f5aac01bf
 ```
 
 ---
