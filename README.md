@@ -63,10 +63,10 @@ The following files support place name classification and disambiguation. They a
 
 | File                          | Description                                                      |
 | ----------------------------- | ---------------------------------------------------------------- |
-| `combined_geonouns.txt`       | Common geographic feature nouns (e.g., *valley*, *road*, *lake*)   |
+| `combined_geonouns.txt`       | Common geographic feature nouns (e.g., *valley*, *road*, *lake*) |
 | `cleaned_holocaust_camps.txt` | Known Holocaust camp names (e.g., *Auschwitz*, *Theresienstadt*) |
 | `ambiguous_cities.txt`        | Locations with possible ambiguity (e.g., *Paris*, *Lancaster*)   |
-| `non_verbal.txt`              | Non-verbak expressions by survivors ([PAUSES], [LAUGHS] etc) in the testimonies    |
+| `non_verbal.txt`              | Non-verbal expressions by survivors ([PAUSES], [LAUGHS] etc) in the testimonies |
 | `family_terms.txt`            | Family-related entity names (e.g., *mother*, *uncle*)            |
 
 You can update or extend these lists to suit your corpus or task.
@@ -136,4 +136,3 @@ Feel free to fork, improve and contribute! Future improvements:
 - spaCy (Explosion AI)
 - GeoNamesCache
 - Digital Humanities @ Lancaster University
-

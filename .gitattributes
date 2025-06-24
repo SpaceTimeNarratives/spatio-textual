@@ -1,0 +1,27 @@
+# Ensure consistent line endings across platforms
+* text=auto
+
+# Always use Unix-style line endings for Python files
+*.py text eol=lf
+
+# Normalize text-based files
+*.md  text
+*.toml text
+*.txt text
+*.csv text
+*.json text
+*.yml text
+*.yaml text
+
+# Treat binary files appropriately
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.zip binary
+*.pkl binary
+
+# Prevent GitHub from counting vendored or test data files
+.ipynb_checkpoints/* linguist-vendored
+tests/data/** linguist-vendored
+resources/** linguist-vendored
