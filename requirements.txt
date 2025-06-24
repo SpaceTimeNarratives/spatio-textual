@@ -1,3 +1,4 @@
 spacy>=3.0.0
 geonamescache
 tqdm
+https://github.com/explosion/spacy-models/releases/download/en_core_web_trf-3.8.0/en_core_web_trf-3.8.0-py3-none-any.whl
