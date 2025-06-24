@@ -2,10 +2,33 @@ import spacy
 from pathlib import Path
 from geonamescache import GeonamesCache
 
+resources_dir = Path(__file__).parent / "resources"
+
 def load_spacy_model(model_name: str = 'en_core_web_trf') -> spacy.Language:
     nlp = spacy.load(model_name)
     nlp.add_pipe('merge_entities')
-    nlp.add_pipe('entity_ruler', before='ner')
+    # nlp.add_pipe('entity_ruler', before='ner')
+
+    # Add the 'entity_ruler' to the pipeline before the NER module
+    ruler = nlp.add_pipe("entity_ruler", before='ner')
+
+    # Function to read patterns from a file and create a list of patterns for the EntityRuler
+    def load_patterns(label, filename):
+        with open(filename) as f:
+            return [{"label": label, "pattern": line.strip()} for line in f if line.strip()]
+
+    # Load and add patterns from files
+    files_and_labels = [
+        ('combined_geonouns.txt', 'GEONOUN'),
+        ('non_verbals.txt', 'NON-VERBAL'),
+        ('family_terms.txt', 'FAMILY')
+    ]
+    # Add all patterns to the ruler
+    patterns = []
+    for filename, label in files_and_labels:
+        patterns.extend(load_patterns(label, f"{resources_dir}/{filename}"))
+
+    ruler.add_patterns(patterns)
     return nlp
 
 class PlaceNames:
@@ -34,7 +57,7 @@ class PlaceNames:
             path = base / fname
             if not path.exists():
                 return []
-            return sorted({l.strip() for l in path.read_text().splitlines() if l.strip()}, key=len, reverse=True)
+            return sorted({l.strip() for l in path.read_text(encoding='utf-8').splitlines() if l.strip()}, key=len, reverse=True)
 
         self.geonouns = read_list('combined_geonouns.txt')
         self.camps = read_list('cleaned_holocaust_camps.txt')
