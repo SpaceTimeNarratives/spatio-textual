@@ -18,7 +18,7 @@ $ source venv/bin/activate
 Or from source:
 
 ```bash
-git clone https://github.com/your-username/spatio-textual.git
+git clone https://github.com/SpaceTimeNarratives/spatio-textual.git
 cd spatio-textual
 pip install .
 ```
