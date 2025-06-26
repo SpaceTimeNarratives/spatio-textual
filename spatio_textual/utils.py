@@ -21,8 +21,10 @@ def load_spacy_model(model_name: str = 'en_core_web_trf') -> spacy.Language:
     files_and_labels = [
         ('combined_geonouns.txt', 'GEONOUN'),
         ('non_verbals.txt', 'NON-VERBAL'),
-        ('family_terms.txt', 'FAMILY')
+        ('family_terms.txt', 'FAMILY'),
+        ('cleaned_holocaust_camps.txt', 'CAMP')
     ]
+
     # Add all patterns to the ruler
     patterns = []
     for filename, label in files_and_labels:
@@ -87,7 +89,7 @@ class Annotator(PlaceNames):
 
     def extract_verbs(self, doc: spacy.tokens.Doc) -> list:
         data = []
-        for sent in doc.sents:
+        for sentid, sent in enumerate(doc.sents):
             for token in sent:
                 if token.pos_ == 'VERB':
                     subj = [c.text for c in token.children if c.dep_ in ('nsubj', 'nsubjpass')]
@@ -95,6 +97,7 @@ class Annotator(PlaceNames):
                           [gc.text for prep in token.children if prep.dep_ == 'prep'
                            for gc in prep.children if gc.dep_ == 'pobj']
                     data.append({
+                        'sent-id': sentid,
                         'verb': token.text,
                         'subject': subj[0] if subj else '',
                         'object': obj[0] if obj else '',
@@ -104,7 +107,7 @@ class Annotator(PlaceNames):
 
     def annotate(self, text: str) -> dict:
         doc = self.nlp(text)
-        entities = {}
+        entities = []
         for ent in doc.ents:
             if ent.label_ in {
                 'PERSON','FAC','GPE','LOC','ORG','DATE','TIME','EVENT',
@@ -113,7 +116,7 @@ class Annotator(PlaceNames):
                 tag = ent.label_
                 if ent.label_ in {'FAC','GPE','LOC','ORG'}:
                     tag = self.classify(ent.text, ent.label_)
-                entities[ent.start_char] = {'text': ent.text, 'tag': tag}
+                entities.append({'start_char':ent.start_char, 'token': ent.text, 'tag': tag})
 
         verb_data = self.extract_verbs(doc)
         return {'entities': entities, 'verb_data': verb_data}
