@@ -37,22 +37,16 @@ print(result)
 
 Output:
 
-```json
+```py
 {
-  "entities": [
-    {'start_char': 0,  'token': "Anne Frank", 'tag': "PERSON"},
-    {'start_char': 26, 'token': "Amsterdam",  'tag': "CITY"},
-    {'start_char': 39, 'token': "Auschwitz",  'tag': "CAMP"},
-  ],
-  "verb_data": [
-    {
-      "verb": "taken",
-      "subject": "Frank",
-      "object": "Auschwitz",
-      "sentence": "Anne Frank was taken from Amsterdam to Auschwitz."
-    }
-  ]
-}
+  'entities': [
+    {'start_char': 0, 'token': 'Anne Frank', 'tag': 'PERSON'},
+    {'start_char': 26, 'token': 'Amsterdam', 'tag': 'CITY'},
+    {'start_char': 39, 'token': 'Auschwitz', 'tag': 'CAMP'}
+    ],
+  'verb_data': [
+    {'sent-id': 0, 'verb': 'taken', 'subject': 'Anne Frank', 'object': 'Amsterdam',
+   'sentence': 'Anne Frank was taken from Amsterdam to Auschwitz.'}]}
 ```
 
 ---
