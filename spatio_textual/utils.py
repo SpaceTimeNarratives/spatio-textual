@@ -111,7 +111,7 @@ class Annotator(PlaceNames):
         for ent in doc.ents:
             if ent.label_ in {
                 'PERSON','FAC','GPE','LOC','ORG','DATE','TIME','EVENT',
-                'QUANTITY','GEONOUN','NON-VERBAL','FAMILY'
+                'QUANTITY','GEONOUN','NON-VERBAL','FAMILY', 'CAMP'
             }:
                 tag = ent.label_
                 if ent.label_ in {'FAC','GPE','LOC','ORG'}:

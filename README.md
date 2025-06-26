@@ -39,11 +39,11 @@ Output:
 
 ```json
 {
-  "entities": {
-    "0": {"text": "Anne Frank", "tag": "PERSON"},
-    "25": {"text": "Amsterdam", "tag": "CITY"},
-    "39": {"text": "Auschwitz", "tag": "CAMP"}
-  },
+  "entities": [
+    {'start_char': 0,  'token': "Anne Frank", 'tag': "PERSON"},
+    {'start_char': 26, 'token': "Amsterdam",  'tag': "CITY"},
+    {'start_char': 39, 'token': "Auschwitz",  'tag': "CAMP"},
+  ],
   "verb_data": [
     {
       "verb": "taken",
