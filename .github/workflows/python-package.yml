@@ -23,7 +23,7 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip instal spacy
+        pip install spacy
         pip install .
         pip install pytest
         python -m spacy download en_core_web_trf
