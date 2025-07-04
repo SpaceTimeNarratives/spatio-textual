@@ -11,18 +11,34 @@ This package leverages spaCy and gazetteer-based classification to identify and 
 
 ## 🚀 Installation
 
-```bash
-$ source venv/bin/activate
-```
-
-Or from source:
+**1. Clone the repository:**
 
 ```bash
 git clone https://github.com/SpaceTimeNarratives/spatio-textual.git
 cd spatio-textual
-pip install .
 ```
 
+**2. Set up a virtual environment (optional but recommended)**
+It's a good practice to create a virtual environment to manage Python dependencies.
+
+```bash
+python -m venv venv
+source venv/bin/activate  # On Windows use `venv\Scripts\activate
+```
+
+**3. Install dependencies**
+Use the `requirements.txt` file to install necessary Python packages:
+
+```bash
+pip install -r requirements.txt
+```
+
+**4. Install the package**
+After installing the dependencies, you can install the `spatio-textual` package itself
+
+```bash
+pip install .
+```
 ---
 
 ## 🔍 Example Usage
