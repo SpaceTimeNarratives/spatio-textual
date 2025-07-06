@@ -1,6 +1,6 @@
 # spatio-textual
 
-**spatio-textual** is a Python library for spatial entity recognition and verb relation extraction from text. It created as part of the [Spatial Narratives Project](https://spacetimenarratives.github.io/) and is designed to support spatio-textual annotation, analysis and visualization in digital humanities projects, with initial applications to:
+**spatio-textual** is a Python library for spatial entity recognition and verb relation extraction from text. It was created as part of the [Spatial Narratives Project](https://spacetimenarratives.github.io/) and is designed to support spatio-textual annotation, analysis and visualization in digital humanities projects, with initial applications to:
 
 - the *Corpus of Lake District Writing* (CLDW)
 - Holocaust survivors' testimonies (e.g., USC Shoah Foundation archives)
