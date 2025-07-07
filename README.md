@@ -143,5 +143,4 @@ Feel free to fork, improve and contribute! Future improvements:
 
 ## 🔗 Acknowledgements
 
-- spaCy (Explosion AI)
-- [Spatial Narratives Project](https://spacetimenarratives.github.io/)
+The project is funded in the UK from 2022 to 2025 by ESRC, project reference: ES/W003473/1. We also acknowledge the input and advice from the other members of the project team in generating requirements for our research presented here and the [UCREL Hex](https://www.lancaster.ac.uk/scc/research/research-facilities/hex/) team for providing the compute needs for this project. More details of the project can be found on the website: [Spatial Narratives Project](https://spacetimenarratives.github.io/)
