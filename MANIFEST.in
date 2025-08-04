@@ -1,1 +1,3 @@
-include spatio_textual/resources/*.txt
+include README.md
+include LICENSE
+recursive-include spatio_textual/resources *
