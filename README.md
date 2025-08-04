@@ -1,6 +1,6 @@
 # spatio-textual
 
-**spatio-textual** is a Python library for spatial entity recognition and verb relation extraction from text. It is designed to support spatial analysis in digital humanities projects, with initial applications to:
+**spatio-textual** is a Python library for spatial entity recognition and verb relation extraction from text. It was created as part of the [Spatial Narratives Project](https://spacetimenarratives.github.io/) and is designed to support spatio-textual annotation, analysis and visualization in digital humanities projects, with initial applications to:
 
 - the *Corpus of Lake District Writing* (CLDW)
 - Holocaust survivors' testimonies (e.g., USC Shoah Foundation archives)
@@ -11,18 +11,34 @@ This package leverages spaCy and gazetteer-based classification to identify and 
 
 ## 🚀 Installation
 
-```bash
-$ source venv/bin/activate
-```
-
-Or from source:
+**1. Clone the repository:**
 
 ```bash
 git clone https://github.com/SpaceTimeNarratives/spatio-textual.git
 cd spatio-textual
-pip install .
 ```
 
+**2. Set up a virtual environment (optional but recommended)**
+It's a good practice to create a virtual environment to manage Python dependencies.
+
+```bash
+python -m venv venv
+source venv/bin/activate  # On Windows use `venv\Scripts\activate
+```
+
+**3. Install dependencies**
+Use the `requirements.txt` file to install necessary Python packages:
+
+```bash
+pip install -r requirements.txt
+```
+
+**4. Install the package**
+After installing the dependencies, you can install the `spatio-textual` package itself
+
+```bash
+pip install .
+```
 ---
 
 ## 🔍 Example Usage
@@ -37,22 +53,16 @@ print(result)
 
 Output:
 
-```json
+```py
 {
-  "entities": {
-    "0": {"text": "Anne Frank", "tag": "PERSON"},
-    "25": {"text": "Amsterdam", "tag": "CITY"},
-    "39": {"text": "Auschwitz", "tag": "CAMP"}
-  },
-  "verb_data": [
-    {
-      "verb": "taken",
-      "subject": "Frank",
-      "object": "Auschwitz",
-      "sentence": "Anne Frank was taken from Amsterdam to Auschwitz."
-    }
-  ]
-}
+  'entities': [
+    {'start_char': 0, 'token': 'Anne Frank', 'tag': 'PERSON'},
+    {'start_char': 26, 'token': 'Amsterdam', 'tag': 'CITY'},
+    {'start_char': 39, 'token': 'Auschwitz', 'tag': 'CAMP'}
+    ],
+  'verb_data': [
+    {'sent-id': 0, 'verb': 'taken', 'subject': 'Anne Frank', 'object': 'Amsterdam',
+   'sentence': 'Anne Frank was taken from Amsterdam to Auschwitz.'}]}
 ```
 
 ---
@@ -87,7 +97,7 @@ You can update or extend these lists to suit your corpus or task.
 
 ### Lake District Writing
 
-- Recognizes landscape terms (e.g., *fells*, *tarns*, *crag*) from `combined_geonouns.txt`
+- Recognizes landscape terms (e.g., *valley*, *road*, *lake*) from `combined_geonouns.txt`
 - Can be extended with toponyms of the Lake District
 
 ### Holocaust Testimonies
@@ -102,7 +112,7 @@ You can update or extend these lists to suit your corpus or task.
 Clone and install with editable mode:
 
 ```bash
-git clone https://github.com/your-username/spatio-textual.git
+git clone https://github.com/SpaceTimeNarratives/spatio-textual.git
 cd spatio-textual
 pip install -e .
 ```
@@ -133,6 +143,4 @@ Feel free to fork, improve and contribute! Future improvements:
 
 ## 🔗 Acknowledgements
 
-- spaCy (Explosion AI)
-- GeoNamesCache
-- Digital Humanities @ Lancaster University
+The project is funded in the UK from 2022 to 2025 by ESRC, project reference: ES/W003473/1. We also acknowledge the input and advice from the other members of the project team in generating requirements for our research presented here and the [UCREL Hex](https://www.lancaster.ac.uk/scc/research/research-facilities/hex/) team for providing the compute needs for this project. More details of the project can be found on the website: [Spatial Narratives Project](https://spacetimenarratives.github.io/)

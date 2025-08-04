@@ -1,18 +1,10 @@
-name: Python package
-
-on:
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
-
+# .github/workflows/python-package.yml
 jobs:
   build:
     runs-on: ubuntu-latest
-
     strategy:
       matrix:
-        python-version: ["3.8", "3.9", "3.10"]
+        python-version: ["3.8","3.9","3.10"]
 
     steps:
     - uses: actions/checkout@v3
@@ -20,11 +12,23 @@ jobs:
       uses: actions/setup-python@v4
       with:
         python-version: ${{ matrix.python-version }}
-    - name: Install dependencies
+
+    - name: Pre-install numpy & spaCy wheels
       run: |
         python -m pip install --upgrade pip
+        # Lock numpy to the last 3.8-compatible release:
+        pip install "numpy<1.25"
+        # Install a spaCy wheel that supports 3.8 out of the box:
+        pip install "spacy<3.8"  
+
+    - name: Download spaCy model
+      run: |
+        python -m spacy download en_core_web_trf
+
+    - name: Install package & test deps
+      run: |
         pip install .
         pip install pytest
+
     - name: Run tests
-      run: |
-        pytest tests/
+      run: pytest tests/

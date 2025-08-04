@@ -1,0 +1,106 @@
+[
+    {
+      "text": "Anne Frank was taken from Amsterdam to Auschwitz.",
+      "expected_entities": [
+        { "start_char": 0, "token": "Anne Frank", "tag": "PERSON" },
+        { "start_char": 26, "token": "Amsterdam", "tag": "CITY" },
+        { "start_char": 39, "token": "Auschwitz", "tag": "CAMP" }
+      ],
+      "expected_verb_data": [
+        {
+          "sent-id": 0,
+          "verb": "taken",
+          "subject": "Anne Frank",
+          "object": "Amsterdam",
+          "sentence": "Anne Frank was taken from Amsterdam to Auschwitz."
+        }
+      ]
+    },
+    {
+      "text": "My name is Eva. I was born in Budapest, a city that was once vibrant. My family was forced into the ghetto by the Arrow Cross Party. From there, we were transported by train to Ravensbrück. I still remember the final words my father said to me.",
+      "expected_entities": [
+        { "start_char": 11, "token": "Eva", "tag": "PERSON" },
+        { "start_char": 30, "token": "Budapest", "tag": "CITY" },
+        { "start_char": 42, "token": "city", "tag": "GEONOUN" },
+        { "start_char": 100, "token": "ghetto", "tag": "GEONOUN" },
+        { "start_char": 110, "token": "the Arrow Cross Party", "tag": "PLACE" },
+        { "start_char": 168, "token": "train", "tag": "GEONOUN" },
+        { "start_char": 177, "token": "Ravensbrück", "tag": "CAMP" },
+        { "start_char": 226, "token": "father", "tag": "FAMILY" }
+      ],
+      "expected_verb_data": [
+        {
+          "sent-id": 1,
+          "verb": "born",
+          "subject": "I",
+          "object": "Budapest",
+          "sentence": "I was born in Budapest, a city that was once vibrant."
+        },
+        {
+          "sent-id": 2,
+          "verb": "forced",
+          "subject": "family",
+          "object": "ghetto",
+          "sentence": "My family was forced into the ghetto by the Arrow Cross Party."
+        },
+        {
+          "sent-id": 3,
+          "verb": "transported",
+          "subject": "we",
+          "object": "train",
+          "sentence": "From there, we were transported by train to Ravensbrück."
+        },
+        {
+          "sent-id": 4,
+          "verb": "remember",
+          "subject": "I",
+          "object": "words",
+          "sentence": "I still remember the final words my father said to me."
+        },
+        {
+          "sent-id": 4,
+          "verb": "said",
+          "subject": "father",
+          "object": "me",
+          "sentence": "I still remember the final words my father said to me."
+        }
+      ]
+    },
+    {
+      "text": "The journey to Dachau was unbearable for everyone. We left from Warsaw in crowded cattle cars. A young boy named Leo shared his small piece of bread with me. Upon arrival, Dr. Mengele conducted the selections on the platform. The fear was a constant companion.",
+      "expected_entities": [
+          { "start_char": 15, "token": "Dachau", "tag": "CAMP" },
+          { "start_char": 64, "token": "Warsaw", "tag": "CITY" },
+          { "start_char": 113, "token": "Leo", "tag": "PERSON" },
+          { "start_char": 176, "token": "Mengele", "tag": "PERSON" },
+          { "start_char": 216, "token": "platform", "tag": "GEONOUN" }
+      ],
+      "expected_verb_data": [
+          { "sent-id": 1, "verb": "left", "subject": "We", "object": "Warsaw", "sentence": "We left from Warsaw in crowded cattle cars." },
+          { "sent-id": 2, "verb": "named", "subject": "", "object": "", "sentence": "A young boy named Leo shared his small piece of bread with me." },
+          { "sent-id": 2, "verb": "shared", "subject": "boy", "object": "piece", "sentence": "A young boy named Leo shared his small piece of bread with me." },
+          { "sent-id": 3, "verb": "conducted", "subject": "Mengele", "object": "selections", "sentence": "Upon arrival, Dr. Mengele conducted the selections on the platform." }
+      ]
+    },
+    {
+      "text": "William Wordsworth often wandered through the valleys near Grasmere. He drew great inspiration from the lake of Ullswater. His sister Dorothy Wordsworth also documented their life in her famous journals. She described the daffodils dancing by the shore with great elegance. The poet Samuel Coleridge was a frequent visitor to their home.",
+      "expected_entities": [
+          { "start_char": 0, "token": "William Wordsworth", "tag": "PERSON" },
+          { "start_char": 46, "token": "valleys", "tag": "GEONOUN" },
+          { "start_char": 59, "token": "Grasmere", "tag": "PLACE" },
+          { "start_char": 104, "token": "lake", "tag": "GEONOUN" },
+          { "start_char": 112, "token": "Ullswater", "tag": "PLACE" },
+          { "start_char": 127, "token": "sister", "tag": "FAMILY" },
+          { "start_char": 134, "token": "Dorothy Wordsworth", "tag": "PERSON" },
+          { "start_char": 247, "token": "shore", "tag": "GEONOUN" },
+          { "start_char": 283, "token": "Samuel Coleridge", "tag": "PERSON" }
+      ],
+      "expected_verb_data": [
+          { "sent-id": 0, "verb": "wandered", "subject": "William Wordsworth", "object": "valleys", "sentence": "William Wordsworth often wandered through the valleys near Grasmere." },
+          { "sent-id": 1, "verb": "drew", "subject": "He", "object": "inspiration", "sentence": "He drew great inspiration from the lake of Ullswater." },
+          { "sent-id": 2, "verb": "documented", "subject": "sister", "object": "life", "sentence": "His sister Dorothy Wordsworth also documented their life in her famous journals." },
+          { "sent-id": 3, "verb": "described", "subject": "She", "object": "daffodils", "sentence": "She described the daffodils dancing by the shore with great elegance." },
+          { "sent-id": 3, "verb": "dancing", "subject": "", "object": "shore", "sentence": "She described the daffodils dancing by the shore with great elegance." }
+      ]
+    }
+  ]
