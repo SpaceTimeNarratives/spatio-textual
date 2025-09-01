@@ -12,7 +12,7 @@ def _init_annotator():
         nlp = load_spacy_model('en_core_web_sm')
     return Annotator(nlp)
 
-# _nlp = load_spacy_model()
+# Instantiate and initialise the Annotator object
 _annotator = _init_annotator()
 
 def annotate_text(text: str) -> dict:
