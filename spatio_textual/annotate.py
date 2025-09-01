@@ -1,34 +1,8 @@
-# import spacy
-# from .utils import Annotator, load_spacy_model
-
-
-# # Initialize at module load
-# def _init_annotator():
-#     try:
-#         # primary: transformer model
-#         nlp = load_spacy_model('en_core_web_trf')
-#     except OSError:
-#         # fallback: small English model (usually installed by default)
-#         nlp = load_spacy_model('en_core_web_sm')
-#     return Annotator(nlp)
-
-# # Instantiate and initialise the Annotator object
-# _annotator = _init_annotator()
-
-# def annotate_text(text: str) -> dict:
-#     """
-#     Annotate a single text string.
-#     Usage:
-#         from spatio_textual import annotate_text
-#         result = annotate_text(\"Some text here.\")
-#     """
-#     return _annotator.annotate(text)
-
-# annotator.py
 from __future__ import annotations
 import os
 import threading
 import spacy
+import json
 from pathlib import Path
 from .utils import Annotator, load_spacy_model
 
@@ -104,3 +78,50 @@ def annotate_text(text: str) -> dict:
 # Optional eager init (can be disabled by SPACY_AUTO_INIT=0)
 if _AUTO_INIT:
     get_annotator()
+
+
+# --- Health check ---
+def annotator_ready() -> bool:
+    """Return True if the process-local annotator is already constructed."""
+    return " __ANNOTATOR" in globals() and (globals().get("__ANNOTATOR") is not None)
+
+def annotator_info(init: bool = True) -> dict:
+    """
+    If init=True (default), ensures the annotator is constructed (lazy init)
+    and returns full details. If init=False, returns a light snapshot without
+    loading the model; 'ready' tells you if it's already built.
+    """
+    if not init and not annotator_ready():
+        return {
+            "ready": False,
+            "auto_init": _AUTO_INIT,
+            "configured_model": _DEFAULT_MODEL,
+            "fallback_model": _FALLBACK_MODEL,
+            "resources_dir": _RESOURCES_DIR or "",
+        }
+
+    ann = get_annotator()  # may lazily build
+    nlp = ann.nlp
+    meta = getattr(nlp, "meta", {}) or {}
+    return {
+        "ready": True,
+        "spacy_version": spacy.__version__,
+        "lang": getattr(nlp, "lang", None),
+        "model_name": meta.get("name") or meta.get("pipeline"),
+        "model_meta_version": meta.get("version"),
+        "pipes": list(nlp.pipe_names),
+        "has_entity_ruler": "entity_ruler" in nlp.pipe_names,
+        "resources_dir": str(getattr(ann, "resources_dir", "")),
+        "resource_counts": {
+            "geonouns": len(getattr(ann, "geonouns", [])),
+            "camps": len(getattr(ann, "camps", [])),
+            "ambiguous_cities": len(getattr(ann, "ambiguous_cities", [])),
+            "non_verbals": len(getattr(ann, "non_verbal", [])),
+            "family_terms": len(getattr(ann, "family", [])),
+        },
+    }
+
+def print_annotator_info(pretty: bool = True, init: bool = True) -> None:
+    info = annotator_info(init=init)
+    import json
+    print(json.dumps(info, ensure_ascii=False, indent=2 if pretty else None))
