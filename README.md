@@ -9,19 +9,6 @@ This realease adds **sentence-safe chunking**, **list-of-texts input**, **file/s
 
 ---
 
-## Contents
-
-- `utils.py` — core utilities (spaCy loader, `PlaceNames`, `Annotator`, `split_into_segments`)
-- `annotate.py` — simple Python API entry points
-- `cli.py` — command-line interface for single files, directories, or in-memory segment lists
-- `resources/` — optional term lists for the `EntityRuler` and classification
-  - `combined_geonouns.txt`
-  - `non_verbals.txt`
-  - `family_terms.txt`
-  - `cleaned_holocaust_camps.txt`
-
----
-
 ## 🧭 Contents
 
 - `utils.py` — core utilities (spaCy loader, `PlaceNames`, `Annotator`, `split_into_segments`)
