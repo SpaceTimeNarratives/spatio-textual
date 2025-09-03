@@ -1,127 +1,58 @@
 from __future__ import annotations
-import os
-import threading
+
+"""
+annotate.py – lightweight module entry points that orchestrate utils.Annotator
+
+Exposes:
+- annotate_text(text) -> dict
+- annotate_texts(list_of_texts, file_id=None) -> list[dict]
+- chunk_and_annotate_text(text, n_segments=100, file_id=None) -> list[dict]
+- chunk_and_annotate_file(path, n_segments=100, ...) -> list[dict]
+"""
+
 import spacy
-import json
 from pathlib import Path
-from .utils import Annotator, load_spacy_model
+from typing import List, Optional
 
-# ---- Config defaults (env overridable) ----
-_DEFAULT_MODEL = os.getenv("SPACY_MODEL", "en_core_web_trf")
-_FALLBACK_MODEL = os.getenv("SPACY_FALLBACK_MODEL", "en_core_web_sm")
-_RESOURCES_DIR = os.getenv("SPATIAL_RESOURCES_DIR")  # optional override path
-_ADD_ENTITY_RULER = os.getenv("SPACY_ADD_ENTITY_RULER", "1") != "0"
-_AUTO_INIT = os.getenv("SPACY_AUTO_INIT", "1") != "0"  # set to 0 to skip eager init
+from .utils import Annotator, load_spacy_model, split_into_segments
 
-# ---- Lazy singleton annotator ----
-__ANNOTATOR_LOCK = threading.Lock()
-__ANNOTATOR: Annotator | None = None
-__MODEL_NAME: str | None = None
-__RESOURCES_PATH: str | None = None
-
-def _build_annotator(
-    model_name: str | None = None,
-    resources_dir: str | None = _RESOURCES_DIR,
-    add_entity_ruler: bool = _ADD_ENTITY_RULER,
-) -> Annotator:
-    model = model_name or _DEFAULT_MODEL
+# Initialize at module load (kept for backward-compat)
+def _init_annotator():
     try:
-        nlp = load_spacy_model(model, resources_dir=resources_dir, add_entity_ruler=add_entity_ruler)
+        # primary: transformer model
+        nlp = load_spacy_model('en_core_web_trf')
     except OSError:
-        # fallback if the transformer model isn't present
-        nlp = load_spacy_model(_FALLBACK_MODEL, resources_dir=resources_dir, add_entity_ruler=add_entity_ruler)
-    return Annotator(nlp, resources_dir=resources_dir)
+        # fallback: small English model (usually installed by default)
+        nlp = load_spacy_model('en_core_web_sm')
+    return Annotator(nlp)
 
-def get_annotator() -> Annotator:
-    """Return a process-local singleton Annotator, creating it on first use."""
-    global __ANNOTATOR, __MODEL_NAME, __RESOURCES_PATH
-    if __ANNOTATOR is None:
-        with __ANNOTATOR_LOCK:
-            if __ANNOTATOR is None:
-                __ANNOTATOR = _build_annotator()
-                __MODEL_NAME = _DEFAULT_MODEL
-                __RESOURCES_PATH = _RESOURCES_DIR
-    return __ANNOTATOR
-
-def configure_annotator(
-    model_name: str | None = None,
-    resources_dir: str | None = None,
-    add_entity_ruler: bool | None = None,
-    force_reload: bool = True,
-) -> None:
-    """
-    Optionally (re)configure the process-local annotator.
-    Call this BEFORE annotate_text() if you want custom settings.
-    """
-    global __ANNOTATOR, __MODEL_NAME, __RESOURCES_PATH
-    if not force_reload and __ANNOTATOR is not None:
-        return
-    with __ANNOTATOR_LOCK:
-        __ANNOTATOR = _build_annotator(
-            model_name=model_name or _DEFAULT_MODEL,
-            resources_dir=resources_dir if resources_dir is not None else _RESOURCES_DIR,
-            add_entity_ruler=_ADD_ENTITY_RULER if add_entity_ruler is None else add_entity_ruler,
-        )
-        __MODEL_NAME = model_name or _DEFAULT_MODEL
-        __RESOURCES_PATH = resources_dir if resources_dir is not None else _RESOURCES_DIR
+# Instantiate and initialise the Annotator object
+_annotator = _init_annotator()
 
 def annotate_text(text: str) -> dict:
     """
     Annotate a single text string.
     Usage:
-        from spatio_textual.annotator import annotate_text
+        from spatio_textual import annotate_text
         result = annotate_text("Some text here.")
     """
-    ann = get_annotator()
-    return ann.annotate(text)
+    return _annotator.annotate(text)
 
-# Optional eager init (can be disabled by SPACY_AUTO_INIT=0)
-if _AUTO_INIT:
-    get_annotator()
-
-
-# --- Health check ---
-def annotator_ready() -> bool:
-    """Return True if the process-local annotator is already constructed."""
-    return " __ANNOTATOR" in globals() and (globals().get("__ANNOTATOR") is not None)
-
-def annotator_info(init: bool = True) -> dict:
+def annotate_texts(texts: List[str], file_id: Optional[str] = None, include_text: bool = False) -> List[dict]:
     """
-    If init=True (default), ensures the annotator is constructed (lazy init)
-    and returns full details. If init=False, returns a light snapshot without
-    loading the model; 'ready' tells you if it's already built.
+    Annotate a list of texts (e.g., pre-segmented chunks) with optional fileId and segId.
     """
-    if not init and not annotator_ready():
-        return {
-            "ready": False,
-            "auto_init": _AUTO_INIT,
-            "configured_model": _DEFAULT_MODEL,
-            "fallback_model": _FALLBACK_MODEL,
-            "resources_dir": _RESOURCES_DIR or "",
-        }
+    return _annotator.annotate_texts(texts, file_id=file_id, start_seg_id=1, include_text=include_text)
 
-    ann = get_annotator()  # may lazily build
-    nlp = ann.nlp
-    meta = getattr(nlp, "meta", {}) or {}
-    return {
-        "ready": True,
-        "spacy_version": spacy.__version__,
-        "lang": getattr(nlp, "lang", None),
-        "model_name": meta.get("name") or meta.get("pipeline"),
-        "model_meta_version": meta.get("version"),
-        "pipes": list(nlp.pipe_names),
-        "has_entity_ruler": "entity_ruler" in nlp.pipe_names,
-        "resources_dir": str(getattr(ann, "resources_dir", "")),
-        "resource_counts": {
-            "geonouns": len(getattr(ann, "geonouns", [])),
-            "camps": len(getattr(ann, "camps", [])),
-            "ambiguous_cities": len(getattr(ann, "ambiguous_cities", [])),
-            "non_verbals": len(getattr(ann, "non_verbal", [])),
-            "family_terms": len(getattr(ann, "family", [])),
-        },
-    }
+def chunk_and_annotate_text(text: str, n_segments: int = 100, file_id: Optional[str] = None, include_text: bool = False) -> List[dict]:
+    """
+    Chunk a single long text into ~n_segments (sentence-safe) and annotate each chunk.
+    """
+    segments = split_into_segments(text, n_segments=n_segments, nlp=_annotator.nlp)
+    return _annotator.annotate_texts(segments, file_id=file_id, start_seg_id=1, include_text=include_text)
 
-def print_annotator_info(pretty: bool = True, init: bool = True) -> None:
-    info = annotator_info(init=init)
-    import json
-    print(json.dumps(info, ensure_ascii=False, indent=2 if pretty else None))
+def chunk_and_annotate_file(path: str | Path, n_segments: int = 100, include_text: bool = False) -> List[dict]:
+    """
+    Read a file, split it into ~n_segments on sentence boundaries, and annotate each segment.
+    """
+    return _annotator.annotate_file_chunked(path, n_segments=n_segments, include_text=include_text)

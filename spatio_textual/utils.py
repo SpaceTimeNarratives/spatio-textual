@@ -8,6 +8,9 @@ Key features:
   Loads a spaCy pipeline and (optionally) attaches an EntityRuler whose patterns
   are read from `resources_dir` (falls back to this module's resources folder).
 
+- split_into_segments(text, n_segments=100, nlp=None)
+  Sentence-safe chunking into about N segments (no broken sentences).
+
 - PlaceNames(resources_dir=None)
   Loads GeoNames data and curated lists from `resources_dir` to refine place tags.
 
@@ -17,6 +20,8 @@ Key features:
     - extract_verbs(doc) -> list
     - annotate_file(path) -> dict
     - annotate_inputs(inputs, ...) -> list[dict]
+    - annotate_texts(list_of_texts, file_id=None, start_seg_id=1) -> list[dict]
+    - annotate_file_chunked(path, n_segments=100, ...) -> list[dict]
   Includes a robust file resolver for single files, directories, glob patterns,
   and sequences of any of the above.
 
@@ -26,7 +31,7 @@ Multiprocessing:
 """
 
 from pathlib import Path
-from typing import Dict, Iterable, List, Sequence, Union
+from typing import Dict, Iterable, List, Sequence, Union, Optional
 
 import spacy
 from geonamescache import GeonamesCache
@@ -84,7 +89,7 @@ def load_spacy_model(
         if not path.exists():
             return []
         with path.open(encoding="utf-8") as f:
-            return [{"label": label, "pattern": line.strip()} for line in f if line.strip()]
+            return [{"label": label, "pattern": line.strip()} for line in f if line.strip()]  # type: ignore[return-value]
 
     # Keep filenames consistent with your resources folder.
     files_and_labels = [
@@ -103,6 +108,45 @@ def load_spacy_model(
 
     return nlp
 
+
+# ---------------------------------------------------------------------------
+# Sentence-safe chunker
+# ---------------------------------------------------------------------------
+def split_into_segments(
+    text: str,
+    n_segments: int = 100,
+    nlp: Optional[spacy.Language] = None,
+) -> List[str]:
+    """
+    Split text into ~n_segments without breaking sentences.
+    If fewer sentences than n_segments, returns <= n_segments segments.
+    """
+    if not text or not text.strip():
+        return []
+
+    _nlp = nlp
+    if _nlp is None:
+        # lightweight sentencizer
+        _nlp = spacy.blank("en")
+        if "sentencizer" not in _nlp.pipe_names:
+            _nlp.add_pipe("sentencizer")
+
+    doc = _nlp(text)
+    sents = [s.text.strip() for s in doc.sents if s.text.strip()]
+    if not sents:
+        return []
+
+    n = max(1, min(n_segments, len(sents)))
+    base, extra = divmod(len(sents), n)
+    segments: List[str] = []
+    i = 0
+    for k in range(n):
+        size = base + (1 if k < extra else 0)
+        chunk = " ".join(sents[i:i + size])
+        if chunk:
+            segments.append(chunk)
+        i += size
+    return segments
 
 # ---------------------------------------------------------------------------
 # PlaceNames helper for fine-grained place classification
@@ -169,7 +213,6 @@ class PlaceNames:
             return "PLACE"
         return label
 
-
 # ---------------------------------------------------------------------------
 # Annotator: core annotation + I/O helpers
 # ---------------------------------------------------------------------------
@@ -180,6 +223,8 @@ class Annotator(PlaceNames):
       - extract_verbs(doc) -> list
       - annotate_file(path, ...) -> dict
       - annotate_inputs(inputs, ...) -> list[dict]
+      - annotate_texts(texts, file_id=None, start_seg_id=1) -> list[dict]
+      - annotate_file_chunked(path, n_segments=100, ...) -> list[dict]
 
     Notes:
       - Instantiate per process for multiprocessing safety.
@@ -259,6 +304,10 @@ class Annotator(PlaceNames):
         text = p.read_text(encoding=encoding, errors=errors)
         result = self.annotate(text)
         result["file"] = str(p)
+        result["fileId"] = p.stem
+        # Whole-file mode has no segmenting; segId defaults to 1
+        result["segId"] = 1
+        result["segCount"] = 1
         if include_text:
             result["text"] = text
         return result
@@ -293,6 +342,65 @@ class Annotator(PlaceNames):
                 results.append({"file": str(f), "error": repr(e)})
         return results
 
+    def annotate_texts(
+        self,
+        texts: Sequence[str],
+        file_id: str | None = None,
+        start_seg_id: int = 1,
+        include_text: bool = False,
+    ) -> List[Dict]:
+        """
+        Annotate an in-memory list of texts (segments or any texts).
+        Optionally attach fileId and segId.
+        """
+        out: List[Dict] = []
+        seg_id = start_seg_id
+        for t in texts:
+            res = self.annotate(t)
+            if file_id is not None:
+                res["fileId"] = file_id
+            res["segId"] = seg_id
+            if include_text:
+                res["text"] = t
+            out.append(res)
+            seg_id += 1
+        if file_id is not None:
+            # if we know file_id, also include segCount for convenience
+            for r in out:
+                r["segCount"] = len(out)
+        return out
+
+    def annotate_file_chunked(
+        self,
+        path: str | Path,
+        n_segments: int = 100,
+        encoding: str = "utf-8",
+        errors: str = "ignore",
+        include_text: bool = False,
+    ) -> List[Dict]:
+        """
+        Read a file, split it into ~n_segments on sentence boundaries,
+        and annotate each segment with fileId/segId.
+        """
+        p = Path(path)
+        raw = p.read_text(encoding=encoding, errors=errors)
+        segments = split_into_segments(raw, n_segments=n_segments, nlp=self.nlp)
+        file_id = p.stem
+        total = len(segments)
+        results: List[Dict] = []
+        for idx, seg in enumerate(segments, 1):
+            res = self.annotate(seg)
+            res.update({
+                "file": str(p),
+                "fileId": file_id,
+                "segId": idx,
+                "segCount": total,
+            })
+            if include_text:
+                res["text"] = seg
+            results.append(res)
+        return results
+
     @staticmethod
     def _resolve_input_files(
         inputs: Union[str, Path, Sequence[Union[str, Path]]],
@@ -324,6 +432,7 @@ class Annotator(PlaceNames):
 __all__ = [
     "resources_dir",
     "load_spacy_model",
+    "split_into_segments",
     "PlaceNames",
     "Annotator",
 ]
