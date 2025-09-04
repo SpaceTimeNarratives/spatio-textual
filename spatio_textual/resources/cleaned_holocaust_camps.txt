@@ -38,7 +38,6 @@ Aumun
 Aumund
 Aurich
 Auschwitz
-Austria
 Baalberg
 Babelsberg
 Babice
@@ -79,7 +78,6 @@ Bayrishezell
 Beendorf
 Beerfelde
 Bei
-Belgium
 Belzec
 Belzig
 Beneschau
@@ -89,7 +87,6 @@ Berg
 Berga
 Berga Am Elster
 Bergstedt
-Berlin
 Berlstedt
 Bernartice
 Bernburg
@@ -136,7 +133,6 @@ Bremme
 Breschan
 Breslau
 Bretstein
-Brief
 Brink
 Brocice
 Brodnica
@@ -191,7 +187,6 @@ Cologne
 Comthurey
 Crawinkel
 Crveni Krst
-Czechoslovakia
 Czechwiece
 Czernica
 Czwartaki
@@ -210,7 +205,6 @@ Dautmergen
 Debno
 Dernau
 Dessau
-Die
 Dippoldsau
 Doberitz
 Domanievka
@@ -267,7 +261,6 @@ Eschenhausen
 Escherhausen
 Essen
 Esterwegen
-Estonia
 Eule
 Falkenau
 Falkenberg
@@ -283,7 +276,6 @@ Feldafing
 Feldberg
 Fidelstedt
 Finkenwerder
-Finland
 Fischbachau
 Fischen
 Fischhorn
@@ -296,7 +288,6 @@ Flöha
 Forrenbach
 Fossoli
 Fracfort
-France
 Freiberg
 Freising
 Freitheit
@@ -331,7 +322,6 @@ Gelsenkirchen
 Gendorf
 Genshagen
 Gerdenau
-Germany
 Germering
 Giebelstadt
 Giercze Puste
@@ -383,7 +373,6 @@ Halbstadt
 Halfing
 Hall
 Hallein
-Hamburg
 Hannover
 Happurg
 Hardehausen
@@ -430,7 +419,6 @@ Hohenlychen
 Hohenstadt
 Hohenstein
 Hohlstedt
-Holland
 Holleischen
 Holyson
 Holzen
@@ -448,7 +436,6 @@ Ilfeld
 Ilsenburg
 Ingoldstadt
 Innsbruck
-Italy
 Itter
 Jadovno
 Janigagrube
@@ -550,7 +537,6 @@ Langenhorn
 Langensalsa
 Langenstein
 Larche Ludwigsdorf
-Latvia
 Lauenberg Laura
 Lauenburg
 Lauingen
@@ -593,7 +579,6 @@ Lind
 Linden
 Linz
 Lippstadt
-Lithuania
 Litomerice
 Loborgrad
 Lobositz
@@ -614,7 +599,6 @@ Lütjenburg
 Magdeburg
 Mahrisch
 Maidanek
-Main
 Malchow
 Malken Mierzynek
 Maly
@@ -701,7 +685,6 @@ Niesky Klein
 Niesky Wittischenau
 Niskie
 Nordhausen
-Norway
 Nossen
 Nova Sol
 Nuremberg
@@ -758,8 +741,6 @@ Plauen
 Plawy
 Plomnitz
 Pocking
-Poland
-Police
 Politz
 Pollnhof
 Ponary
@@ -807,7 +788,6 @@ Reisport
 Retzow
 Reuth
 Riederloh
-Riga
 Risiera Di San Sabba
 Risznow
 Rochlitz
@@ -823,7 +803,6 @@ Rothenburg
 Rothschwaige
 Rothwaige
 Rottleberode
-Russia
 Russkaja
 Rybnik
 Rydultowy
@@ -1069,7 +1048,6 @@ Wusteweltersdorf
 Wöbbelin
 Würzburg
 Yanowski
-Yugoslavia
 Zabrze
 Zalhostice
 Zangberg
@@ -1090,6 +1068,7 @@ Zwickau
 Zwieberge
 Zwodau
 Birkenau-Auschwitz
+Auschwitz-Birkenau
 Bergen-Belsen
 Gross Rosen
 Ravensbrück
