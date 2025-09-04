@@ -3,35 +3,16 @@ from __future__ import annotations
 """
 utils.py – spaCy/PlaceNames utilities for single or multi-file annotation.
 
-Key features:
-- load_spacy_model(model_name, resources_dir=None, add_entity_ruler=True)
-  Loads a spaCy pipeline and (optionally) attaches an EntityRuler whose patterns
-  are read from `resources_dir` (falls back to this module's resources folder).
-
+Adds:
+- Optional entity/verb toggles in annotate* methods (entities default True; verbs default False)
 - split_into_segments(text, n_segments=100, nlp=None)
-  Sentence-safe chunking into about N segments (no broken sentences).
-
-- PlaceNames(resources_dir=None)
-  Loads GeoNames data and curated lists from `resources_dir` to refine place tags.
-
-- Annotator(nlp, resources_dir=None)
-  Wraps a spaCy pipeline to:
-    - annotate(text) -> dict
-    - extract_verbs(doc) -> list
-    - annotate_file(path) -> dict
-    - annotate_inputs(inputs, ...) -> list[dict]
-    - annotate_texts(list_of_texts, file_id=None, start_seg_id=1) -> list[dict]
-    - annotate_file_chunked(path, n_segments=100, ...) -> list[dict]
-  Includes a robust file resolver for single files, directories, glob patterns,
-  and sequences of any of the above.
-
-Multiprocessing:
-- Safe to construct one spaCy pipeline + Annotator PER PROCESS.
-- Do not share spaCy Language objects across processes.
+- save_annotations(records, path, fmt=None) -> persists as JSON, JSONL, TSV, or CSV
 """
 
 from pathlib import Path
 from typing import Dict, Iterable, List, Sequence, Union, Optional
+import csv
+import json
 
 import spacy
 from geonamescache import GeonamesCache
@@ -53,19 +34,6 @@ def load_spacy_model(
     resources_dir: Union[str, Path, None] = None,
     add_entity_ruler: bool = True,
 ) -> spacy.Language:
-    """
-    Load a spaCy pipeline and (optionally) attach an EntityRuler whose patterns
-    are read from `resources_dir`. Missing pattern files are skipped gracefully.
-
-    Args:
-        model_name: spaCy model to load (e.g., 'en_core_web_trf', 'en_core_web_sm').
-        resources_dir: Optional folder containing pattern files. Defaults to the
-                       package resources folder if not provided.
-        add_entity_ruler: If False, no EntityRuler is added.
-
-    Returns:
-        A configured spaCy Language pipeline.
-    """
     nlp = spacy.load(model_name)
 
     # Merge multi-token entities so they behave as single tokens downstream.
@@ -89,12 +57,11 @@ def load_spacy_model(
         if not path.exists():
             return []
         with path.open(encoding="utf-8") as f:
-            return [{"label": label, "pattern": line.strip()} for line in f if line.strip()]  # type: ignore[return-value]
+            return [{"label": label, "pattern": line.strip()} for line in f if line.strip()]
 
-    # Keep filenames consistent with your resources folder.
     files_and_labels = [
         ("combined_geonouns.txt", "GEONOUN"),
-        ("non_verbals.txt", "NON-VERBAL"),          # unified plural form
+        ("non_verbals.txt", "NON-VERBAL"),
         ("family_terms.txt", "FAMILY"),
         ("cleaned_holocaust_camps.txt", "CAMP"),
     ]
@@ -126,7 +93,6 @@ def split_into_segments(
 
     _nlp = nlp
     if _nlp is None:
-        # lightweight sentencizer
         _nlp = spacy.blank("en")
         if "sentencizer" not in _nlp.pipe_names:
             _nlp.add_pipe("sentencizer")
@@ -148,15 +114,71 @@ def split_into_segments(
         i += size
     return segments
 
+
+# ---------------------------------------------------------------------------
+# Saving helpers
+# ---------------------------------------------------------------------------
+def _infer_format(path: Union[str, Path], fmt: Optional[str]) -> str:
+    if fmt:
+        return fmt.lower()
+    ext = str(path).lower()
+    if ext.endswith(".jsonl") or ext.endswith(".ndjson"):
+        return "jsonl"
+    if ext.endswith(".json"):
+        return "json"
+    if ext.endswith(".tsv"):
+        return "tsv"
+    if ext.endswith(".csv"):
+        return "csv"
+    # default to json
+    return "json"
+
+
+def _flatten_for_table(rec: dict) -> dict:
+    """Flatten nested lists into JSON strings for TSV/CSV friendliness."""
+    out = dict(rec)
+    if "entities" in out and not isinstance(out["entities"], (str, type(None))):
+        out["entities"] = json.dumps(out["entities"], ensure_ascii=False)
+    if "verb_data" in out and not isinstance(out["verb_data"], (str, type(None))):
+        out["verb_data"] = json.dumps(out["verb_data"], ensure_ascii=False)
+    return out
+
+
+def save_annotations(records: List[dict], path: Union[str, Path], fmt: Optional[str] = None) -> None:
+    """
+    Persist annotations in pandas-friendly formats: json, jsonl, tsv, csv.
+    - json: writes a single JSON array
+    - jsonl/ndjson: one JSON object per line
+    - tsv/csv: flattens entities/verb_data as JSON strings
+    """
+    p = Path(path)
+    p.parent.mkdir(parents=True, exist_ok=True)
+    kind = _infer_format(p, fmt)
+
+    if kind == "json":
+        p.write_text(json.dumps(records, ensure_ascii=False, indent=2), encoding="utf-8")
+        return
+    if kind == "jsonl":
+        with p.open("w", encoding="utf-8") as f:
+            for r in records:
+                f.write(json.dumps(r, ensure_ascii=False) + "\n")
+        return
+
+    # tabular
+    flat = [_flatten_for_table(r) for r in records]
+    fieldnames = sorted({k for r in flat for k in r.keys()})
+    delimiter = "\t" if kind == "tsv" else ","
+    with p.open("w", encoding="utf-8", newline="") as f:
+        w = csv.DictWriter(f, fieldnames=fieldnames, delimiter=delimiter, quoting=csv.QUOTE_MINIMAL)
+        w.writeheader()
+        for row in flat:
+            w.writerow({k: row.get(k, "") for k in fieldnames})
+
+
 # ---------------------------------------------------------------------------
 # PlaceNames helper for fine-grained place classification
 # ---------------------------------------------------------------------------
 class PlaceNames:
-    """
-    Classify FAC/GPE/LOC/ORG into finer classes using GeoNames + curated lists.
-    Construct per process in multiprocessing contexts.
-    """
-
     def __init__(self, resources_dir: Union[str, Path, None] = None):
         self.resources_dir = Path(resources_dir) if resources_dir else _MODULE_RESOURCES_DIR
         self.gc = GeonamesCache()
@@ -194,7 +216,6 @@ class PlaceNames:
         self.geonouns = read_list("combined_geonouns.txt")
         self.camps = read_list("cleaned_holocaust_camps.txt")
         self.ambiguous_cities = read_list("ambiguous_cities.txt")
-        # Attribute name kept as 'non_verbal' for backward compatibility; file is plural 'non_verbals.txt'
         self.non_verbal = read_list("non_verbals.txt")
         self.family = read_list("family_terms.txt")
 
@@ -213,25 +234,11 @@ class PlaceNames:
             return "PLACE"
         return label
 
+
 # ---------------------------------------------------------------------------
 # Annotator: core annotation + I/O helpers
 # ---------------------------------------------------------------------------
 class Annotator(PlaceNames):
-    """
-    Wraps a spaCy pipeline and provides:
-      - annotate(text) -> dict
-      - extract_verbs(doc) -> list
-      - annotate_file(path, ...) -> dict
-      - annotate_inputs(inputs, ...) -> list[dict]
-      - annotate_texts(texts, file_id=None, start_seg_id=1) -> list[dict]
-      - annotate_file_chunked(path, n_segments=100, ...) -> list[dict]
-
-    Notes:
-      - Instantiate per process for multiprocessing safety.
-      - `resources_dir` controls both EntityRuler patterns (via load_spacy_model)
-        and curated lists here.
-    """
-
     def __init__(self, nlp: spacy.Language, resources_dir: Union[str, Path, None] = None):
         super().__init__(resources_dir)
         self.nlp = nlp
@@ -260,30 +267,41 @@ class Annotator(PlaceNames):
                     )
         return data
 
-    def annotate(self, text: str) -> dict:
+    def annotate(self, text: str, *, include_entities: bool = True, include_verbs: bool = False) -> dict:
+        """
+        Annotate a single text string.
+        - include_entities: emit 'entities' (default True)
+        - include_verbs: emit 'verb_data' (default False)
+        """
         doc = self.nlp(text)
-        entities = []
-        for ent in doc.ents:
-            if ent.label_ in {
-                "PERSON",
-                "FAC",
-                "GPE",
-                "LOC",
-                "ORG",
-                "DATE",
-                "TIME",
-                "EVENT",
-                "QUANTITY",
-                "GEONOUN",
-                "NON-VERBAL",
-                "FAMILY",
-                "CAMP",
-            }:
-                tag = self.classify(ent.text, ent.label_) if ent.label_ in {"FAC", "GPE", "LOC", "ORG"} else ent.label_
-                entities.append({"start_char": ent.start_char, "token": ent.text, "tag": tag})
+        result = {}
 
-        verb_data = self.extract_verbs(doc)
-        return {"entities": entities, "verb_data": verb_data}
+        entities = []
+        if include_entities:
+            for ent in doc.ents:
+                if ent.label_ in {
+                    "PERSON",
+                    "FAC",
+                    "GPE",
+                    "LOC",
+                    "ORG",
+                    "DATE",
+                    "TIME",
+                    "EVENT",
+                    "QUANTITY",
+                    "GEONOUN",
+                    "NON-VERBAL",
+                    "FAMILY",
+                    "CAMP",
+                }:
+                    tag = self.classify(ent.text, ent.label_) if ent.label_ in {"FAC", "GPE", "LOC", "ORG"} else ent.label_
+                    entities.append({"start_char": ent.start_char, "token": ent.text, "tag": tag})
+        result["entities"] = entities
+
+        verb_data = self.extract_verbs(doc) if include_verbs else []
+        result["verb_data"] = verb_data
+
+        return result
 
     # ------------------ File helpers ------------------
 
@@ -293,19 +311,14 @@ class Annotator(PlaceNames):
         encoding: str = "utf-8",
         errors: str = "ignore",
         include_text: bool = False,
+        include_entities: bool = True,
+        include_verbs: bool = False,
     ) -> Dict:
-        """
-        Annotate a single text file.
-
-        Returns:
-            dict with keys: 'file', 'entities', 'verb_data' and optionally 'text'
-        """
         p = Path(path)
         text = p.read_text(encoding=encoding, errors=errors)
-        result = self.annotate(text)
+        result = self.annotate(text, include_entities=include_entities, include_verbs=include_verbs)
         result["file"] = str(p)
         result["fileId"] = p.stem
-        # Whole-file mode has no segmenting; segId defaults to 1
         result["segId"] = 1
         result["segCount"] = 1
         if include_text:
@@ -320,23 +333,19 @@ class Annotator(PlaceNames):
         encoding: str = "utf-8",
         errors: str = "ignore",
         include_text: bool = False,
+        include_entities: bool = True,
+        include_verbs: bool = False,
     ) -> List[Dict]:
-        """
-        Annotate one or many inputs:
-          - a single file path
-          - a directory (scans for files matching glob_pattern)
-          - a glob pattern string (e.g., 'data/**/*.txt')
-          - a list/sequence of any of the above
-
-        Returns:
-            list of per-file annotation dicts
-        """
         files = list(self._resolve_input_files(inputs, glob_pattern, recursive))
         results: List[Dict] = []
         for f in files:
             try:
                 results.append(
-                    self.annotate_file(f, encoding=encoding, errors=errors, include_text=include_text)
+                    self.annotate_file(
+                        f, encoding=encoding, errors=errors,
+                        include_text=include_text,
+                        include_entities=include_entities, include_verbs=include_verbs
+                    )
                 )
             except Exception as e:
                 results.append({"file": str(f), "error": repr(e)})
@@ -348,15 +357,13 @@ class Annotator(PlaceNames):
         file_id: str | None = None,
         start_seg_id: int = 1,
         include_text: bool = False,
+        include_entities: bool = True,
+        include_verbs: bool = False,
     ) -> List[Dict]:
-        """
-        Annotate an in-memory list of texts (segments or any texts).
-        Optionally attach fileId and segId.
-        """
         out: List[Dict] = []
         seg_id = start_seg_id
         for t in texts:
-            res = self.annotate(t)
+            res = self.annotate(t, include_entities=include_entities, include_verbs=include_verbs)
             if file_id is not None:
                 res["fileId"] = file_id
             res["segId"] = seg_id
@@ -365,7 +372,6 @@ class Annotator(PlaceNames):
             out.append(res)
             seg_id += 1
         if file_id is not None:
-            # if we know file_id, also include segCount for convenience
             for r in out:
                 r["segCount"] = len(out)
         return out
@@ -377,11 +383,9 @@ class Annotator(PlaceNames):
         encoding: str = "utf-8",
         errors: str = "ignore",
         include_text: bool = False,
+        include_entities: bool = True,
+        include_verbs: bool = False,
     ) -> List[Dict]:
-        """
-        Read a file, split it into ~n_segments on sentence boundaries,
-        and annotate each segment with fileId/segId.
-        """
         p = Path(path)
         raw = p.read_text(encoding=encoding, errors=errors)
         segments = split_into_segments(raw, n_segments=n_segments, nlp=self.nlp)
@@ -389,7 +393,7 @@ class Annotator(PlaceNames):
         total = len(segments)
         results: List[Dict] = []
         for idx, seg in enumerate(segments, 1):
-            res = self.annotate(seg)
+            res = self.annotate(seg, include_entities=include_entities, include_verbs=include_verbs)
             res.update({
                 "file": str(p),
                 "fileId": file_id,
@@ -407,13 +411,6 @@ class Annotator(PlaceNames):
         glob_pattern: str = "*.txt",
         recursive: bool = True,
     ) -> Iterable[Path]:
-        """
-        Yield Path objects for all files represented by 'inputs'.
-          - If inputs is a file -> yield it.
-          - If inputs is a dir -> yield files matching glob_pattern (recursive or not).
-          - If inputs looks like a glob pattern -> treat as glob pattern.
-          - If inputs is a sequence -> resolve each element recursively.
-        """
         if isinstance(inputs, (str, Path)):
             p = Path(inputs)
             if p.exists():
@@ -422,7 +419,6 @@ class Annotator(PlaceNames):
                 elif p.is_dir():
                     yield from (p.rglob(glob_pattern) if recursive else p.glob(glob_pattern))
             else:
-                # Treat as a glob pattern relative to CWD (e.g., "data/**/*.txt")
                 yield from Path().glob(str(inputs))
         else:
             for item in inputs:
@@ -433,6 +429,7 @@ __all__ = [
     "resources_dir",
     "load_spacy_model",
     "split_into_segments",
+    "save_annotations",
     "PlaceNames",
     "Annotator",
 ]

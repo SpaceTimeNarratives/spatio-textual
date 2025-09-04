@@ -179,32 +179,41 @@ python cli.py -i data/sample.txt --no-chunk --no-entity-ruler --pretty
 
 ```python
 from spatio_textual.annotate import (
-    annotate_text,
-    annotate_texts,
-    chunk_and_annotate_text,
-    chunk_and_annotate_file,
+    annotate_text,           # single string
+    annotate_texts,          # list of strings
+    chunk_and_annotate_text, # chunk a string then annotate
+    chunk_and_annotate_file, # chunk a file then annotate
+    annotate_files,          # NEW: orchestrates one/many files, chunked or whole
 )
 
-# Single string
 text = "Anne Frank was taken from Amsterdam to Auschwitz."
-res1 = annotate_text(text)
 
-# List of strings (segments) with optional fileId and segId numbering
+# 1) Single string (entities ON by default; verbs OFF by default)
+res1 = annotate_text(text)                      # entities only
+res1v = annotate_text(text, include_verbs=True) # entities + verbs
+
+# 2) List of texts (segments)
 chunks = [text, text]
-res2 = annotate_texts(chunks, file_id="sample", include_text=False)
+res2 = annotate_texts(chunks, file_id="sample", include_text=False, include_verbs=True)
 
-# Chunk a long text into ~80 sentence-safe segments and annotate
+# 3) Chunk a long string into ~80 segments, then annotate
 long_text = text * 50
-res3 = chunk_and_annotate_text(long_text, n_segments=80, file_id="sample")
+res3 = chunk_and_annotate_text(long_text, n_segments=80, file_id="sample", include_verbs=True)
 
-# Chunk a file and annotate segments
+# 4) Chunk a file and annotate segments
 res4 = chunk_and_annotate_file("data/sample.txt", n_segments=100, include_text=False)
+
+# 5) NEW: Unified files orchestrator (chunked)
+res5 = annotate_files(["data/sample.txt", "corpus/"], chunk=True, n_segments=50, include_verbs=True)
+
+# 6) NEW: Unified files orchestrator (whole-file)
+res6 = annotate_files("data/sample.txt", chunk=False)
 ```
 
 ### Lower-level / flexible — `utils.py`
 
 ```python
-from spatio_textual.utils import load_spacy_model, Annotator, split_into_segments
+from spatio_textual.utils import load_spacy_model, Annotator, split_into_segments, save_annotations
 
 # Choose a model
 nlp = load_spacy_model("en_core_web_trf", resources_dir="resources")  # or en_core_web_sm
@@ -216,14 +225,16 @@ ann = Annotator(nlp, resources_dir="resources")
 text = "Anne Frank was taken from Amsterdam to Auschwitz."
 segments = split_into_segments(text * 30, n_segments=10, nlp=nlp)
 
-# Annotate a list of texts
+# Annotate a list of texts (entities only)
 out = ann.annotate_texts(segments, file_id="sample", start_seg_id=1, include_text=False)
 
-# Annotate a single file (whole-file mode)
-single = ann.annotate_file("data/sample.txt")
+# Annotate with verbs enabled
+out_v = ann.annotate_texts(segments, file_id="sample", include_verbs=True)
 
-# Annotate a file with chunking
-chunked = ann.annotate_file_chunked("data/sample.txt", n_segments=5, include_text=True)
+# Persist to various formats (pandas-friendly)
+save_annotations(out_v, "out/sample.jsonl")
+save_annotations(out_v, "out/sample.tsv")
+save_annotations(out_v, "out/sample.csv")
 ```
 
 ---
@@ -240,15 +251,19 @@ chunked = ann.annotate_file_chunked("data/sample.txt", n_segments=5, include_tex
 !python -m spacy download en_core_web_sm  # or en_core_web_trf
 
 # Use the library
-from spatio_textual.annotate import annotate_text, chunk_and_annotate_text
+from spatio_textual.annotate import annotate_text, chunk_and_annotate_text, annotate_files
 
 text = "Anne Frank was taken from Amsterdam to Auschwitz."
-print(annotate_text(text))
+print(annotate_text(text, include_verbs=True))
 
 # Chunk and annotate a longer text
 long_text = text * 30
-res = chunk_and_annotate_text(long_text, n_segments=10, file_id="sample")
+res = chunk_and_annotate_text(long_text, n_segments=10, file_id="sample", include_verbs=True)
 len(res), res[0]
+
+# Orchestrate over a folder (whole-file)
+res2 = annotate_files("/content/corpus", chunk=False)
+len(res2)
 ```
 
 ---
