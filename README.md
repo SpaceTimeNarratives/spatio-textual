@@ -285,7 +285,7 @@ summary, interpretation, themes
 
 ## 🧰 Troubleshooting
 
-* **spaCy model not found** → run `python -m spacy download en_core_web_sm` (or `_trf`)
+* **spaCy model not found** → run `python -m spacy download en_core_web_trf` (or `_sm`)
 * **Slow transformer model** → try `en_core_web_sm` during development
 * **Empty map** → you must supply a geocoder to `to_geojson`
 * **Pandas schema mismatches** → `load_annotations(..., ensure_columns=True)` fills missing columns
