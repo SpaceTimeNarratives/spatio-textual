@@ -10,7 +10,7 @@ Adds:
 """
 
 from pathlib import Path
-from typing import Dict, Iterable, List, Sequence, Union, Optional
+from typing import Dict, Iterable, List, Sequence, Union, Optional, Tuple
 import csv
 import json
 
@@ -173,6 +173,63 @@ def save_annotations(records: List[dict], path: Union[str, Path], fmt: Optional[
         w.writeheader()
         for row in flat:
             w.writerow({k: row.get(k, "") for k in fieldnames})
+
+
+# ---------------------------------------------------------------------------
+# Pandas loading helper (optional dependency)
+# ---------------------------------------------------------------------------
+
+def load_annotations(path: Union[str, Path], fmt: Optional[str] = None,
+                     ensure_columns: bool = True,
+                     json_columns: Tuple[str, str] = ("entities", "verb_data")):
+    """
+    Efficiently load saved annotations into a pandas DataFrame, regardless of whether
+    they were saved as JSON, JSONL, TSV, or CSV. Keeps schema consistent and decodes
+    JSON columns back to Python lists when needed.
+
+    Parameters
+    ----------
+    path : str | Path
+        File to load.
+    fmt : str | None
+        One of {"json","jsonl","tsv","csv"}. If None, inferred from extension.
+    ensure_columns : bool
+        If True (default), ensures standard columns exist even if missing in the file.
+    json_columns : tuple[str, str]
+        Columns that should contain JSON arrays; parsed if loaded as strings.
+
+    Returns
+    -------
+    pandas.DataFrame
+    """
+    import pandas as pd  # optional dependency
+
+    k = _infer_format(path, fmt)
+    p = Path(path)
+
+    if k == "jsonl":
+        # dtype object preserves lists; orient is handled by pandas
+        df = pd.read_json(p, lines=True, dtype={json_columns[0]: "object", json_columns[1]: "object"})
+    elif k == "json":
+        df = pd.read_json(p, dtype={json_columns[0]: "object", json_columns[1]: "object"})
+    else:
+        # TSV/CSV: load as strings (fast, predictable), then parse JSON list cols
+        sep = "	" if k == "tsv" else ","
+        df = pd.read_csv(p, sep=sep, dtype=str)
+        import json as _json
+        for col in json_columns:
+            if col in df.columns:
+                df[col] = df[col].apply(lambda x: _json.loads(x) if isinstance(x, str) and x not in ("", "nan", "None") else [])
+
+    if ensure_columns:
+        REQUIRED = ["file","fileId","segId","segCount","entities","verb_data","text","error"]
+        for col in REQUIRED:
+            if col not in df.columns:
+                if col in json_columns:
+                    df[col] = [[] for _ in range(len(df))]
+                else:
+                    df[col] = None
+    return df
 
 
 # ---------------------------------------------------------------------------
@@ -430,6 +487,7 @@ __all__ = [
     "load_spacy_model",
     "split_into_segments",
     "save_annotations",
+    "load_annotations",
     "PlaceNames",
     "Annotator",
 ]
