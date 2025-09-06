@@ -145,7 +145,7 @@ print(df[["fileId","segId","sentiment_label","emotion_label"]].head())
 ```python
 from spatio_textual.annotate import annotate_files
 
-# Chunk each file into ~50 sentence-safe segments and annotate
+# Chunk each file into `n_segments` sentence-safe segments and annotate
 results = annotate_files(["data/"], chunk=True, n_segments=50, include_verbs=True)
 ```
 
