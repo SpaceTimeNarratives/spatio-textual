@@ -62,9 +62,9 @@ pip install -U pip wheel
 pip install -r requirements.txt
 
 # Download at least one spaCy model
-python -m spacy download en_core_web_sm    # small (fast)
-# or
 python -m spacy download en_core_web_trf   # transformer (higher quality)
+# or
+python -m spacy download en_core_web_sm    # small (fast)
 ```
 
 > Packaging tip: expose a console entry point (e.g. `spatio-textual=spatio_textual.cli:main`) so users can call the CLI after `pip install .`.
