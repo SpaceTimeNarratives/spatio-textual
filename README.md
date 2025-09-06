@@ -1,26 +1,100 @@
 # spatio-textual ✨
 
-A Python library for spatial textual analysis created as part of the [Spatial Narratives Project](https://spacetimenarratives.github.io/). It supports spatio-textual annotation, analysis and visualisation for digital humanities projects, with initial applications to:
+A Python library for textual analysis for spatial and digital humanities research created as part of the [Spatial Narratives Project](https://spacetimenarratives.github.io/). It supports spatio-textual annotation, analysis and visualisation for digital humanities projects, with initial applications to:
 
 - **Corpus of Lake District Writing (CLDW)**
 - **Holocaust survivors' testimonies** (e.g., USC Shoah Foundation archives)
 
-This release adds **sentence-safe chunking**, **list-of-texts input**, **file/segment IDs in output**, **JSON/JSONL saving**, and a **multiprocessing CLI**.
+This release includes **sentence-safe chunking**, **list-of-texts input**, **file/segment IDs in output**, **robust saving of annotation (JSON/JSONL/TSV/CSV)**, **efficient loading of annotation (Pandas friendly)** and a **multiprocessing CLI with tqdm progress report** and a clean Python API.
+
+Additional features:
+
+* ✂️ **Testimony segmentation** (Q↔A-aware turns; roles: interviewer/witness)
+* 😊 **Sentiment** (rule backend; LLM/HF hooks to follow)
+* 😶‍🌫️ **Emotion** (Ekman-style labels via rule backend; LLM/HF hooks to follow)
+* 🧠 **Interpretation** (summaries/themes; optional LLM hook)
+* 🗺️📈 **Visualisation** (GeoJSON/Folium map; co-occurrence graphs)
+
 
 ---
 
-## 🧭 Contents
+## 🧭 What’s inside
 
-- `utils.py` — core utilities (spaCy loader, `PlaceNames`, `Annotator`, `split_into_segments`)
-- `annotate.py` — simple Python API entry points
-- `cli.py` — command-line interface for single files, directories, or in-memory segment lists
-- `resources/` — optional term lists for the `EntityRuler` and classification
-  - `combined_geonouns.txt`
-  - `non_verbals.txt`
-  - `family_terms.txt`
-  - `cleaned_holocaust_camps.txt`
+**Core**
 
-Details of the file contents `spatio_textual/resources/`
+* spaCy model loader with optional **EntityRuler** patterns
+* Place classification (COUNTRY, CITY, CONTINENT, CAMP, …)
+* Sentence‑safe chunking (no broken sentences)
+* Flexible annotation APIs for **single or multiple files** and **lists of texts**
+* Robust saving in **JSON / JSONL / TSV / CSV** + a pandas‑friendly loader
+
+**Testimony features**
+
+* ✂️ Q↔A‑aware segmentation of testimonies (roles: `interviewer|witness|narration|unknown`), with `turnId`, `qaPairId`, `isQuestion`, `isAnswer`
+
+**Affect analysis**
+
+* 😊 Sentiment classification (rule backend; hooks for LLM/HF)
+* 😶‍🌫️ Emotion classification (Neutral, Joy, Surprise, Sadness, Fear, Anger, Disgust) via rule backend; hooks for LLM/HF
+
+**Interpretation**
+
+* 🧠 Record‑level summaries, affect explanations, simple theme tags (LLM‑friendly hook)
+
+**Visualisation**
+
+* 🗺️ GeoJSON builder + optional **Folium** HTML map
+* 📈 Co‑occurrence edge list for graphs (entity co‑mentions)
+
+**CLI & performance**
+
+* Multiprocessing with `--workers` / `--chunksize`
+* Optional `--tqdm` progress bars
+
+---
+
+## 📦 Installation
+
+```bash
+python -m venv venv
+source venv/bin/activate       # on Windows: venv\Scripts\activate
+pip install -U pip wheel
+pip install -r requirements.txt
+
+# Download at least one spaCy model
+python -m spacy download en_core_web_sm    # small (fast)
+# or
+python -m spacy download en_core_web_trf   # transformer (higher quality)
+```
+
+> Packaging tip: expose a console entry point (e.g. `spatio-textual=spatio_textual.cli:main`) so users can call the CLI after `pip install .`.
+
+### 📄 requirements.txt (suggested)
+
+```text
+# Base
+spacy>=3.6,<4.0
+geonamescache>=2.0.0
+
+# Progress bar (optional)
+tqdm>=4.66.0
+
+# Visualisation (optional)
+folium>=0.15.0
+
+# (Optional) Transformers/LLM backends for richer sentiment/emotion later
+# transformers>=4.41.0
+# torch>=2.0.0
+# openai>=1.0.0
+```
+
+### 📂 Resources directory
+
+Place pattern lists under `resources/` (or pass `--resources-dir`). Recognised files:
+
+* `combined_geonouns.txt`, `non_verbals.txt`, `family_terms.txt`, `cleaned_holocaust_camps.txt`
+
+Details of the `spatio_textual/resources/` files:
 
 | File   | Description  |
 | ----------------------------- | ---------------------------------------------------------------- |
@@ -32,332 +106,189 @@ Details of the file contents `spatio_textual/resources/`
 
 ---
 
-## 📦 Installation
+## 🚀 Quickstarts
 
-### 1. Clone
-```bash
-git clone https://github.com/SpaceTimeNarratives/spatio-textual.git
-cd spatio-textual
-```
-
-### 2. Environment
-Use the provided script **or** do it manually.
-
-**Script (if `setup.sh` exists):**
-```bash
-./setup.sh
-```
-
-**Manual setup:**
-```bash
-python3 -m venv venv
-source venv/bin/activate        # on Windows: venv\Scripts\activate
-pip install -U pip wheel
-pip install -r requirements.txt
-
-# spaCy model (choose one)
-python -m spacy download en_core_web_trf   # transformer (recommended, larger)
-# OR
-python -m spacy download en_core_web_sm    # small (faster, lower quality)
-```
-
-### 3. (Optional) Resources
-By default, the CLI and APIs look for `resources/` next to the code.  
-To use a custom resources folder, pass `--resources-dir /path/to/resources` (CLI) or `resources_dir=...` in Python.
-
-> 💡 **Pip-installable package**: When packaging, add a `console_scripts` entry point (e.g., `spatio-textual=cli:main`) so `spatio-textual` is available on the PATH after `pip install .`.
-
----
-
-## 🚀 Quick Start (CLI)
-
-The CLI supports:
-- **Sentence-safe chunking** (`--segments N`, default `100`) – no broken sentences across segments.
-- **Whole-file mode** (`--no-chunk`) – process the entire file as one record.
-- **List-of-texts input** from a JSON array (`--segments-json`).
-- **Multiprocessing** (`--workers`, `--chunksize`).
-- **EntityRuler toggle** (`--no-entity-ruler`).
-- **JSON** (array) or **JSONL** (one object per line) output.
-
-> Tip: Run `python cli.py --info` to verify the model, pipes, and resources.
-
-### Show environment info
-```bash
-python cli.py --info --spacy-model en_core_web_trf --resources-dir resources/
-```
-
-### Single file → chunked (~100 segments) → pretty JSON to stdout
-```bash
-echo "Anne Frank was taken from Amsterdam to Auschwitz." > data/sample.txt
-python cli.py -i data/sample.txt --pretty
-```
-
-### Single file → chunked (~50 segments) → save JSON array
-```bash
-python cli.py -i data/sample.txt --segments 50 -o out/sample.json --output-format json
-```
-
-### Whole-file mode (no chunking) → JSON array (single object)
-```bash
-python cli.py -i data/sample.txt --no-chunk -o out/sample_whole.json --output-format json
-```
-
-### Directory (recursive) → JSONL (stream) with multiprocessing
-```bash
-python cli.py -i corpus/ --glob "*.txt" --workers 6 --chunksize 16 \
-  -o out/corpus.jsonl --output-format jsonl --progress
-```
-
-### Mixed inputs (files + dir + glob) → JSON (array)
-```bash
-python cli.py -i data/a.txt data/ "corpus/**/*.md" \
-  -o out/mixed.json --output-format json
-```
-
-### In-memory list of segments/texts from JSON
-`segments.json` can be either strings, or objects with `"text"` and optional `"fileId"` / `"segId"`:
-```json
-[
-  {"text": "Anne Frank was taken from Amsterdam to Auschwitz.", "fileId": "sample", "segId": 1},
-  "Anne Frank was taken from Amsterdam to Auschwitz."
-]
-```
-Run:
-```bash
-python cli.py --segments-json segments.json -o out/segments.json --output-format json
-```
-
-### Dry run (see which files would be processed)
-```bash
-python cli.py -i "corpus/**/*.txt" --dry-run
-```
-
-### Disable EntityRuler (speed tests)
-```bash
-python cli.py -i data/sample.txt --no-chunk --no-entity-ruler --pretty
-```
----
-
-## 🧪 Output schema
-
-### Chunked records (default)
-```jsonc
-{
-  "file": "path/to/sample.txt",   // present for file-based runs
-  "fileId": "sample",             // filename without extension
-  "segId": 1,                     // 1-based segment index
-  "segCount": 1,                  // total number of segments in the file
-  "entities": [ { "start_char": 0, "token": "Anne Frank", "tag": "PERSON" }, { "token": "Amsterdam", "tag": "CITY" }, { "token": "Auschwitz", "tag": "CAMP" } ],
-  "verb_data": [ { "sent-id": 0, "verb": "taken", "subject": "Anne Frank", "object": "Auschwitz", "sentence": "Anne Frank was taken from Amsterdam to Auschwitz." } ],
-  "text": "..."                   // included only if --include-text
-}
-```
-
-### Whole-file records (`--no-chunk`)
-```jsonc
-{
-  "file": "path/to/sample.txt",
-  "fileId": "sample",
-  "segId": 1,
-  "segCount": 1,
-  "entities": [...],
-  "verb_data": [...],
-  "text": "..."   // if --include-text
-}
-```
-
-### In-memory list mode (`--segments-json`)
-- If `fileId` is provided in the input, it is preserved and used to reset `segId` per file.
-- If `segId` is provided in the input, it overrides the auto numbering.
-- Otherwise, `segId` starts at 1 in each implicit group.
-
----
-
-## 🧠 Python API
-
-### High-level (simple) — `annotate.py`
+### 🐍 Python (minimal)
 
 ```python
-from spatio_textual.annotate import (
-    annotate_text,           # annotates a single text string
-    annotate_texts,          # annotates a list of texts
-    chunk_and_annotate_text, # chunks and annotates a text
-    chunk_and_annotate_file, # chunk and annotate a file
-    annotate_files,          # orchestrates one/many files, chunked or whole
-)
+from spatio_textual.utils import load_spacy_model, Annotator, save_annotations, load_annotations
+from spatio_textual.sentiment import SentimentAnalyzer
+from spatio_textual.emotion import EmotionAnalyzer
+from spatio_textual.analysis import analyze_records
+
+nlp = load_spacy_model("en_core_web_sm")
+ann = Annotator(nlp)
 
 text = "Anne Frank was taken from Amsterdam to Auschwitz."
+rec = ann.annotate(text, include_verbs=True)        # entities + verbs
+rec["fileId"], rec["segId"], rec["segCount"] = "example", 1, 1
+rec["text"] = text
 
-# 1) Single string (entities ON by default; verbs OFF by default)
-res1 = annotate_text(text)                      # entities only
-res1v = annotate_text(text, include_verbs=True) # entities + verbs
+# Affect (rule backends work offline)
+sent = SentimentAnalyzer("rule").predict([text])[0]
+emo  = EmotionAnalyzer("rule").predict([text])[0]
+rec.update({
+    "sentiment_label": sent["label"], "sentiment_score": sent["score"],
+    "emotion_label": emo["label"],     "emotion_score": emo["score"],
+})
 
-# 2) List of texts (segments)
-chunks = [text, text]
-res2 = annotate_texts(chunks, file_id="sample", include_text=False, include_verbs=True)
+# Optional interpretation
+[rec] = analyze_records([rec])
 
-# 3) Chunk a long string into ~80 segments, then annotate
-long_text = text * 50
-res3 = chunk_and_annotate_text(long_text, n_segments=80, file_id="sample", include_verbs=True)
-
-# 4) Chunk a file and annotate segments
-res4 = chunk_and_annotate_file("data/sample.txt", n_segments=100, include_text=False)
-
-# 5) NEW: Unified files orchestrator (chunked)
-res5 = annotate_files(["data/sample.txt", "corpus/"], chunk=True, n_segments=50, include_verbs=True)
-
-# 6) NEW: Unified files orchestrator (whole-file)
-res6 = annotate_files("data/sample.txt", chunk=False)
+save_annotations([rec], "out/sample.jsonl")
+df = load_annotations("out/sample.jsonl")
+print(df[["fileId","segId","sentiment_label","emotion_label"]].head())
 ```
 
-### Lower-level / flexible — `utils.py`
+### 🧪 Python (files & chunking)
 
 ```python
-from spatio_textual.utils import load_spacy_model, Annotator, split_into_segments, save_annotations
+from spatio_textual.annotate import annotate_files
 
-# Choose a model
-nlp = load_spacy_model("en_core_web_trf", resources_dir="resources")  # or en_core_web_sm
-
-# Build annotator
-ann = Annotator(nlp, resources_dir="resources")
-
-# Sentence-safe chunking helper
-text = "Anne Frank was taken from Amsterdam to Auschwitz."
-segments = split_into_segments(text * 30, n_segments=10, nlp=nlp)
-
-# Annotate a list of texts (entities only)
-out = ann.annotate_texts(segments, file_id="sample", start_seg_id=1, include_text=False)
-
-# Annotate with verbs enabled
-out_v = ann.annotate_texts(segments, file_id="sample", include_verbs=True)
-
-# Persist to various formats (pandas-friendly)
-save_annotations(out_v, "out/sample.jsonl")
-save_annotations(out_v, "out/sample.tsv")
-save_annotations(out_v, "out/sample.csv")
+# Chunk each file into ~50 sentence-safe segments and annotate
+results = annotate_files(["data/"], chunk=True, n_segments=50, include_verbs=True)
 ```
 
----
+### 📓 Colab
 
-## 📓 Colab / Notebook Usage
+```bash
+# Colab: install runtime deps
+pip -q install spacy geonamescache tqdm folium
+python -m spacy download en_core_web_sm
+```
 
 ```python
-# Install (library + optional transformers extras)
-!pip -q install spacy geonamescache
-# Optional for transformer model:
-# !pip -q install spacy-transformers torch
+from spatio_textual.utils import load_spacy_model, Annotator, save_annotations, load_annotations
+from spatio_textual.qa import segment_testimony
+from spatio_textual.sentiment import SentimentAnalyzer
+from spatio_textual.emotion import EmotionAnalyzer
+from spatio_textual.analysis import analyze_records
 
-# Download a model
-!python -m spacy download en_core_web_sm  # or en_core_web_trf
-
-# Use the library
-from spatio_textual.annotate import annotate_text, chunk_and_annotate_text, annotate_files
+nlp = load_spacy_model("en_core_web_sm")
+ann = Annotator(nlp)
 
 text = "Anne Frank was taken from Amsterdam to Auschwitz."
-print(annotate_text(text, include_verbs=True))
+segments = [s.text for s in segment_testimony("Q: " + text, nlp=nlp)]
+recs = ann.annotate_texts(segments, file_id="sample", include_text=True)
 
-# Chunk and annotate a longer text
-long_text = text * 30
-res = chunk_and_annotate_text(long_text, n_segments=10, file_id="sample", include_verbs=True)
-len(res), res[0]
+sent = SentimentAnalyzer("rule")
+emo  = EmotionAnalyzer("rule")
+spans = [r["text"] for r in recs]
+for r, s in zip(recs, sent.predict(spans)):
+    r["sentiment_label"], r["sentiment_score"] = s["label"], s["score"]
+for r, e in zip(recs, emo.predict(spans)):
+    r["emotion_label"], r["emotion_score"] = e["label"], e["score"]
 
-# Orchestrate over a folder (whole-file)
-res2 = annotate_files("/content/corpus", chunk=False)
-len(res2)
+recs = analyze_records(recs)
+save_annotations(recs, "sample.jsonl")
+df = load_annotations("sample.jsonl")
+df.head()
 ```
 
----
-
-## 📄 requirements.txt
-
-Add these to your `requirements.txt` for packaging and installation:
-
-```text
-spacy>=3.6,<4.0
-geonamescache>=2.0.0
-
-# Optional for transformer model (en_core_web_trf):
-spacy-transformers>=1.3.4
-# PyTorch is required by spacy-transformers; install a build matching your platform/compute
-# Example (CPU only):
-# torch>=2.0.0
-```
-
-> If you plan to ship wheels that pre-pin models, you can also add model packages like `en_core_web_sm` as an extra install step or document them under **Installation**.
-
-Add these to your `requirements.txt` for packaging and installation:
-
-```text
-spacy>=3.6,<4.0
-geonamescache>=2.0.0
-
-# Optional for transformer model (en_core_web_trf):
-spacy-transformers>=1.3.4
-# PyTorch is required by spacy-transformers; install a build matching your platform/compute
-# Example (CPU only):
-# torch>=2.0.0
-```
-
-> If you plan to ship wheels that pre-pin models, you can also add model packages like `en_core_web_sm` as an extra install step or document them under **Installation**.
-
----
-
-## 📝 Notes & Tips
-
-* **Resources**: Place custom term lists under `resources/` or point `--resources-dir` to your folder.
-* **EntityRuler**: Enabled by default. Use `--no-entity-ruler` to disable.
-* **Multiprocessing**: Use `--workers` close to the number of CPU cores and a `--chunksize` of 8–32 for large corpora.
-* **Windows/macOS**: The CLI uses the `spawn` start method, which is compatible across platforms.
-* **Models**: `en_core_web_trf` (higher quality, slower) vs `en_core_web_sm` (faster, smaller).
-* **Reproducibility**: Pin `spacy`, `geonamescache`, and model versions in `requirements.txt`.
-
----
-
-## 🔄 Previous command replaced
-
-The earlier README referenced:
+### 🖥️ CLI
 
 ```bash
-python entity_annotator.py -i segments.jsonl -o out_dir -r resources -w 4
+# Show environment info
+python -m spatio_textual.cli --info --spacy-model en_core_web_sm --resources-dir resources/
+
+# Single file → chunked (~100 segs) → pretty JSON
+python -m spatio_textual.cli -i data/sample.txt --pretty
+
+# Whole-file mode (no chunking)
+python -m spatio_textual.cli -i data/sample.txt --no-chunk -o out/sample.json --output-format json
+
+# Directory (recursive) → JSONL stream, multiprocessing + tqdm, with verbs
+python -m spatio_textual.cli \
+  -i corpus/ --glob "*.txt" --workers 6 --chunksize 16 --tqdm --verbs \
+  -o out/corpus.jsonl --output-format jsonl
+
+# Testimony segmentation + affect + interpretation
+python -m spatio_textual.cli \
+  -i data/testimonies/ --glob "*.txt" --tqdm \
+  --testimony --sentiment rule --emotion rule --interpret \
+  -o out/testimonies.jsonl --output-format jsonl
+
+# List-of-texts mode (JSON array) → TSV
+python -m spatio_textual.cli --segments-json segments.json --tqdm -o out/segments.tsv --output-format tsv
 ```
 
-That workflow is now covered by the new unified CLI. For example:
-
-```bash
-# Approximately equivalent: process a list of segments from a JSON file
-python cli.py --segments-json segments.json -o out_dir/segments.json --output-format json --workers 4
-```
 ---
 
-## 📚 Corpus-Specific Support
+## 🧠 API Reference (essentials)
 
-### Lake District Writing
+### utils.py
 
-- Recognizes landscape terms (e.g., *valley*, *road*, *lake*) from `combined_geonouns.txt`
-- Can be extended with toponyms of the Lake District
+* `load_spacy_model(model_name='en_core_web_trf', resources_dir=None, add_entity_ruler=True)` → `nlp`
+* `split_into_segments(text, n_segments=100, nlp=None)` → `[str]`
+* `save_annotations(records, path, fmt=None)` → writes **json/jsonl/tsv/csv**
+* `load_annotations(path, fmt=None, ensure_columns=True)` → `pandas.DataFrame`
+* `class Annotator(nlp)`:
 
-### Holocaust Testimonies
+  * `.annotate(text, include_entities=True, include_verbs=False)`
+  * `.annotate_texts(texts, file_id=None, include_text=False, ...)` → `[dict]`
+  * `.annotate_file_chunked(path, n_segments=100, ...)` → `[dict]`
+  * `.annotate_inputs(inputs, glob_pattern, recursive, ...)` → `[dict]`
 
-- Annotates camps, movements, and geographic references
-- Uses `cleaned_holocaust_camps.txt` and `family_terms.txt`
+### annotate.py (convenience)
+
+* `annotate_text`, `annotate_texts`, `chunk_and_annotate_text`, `chunk_and_annotate_file`, `annotate_files`
+
+### qa.py
+
+* `segment_testimony(text, nlp=None, speaker_patterns=None, join_continuations=True, sentence_safe=True)` → `[Segment]`
+
+  * `Segment`: `text, role, turn_id, is_question, is_answer, qa_pair_id`
+* `segment_testimony_file(path, **kwargs)`
+
+### sentiment.py / emotion.py
+
+* `SentimentAnalyzer(backend='rule'|'llm', model_name=None, llm_fn=None).predict(list[str])` → `[{'label','score'}]`
+* `EmotionAnalyzer(backend='rule'|'llm', model_name=None, llm_fn=None).predict(list[str])` → `[{'label','score', 'distribution'?}]`
+
+### analysis.py
+
+* `analyze_records(records, llm_fn=None, summarize=True, explain=True, tag_themes=True)` → records + `summary`, `interpretation`, `themes`
+
+### viz.py
+
+* `to_geojson(records, geocoder=None)` → GeoJSON FeatureCollection
+* `make_map_geojson(geojson, out_html='map.html')` → saves Folium HTML (if installed)
+* `build_cooccurrence(records, nodes=("PERSON","GPE"), window=1)` → `(u,v,w)` edge list
 
 ---
 
-## 🛠 Development
+## 🧪 Output schema (per record)
 
-Clone and install with editable mode:
+Common keys (always present or filled with empty defaults):
 
-```bash
-git clone https://github.com/SpaceTimeNarratives/spatio-textual.git
-cd spatio-textual
-pip install -e .
+```
+file, fileId, segId, segCount, entities, verb_data, text?, error?
+# Testimony extras
+role, turnId, qaPairId, isQuestion, isAnswer
+# Affect
+sentiment_label, sentiment_score, emotion_label, emotion_score, emotion_dist?
+# Interpretation
+summary, interpretation, themes
 ```
 
-Run tests (coming soon):
+`entities` and `verb_data` are arrays (flattened to JSON strings in TSV/CSV).
 
-```bash
-pytest tests/
-```
+---
+
+## ⚙️ Performance tips
+
+* Prefer `--workers N` close to your CPU core count; tune `--chunksize` (8–32) for large corpora
+* Use `--tqdm` for a progress bar
+* For massive analyses, save as JSONL and load with `load_annotations()`
+
+---
+
+## 🧰 Troubleshooting
+
+* **spaCy model not found** → run `python -m spacy download en_core_web_sm` (or `_trf`)
+* **Slow transformer model** → try `en_core_web_sm` during development
+* **Empty map** → you must supply a geocoder to `to_geojson`
+* **Pandas schema mismatches** → `load_annotations(..., ensure_columns=True)` fills missing columns
 
 ---
 
@@ -380,3 +311,5 @@ Feel free to fork, improve and contribute! Future improvements:
 ## 🔗 Acknowledgements
 
 The project is funded in the UK from 2022 to 2025 by ESRC, project reference: ES/W003473/1. We also acknowledge the input and advice from the other members of the project team in generating requirements for our research presented here and the [UCREL Hex](https://www.lancaster.ac.uk/scc/research/research-facilities/hex/) team for providing the compute needs for this project. More details of the project can be found on the website: [Spatial Narratives Project](https://spacetimenarratives.github.io/)
+
+---
