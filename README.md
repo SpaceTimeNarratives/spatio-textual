@@ -154,7 +154,7 @@ results = annotate_files(["data/"], chunk=True, n_segments=50, include_verbs=Tru
 ```bash
 # Colab: install runtime deps
 pip -q install spacy geonamescache tqdm folium
-python -m spacy download en_core_web_sm
+python -m spacy download en_core_web_trf
 ```
 
 ```python
