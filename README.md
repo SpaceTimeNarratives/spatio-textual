@@ -1,11 +1,11 @@
 # spatio-textual ✨
 
-A Python library for spatial textual analysis created as part of the [Spatial Narratives Project](https://spacetimenarratives.github.io/). It supports spatio-textual annotation, analysis and visualization for digital humanities projects, with initial applications to:
+A Python library for spatial textual analysis created as part of the [Spatial Narratives Project](https://spacetimenarratives.github.io/). It supports spatio-textual annotation, analysis and visualisation for digital humanities projects, with initial applications to:
 
 - **Corpus of Lake District Writing (CLDW)**
 - **Holocaust survivors' testimonies** (e.g., USC Shoah Foundation archives)
 
-This realease adds **sentence-safe chunking**, **list-of-texts input**, **file/segment IDs in output**, **JSON/JSONL saving**, and a **multiprocessing CLI**.
+This release adds **sentence-safe chunking**, **list-of-texts input**, **file/segment IDs in output**, **JSON/JSONL saving**, and a **multiprocessing CLI**.
 
 ---
 
@@ -179,11 +179,11 @@ python cli.py -i data/sample.txt --no-chunk --no-entity-ruler --pretty
 
 ```python
 from spatio_textual.annotate import (
-    annotate_text,           # single string
-    annotate_texts,          # list of strings
-    chunk_and_annotate_text, # chunk a string then annotate
-    chunk_and_annotate_file, # chunk a file then annotate
-    annotate_files,          # NEW: orchestrates one/many files, chunked or whole
+    annotate_text,           # annotates a single text string
+    annotate_texts,          # annotates a list of texts
+    chunk_and_annotate_text, # chunks and annotates a text
+    chunk_and_annotate_file, # chunk and annotate a file
+    annotate_files,          # orchestrates one/many files, chunked or whole
 )
 
 text = "Anne Frank was taken from Amsterdam to Auschwitz."
