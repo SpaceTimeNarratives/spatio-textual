@@ -1,4 +1,4 @@
-# spatio_textual/llm_hooks.py
+# spatio_textual/llm.py
 from __future__ import annotations
 from dataclasses import dataclass
 from typing import Any, Dict, Iterable, List, Optional
