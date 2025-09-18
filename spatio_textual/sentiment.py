@@ -22,17 +22,19 @@ try:
 except Exception:  # pragma: no cover
     LLMRouter = None  # type: ignore
 
-# --- tiny illustrative lexicon ---
-POS_WORDS = {
-    "joy", "happy", "happiness", "relief", "love", "peace", "hope", "safe", "safely", "freedom", "free",
-    "reunited", "help", "helped", "support", "protected", "kind", "kindness", "welcomed", "welcome"
-}
-NEG_WORDS = {
-    "fear", "afraid", "terror", "sad", "sadness", "cry", "cried", "anger", "angry", "hate", "hated",
-    "disgust", "hunger", "cold", "death", "dead", "killed", "beaten", "sick", "ill", "hurt", "pain",
-    "lost", "loss", "lonely", "alone", "danger", "unsafe", "threat", "starved", "starvation"
-}
+# # --- tiny illustrative lexicon ---
+# POS_WORDS = {
+#     "joy", "happy", "happiness", "relief", "love", "peace", "hope", "safe", "safely", "freedom", "free",
+#     "reunited", "help", "helped", "support", "protected", "kind", "kindness", "welcomed", "welcome"
+# }
+# NEG_WORDS = {
+#     "fear", "afraid", "terror", "sad", "sadness", "cry", "cried", "anger", "angry", "hate", "hated",
+#     "disgust", "hunger", "cold", "death", "dead", "killed", "beaten", "sick", "ill", "hurt", "pain",
+#     "lost", "loss", "lonely", "alone", "danger", "unsafe", "threat", "starved", "starvation"
+# }
 
+POS_WORDS = open('/resources/positive-words.txt', encoding='latin-1').read().split('\n')[:35]
+NEG_WORDS = open('/resources/negative-words.txt', encoding='latin-1').read().split('\n')[:35]
 
 # ---------------- rule backend ----------------
 
