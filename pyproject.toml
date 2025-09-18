@@ -51,6 +51,8 @@ include-package-data = true
 spatio_textual = [
   "resources/*.txt",
 ]
+"spatio_textual.resources" = ["positive-words.txt", "negative-words.txt"]
+
 
 [tool.setuptools.packages.find]
 # Ensure only the package directory is included

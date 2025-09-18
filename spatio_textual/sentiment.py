@@ -1,40 +1,139 @@
 from __future__ import annotations
 """
-sentiment.py — Pluggable sentiment analyser with rule/hf/ llm backends.
-
-Now supports optional **signed scores in [-1,1]** via `include_signed=True` in `predict()`.
+sentiment.py — Pluggable sentiment analyzer with robust lexicon loading.
 
 Backends:
-- "rule": small lexicon-based polarity scorer (no external deps)
-- "hf"  : HuggingFace Transformers pipeline, OR an LLMRouter via llm_fn
-- "llm" : via spatio_textual.llm.LLMRouter or a user-supplied callable llm_fn
+- "rule": lexicon-based polarity scorer (now loading Hu & Liu lists or fallbacks)
+- "hf"  : HuggingFace Transformers pipeline (or LLMRouter if provided)
+- "llm" : Vendor-agnostic LLM via `llm.py`'s LLMRouter or a user callable
 
-Output per text (default): {"label": "positive|neutral|negative", "score": float}
-If `include_signed=True`, adds {"signed": float in [-1,1]}.
+Extras:
+- Optional signed score in [-1, 1]: `predict(..., include_signed=True)`
+
+Lexicon loading priority (first match wins):
+1) Explicit paths via env: POS_LEXICON, NEG_LEXICON
+2) A provided resources directory (set ENV `SENTIMENT_LEXICON_DIR`)
+3) Package resources: `spatio_textual/resources/positive-words.txt` etc
+4) Module-adjacent fallback: `sentiment.py`'s sibling files
+5) Tiny built-in fallback set (keeps the package working if files are missing)
+
+To include the Hu & Liu lists in a package build, ensure they are in
+`spatio_textual/resources/` and add package-data in your build config, e.g.:
+
+pyproject.toml (setuptools):
+[tool.setuptools.package-data]
+"spatio_textual.resources" = [
+  "positive-words.txt",
+  "negative-words.txt"
+]
+
+Or MANIFEST.in:
+recursive-include spatio_textual/resources *.txt
 """
 from typing import Callable, List, Dict, Optional, Any
 import math
 import os
+from pathlib import Path
 
-# Optional hook: only import if available
+# Optional hook (only if available)
 try:
     from .llm import LLMRouter  # your llm.py
 except Exception:  # pragma: no cover
     LLMRouter = None  # type: ignore
 
-# # --- tiny illustrative lexicon ---
-# POS_WORDS = {
-#     "joy", "happy", "happiness", "relief", "love", "peace", "hope", "safe", "safely", "freedom", "free",
-#     "reunited", "help", "helped", "support", "protected", "kind", "kindness", "welcomed", "welcome"
-# }
-# NEG_WORDS = {
-#     "fear", "afraid", "terror", "sad", "sadness", "cry", "cried", "anger", "angry", "hate", "hated",
-#     "disgust", "hunger", "cold", "death", "dead", "killed", "beaten", "sick", "ill", "hurt", "pain",
-#     "lost", "loss", "lonely", "alone", "danger", "unsafe", "threat", "starved", "starvation"
-# }
+# -----------------------
+# Robust lexicon loading
+# -----------------------
+from importlib import resources as _ires
 
-POS_WORDS = set(open('positive-words.txt', encoding='latin-1').read().split('\n')[35:])
-NEG_WORDS = set(open('negative-words.txt', encoding='latin-1').read().split('\n')[35:])
+_DEF_POS = {
+    "joy", "happy", "happiness", "relief", "love", "peace", "hope", "safe", "safely", "freedom", "free",
+    "reunited", "help", "helped", "support", "protected", "kind", "kindness", "welcomed", "welcome"
+}
+_DEF_NEG = {
+    "fear", "afraid", "terror", "sad", "sadness", "cry", "cried", "anger", "angry", "hate", "hated",
+    "disgust", "hunger", "cold", "death", "dead", "killed", "beaten", "sick", "ill", "hurt", "pain",
+    "lost", "loss", "lonely", "alone", "danger", "unsafe", "threat", "starved", "starvation"
+}
+
+
+def _read_wordlist(path: Path, *, encoding: str = "latin-1", header_skip: int = 35) -> set[str]:
+    """Read a lexicon file, skipping header lines and comments.
+    Hu & Liu lists have ~35 line header; we also strip blanks and ';' comments.
+    """
+    text = path.read_text(encoding=encoding, errors="ignore")
+    lines = text.splitlines()
+    # If header_skip is too big for a compact file, cap it
+    start = header_skip if len(lines) > header_skip else 0
+    items: set[str] = set()
+    for raw in lines[start:]:
+        s = raw.strip()
+        if not s or s.startswith(";"):
+            continue
+        items.add(s.lower())
+    return items
+
+
+def _find_lexicon_paths() -> tuple[Optional[Path], Optional[Path]]:
+    """Find POS/NEG lexicon files using the priority described in the module docstring."""
+    # 1) Explicit env paths
+    pos_env = os.getenv("POS_LEXICON")
+    neg_env = os.getenv("NEG_LEXICON")
+    if pos_env and neg_env:
+        p1, p2 = Path(pos_env), Path(neg_env)
+        if p1.exists() and p2.exists():
+            return p1, p2
+
+    # 2) Resources dir env
+    base_env = os.getenv("SENTIMENT_LEXICON_DIR")
+    if base_env:
+        b = Path(base_env)
+        p1 = b / "positive-words.txt"
+        p2 = b / "negative-words.txt"
+        if p1.exists() and p2.exists():
+            return p1, p2
+
+    # 3) Package resources
+    try:
+        pkg = "spatio_textual.resources"
+        pos_res = _ires.files(pkg).joinpath("positive-words.txt")
+        neg_res = _ires.files(pkg).joinpath("negative-words.txt")
+        if pos_res.is_file() and neg_res.is_file():
+            # Convert Traversable to real file path by extracting to temp, or open() directly
+            with _ires.as_file(pos_res) as p1, _ires.as_file(neg_res) as p2:
+                return Path(p1), Path(p2)
+    except Exception:
+        pass
+
+    # 4) Module-adjacent (e.g., when running from repo without packaging)
+    here = Path(__file__).parent
+    p1 = here / "resources" / "positive-words.txt"
+    p2 = here / "resources" / "negative-words.txt"
+    if p1.exists() and p2.exists():
+        return p1, p2
+
+    # Could also try directly next to file (no resources/ subdir)
+    p1 = here / "positive-words.txt"
+    p2 = here / "negative-words.txt"
+    if p1.exists() and p2.exists():
+        return p1, p2
+
+    return None, None
+
+
+try:
+    _pos_path, _neg_path = _find_lexicon_paths()
+    if _pos_path and _neg_path:
+        POS_WORDS = _read_wordlist(_pos_path)
+        NEG_WORDS = _read_wordlist(_neg_path)
+    else:
+        POS_WORDS = _DEF_POS
+        NEG_WORDS = _DEF_NEG
+except Exception:
+    # Always keep package importable
+    POS_WORDS = _DEF_POS
+    NEG_WORDS = _DEF_NEG
+
 
 # ---------------- rule backend ----------------
 
@@ -99,7 +198,7 @@ class SentimentAnalyzer:
     """
     Parameters
     ----------
-    backend: str
+    backend : str
         "rule" (default), "hf", or "llm".
     model_name : Optional[str]
         HF model name for backend="hf" (e.g., "cardiffnlp/twitter-roberta-base-sentiment-latest").
@@ -188,7 +287,7 @@ class SentimentAnalyzer:
 
         # --- HF path ---
         if self.backend == "hf":
-            # If caller passed an LLMRouter, allow it here too
+            # If caller passed an LLMRouter, allow it here too (single path)
             if LLMRouter is not None and isinstance(self.llm_fn, LLMRouter):
                 preds = self.llm_fn.sentiment(texts)  # type: ignore[attr-defined]
                 results = [{"label": _norm_label(p.get("label")), "score": float(p.get("score", 0.0))} for p in preds]
@@ -205,7 +304,6 @@ class SentimentAnalyzer:
                 results: List[Dict] = []
                 for dist in out:
                     s_val = _signed_from_all_scores(dist, normalize=normalize_signed)
-                    # get top label for convenience
                     top = max(dist, key=lambda d: float(d.get("score", 0.0)))
                     results.append({
                         "label": _norm_label(str(top.get("label", "neutral"))),
