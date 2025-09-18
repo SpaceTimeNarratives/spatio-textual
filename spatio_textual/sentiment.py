@@ -33,8 +33,8 @@ except Exception:  # pragma: no cover
 #     "lost", "loss", "lonely", "alone", "danger", "unsafe", "threat", "starved", "starvation"
 # }
 
-POS_WORDS = open('/resources/positive-words.txt', encoding='latin-1').read().split('\n')[:35]
-NEG_WORDS = open('/resources/negative-words.txt', encoding='latin-1').read().split('\n')[:35]
+POS_WORDS = set(open('/resources/positive-words.txt', encoding='latin-1').read().split('\n')[35:])
+NEG_WORDS = set(open('/resources/negative-words.txt', encoding='latin-1').read().split('\n')[35:])
 
 # ---------------- rule backend ----------------
 
