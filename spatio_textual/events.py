@@ -1,19 +1,18 @@
 from __future__ import annotations
 """
-Event extraction with optional LLM/HF enrichment, semantic de‑duplication, and tqdm progress.
+Event extraction with optional LLM/HF enrichment, semantic de‑duplication, tqdm progress,
+AND deterministic table export compatible with your GPT‑4(o) CSVs.
 
-Fixes:
-- Reordered dataclass required fields BEFORE defaults to avoid: 
-  TypeError: non-default argument 'event' follows default argument
-
-Features:
-- spaCy-based extraction of candidate events per sentence (subj + verb‑lemma + obj/pobj)
-- File-level dedupe (lexical) + optional semantic dedupe (sentence‑transformers)
-- Aggregates sources (segIds), evidence (sentences), persons/places/dates
+Highlights
+----------
+- spaCy‑based extraction of candidate events per sentence (subj + verb‑lemma + obj/pobj)
+- File‑level de‑duplication (lexical) + optional **semantic** de‑duplication (sentence‑transformers)
+- Aggregates sources (segIds) and evidence (sentences), people/places/dates
 - Major/minor categorization by frequency + entity presence
-- Optional emotion pooling per event (EmotionAnalyzer)
-- Optional normalization via HF text2text or LLMRouter (. _chat_once_json)
-- Saving to JSON / JSONL / TSV / CSV
+- Optional **emotion pooling** per event (EmotionAnalyzer) → label + signed valence in [-1,1]
+- Optional **normalization** via HF text2text or LLMRouter
+- **Deterministic** export helper: `to_dataframe(schema="gpt4o")` → columns like your 268‑out.csv
+- Save to JSON / JSONL / TSV / CSV with `schema` switch
 - Optional tqdm progress
 """
 from dataclasses import dataclass, asdict, field
@@ -22,6 +21,7 @@ from pathlib import Path
 import hashlib
 import json
 import os
+import re
 import uuid
 
 import spacy
@@ -34,6 +34,7 @@ try:
 except Exception:  # pragma: no cover
     pd = None  # type: ignore
 
+# Optional analyzers
 try:
     from .emotion import EmotionAnalyzer  # type: ignore
 except Exception:  # pragma: no cover
@@ -44,13 +45,14 @@ try:
 except Exception:  # pragma: no cover
     LLMRouter = None  # type: ignore
 
+# Optional extras
 try:
     from tqdm import tqdm  # type: ignore
 except Exception:  # pragma: no cover
     tqdm = None  # type: ignore
 
 
-# ---------------- Data model ----------------
+# ================= Data model =================
 @dataclass
 class EventRecord:
     # REQUIRED (no defaults) — must come first
@@ -72,7 +74,7 @@ class EventRecord:
     count_mentions: int = 1
 
 
-# ---------------- Helpers ----------------
+# ================= Helpers =================
 def _hash_key(text: str) -> str:
     return hashlib.sha1(text.encode("utf-8", errors="ignore")).hexdigest()[:16]
 
@@ -124,7 +126,7 @@ def _collect_entities(sent: Span) -> Tuple[List[str], List[str], List[str]]:
     return _dedupe(persons), _dedupe(places), _dedupe(dates)
 
 
-# ---------------- HF/LLM enrichment ----------------
+# ================= HF/LLM enrichment =================
 class EventNormalizer:
     """Normalize/expand event records using HF (text2text) or LLMRouter.
     mode="none" | "hf" | "llm".
@@ -144,6 +146,7 @@ class EventNormalizer:
             from transformers import pipeline  # type: ignore
         except Exception as e:  # pragma: no cover
             raise RuntimeError("Transformers not installed. pip install transformers") from e
+        # Greedy decoding → deterministic
         self._pipe = pipeline("text2text-generation", model=self.model_name)
 
     def normalize(self, ev: EventRecord) -> EventRecord:
@@ -183,6 +186,7 @@ class EventNormalizer:
 
         if not isinstance(data, dict):
             return ev
+        # soft merge
         ev.event = str(data.get("event", ev.event) or ev.event)
         ev.place = data.get("place", ev.place) or ev.place
         ev.date = data.get("date", ev.date) or ev.date
@@ -206,7 +210,7 @@ def _safe_json(txt: str):
         return None
 
 
-# ---------------- Semantic de‑duplication ----------------
+# ================= Semantic de‑duplication =================
 class SemanticDeduper:
     def __init__(self, model: str = "all-MiniLM-L6-v2", threshold: float = 0.82):
         self.threshold = threshold
@@ -245,7 +249,7 @@ class SemanticDeduper:
         return clusters
 
 
-# ---------------- Extractor ----------------
+# ================= Extractor =================
 class EventExtractor:
     def __init__(self,
                  nlp: Optional[spacy.Language] = None,
@@ -314,6 +318,7 @@ class EventExtractor:
 
         events = list(candidates.values())
 
+        # Semantic de‑duplication (optional)
         if self.dedupe == "semantic":
             if self.sem_deduper is None:
                 self.sem_deduper = SemanticDeduper()
@@ -339,12 +344,14 @@ class EventExtractor:
                     m.confidence = min(1.0, max(m.confidence, ev.confidence) + 0.05)
             events = list(merged.values())
 
+        # Categorize major/minor
         if events:
             max_mentions = max(e.count_mentions for e in events)
             for e in events:
                 if e.count_mentions >= max(major_verb_min_mentions, max(2, int(0.4 * max_mentions))) or (e.persons and e.place):
                     e.category = "major"
 
+        # Emotion pooling
         if include_emotion and self.emotion is not None and emo_preds is not None:
             from collections import Counter
             for ev in events:
@@ -361,6 +368,7 @@ class EventExtractor:
                 if labels:
                     ev.emotion = Counter(labels).most_common(1)[0][0]
 
+        # Enrichment (normalize fields)
         if self.normalizer and self.normalizer.mode != "none":
             iterator = tqdm(events, desc=f"normalize:{file_id}") if self.use_tqdm else events
             for i, ev in enumerate(iterator):
@@ -380,61 +388,109 @@ class EventExtractor:
         return all_events
 
 
-# ---------------- Saving ----------------
+# ================= Export helpers =================
+FIRST_PERSON = re.compile(r"\b(I|I'm|I was|we|we're|we were|my|our|us|me)\b", re.I)
+
+def _infer_witness(ev: EventRecord) -> str:
+    for s in ev.evidence:
+        if FIRST_PERSON.search(s):
+            return "narrator"
+    return "other/unknown"
+
+def _flatten_people(ev: EventRecord) -> str:
+    plist = list(dict.fromkeys([*ev.persons, *ev.others]))  # stable de‑dup
+    return ", ".join(plist)
+
+
+def to_dataframe(events: List[EventRecord], schema: str = "default"):
+    """Build a pandas DataFrame in either a JSON‑like wide schema or a GPT‑4(o)‑style flat schema.
+
+    schema="default" → fields close to EventRecord + sources/evidence lists
+    schema="gpt4o"   → fileId,eventId,event,category,place,date,witness,people,emotion,emotion_valence,count_mentions,confidence
+    """
+    if pd is None:
+        raise RuntimeError("pandas required for to_dataframe(). `pip install pandas`")
+
+    rows: List[Dict] = []
+    if schema == "gpt4o":
+        for ev in events:
+            rows.append({
+                "fileId": ev.fileId,
+                "eventId": ev.eventId,
+                "event": ev.event,
+                "category": ev.category,
+                "place": ev.place or "",
+                "date": ev.date or "",
+                "witness": _infer_witness(ev),
+                "people": _flatten_people(ev),
+                "emotion": ev.emotion or "",
+                "emotion_valence": ev.emotion_valence if ev.emotion_valence is not None else "",
+                "count_mentions": ev.count_mentions,
+                "confidence": ev.confidence,
+            })
+        cols = [
+            "fileId","eventId","event","category","place","date",
+            "witness","people","emotion","emotion_valence","count_mentions","confidence"
+        ]
+        return pd.DataFrame(rows)[cols]
+
+    # default wide schema
+    for ev in events:
+        rows.append({
+            "fileId": ev.fileId,
+            "eventId": ev.eventId,
+            "event": ev.event,
+            "category": ev.category,
+            "place": ev.place,
+            "date": ev.date,
+            "persons": ev.persons,
+            "others": ev.others,
+            "emotion": ev.emotion,
+            "emotion_valence": ev.emotion_valence,
+            "count_mentions": ev.count_mentions,
+            "confidence": ev.confidence,
+            "sources": ev.sources,
+            "evidence": ev.evidence,
+        })
+    return pd.DataFrame(rows)
+
 
 def _to_records(events: List[EventRecord]) -> List[Dict]:
     return [asdict(e) for e in events]
 
 
-def save_events(events: List[EventRecord], path: str | Path, fmt: Optional[str] = None) -> Path:
+def save_events(events: List[EventRecord], path: str | Path, fmt: Optional[str] = None,
+                schema: str = "default") -> Path:
+    """
+    Save events to JSON / JSONL / TSV / CSV.
+    - JSON/JSONL keep the full nested structure (EventRecord → dict)
+    - CSV/TSV use `to_dataframe(schema=...)`. For GPT‑4(o)‑like tables, pass `schema="gpt4o"`.
+    """
     out = Path(path)
     if fmt is None:
         ext = out.suffix.lower()
         fmt = "jsonl" if ext in {".jsonl", ".ndjson"} else ext.lstrip(".") or "json"
 
-    rows = _to_records(events)
-
-    if fmt in {"json", "geojson"}:
-        out.write_text(json.dumps(rows, ensure_ascii=False, indent=2), encoding="utf-8")
-        return out
-
-    if fmt in {"jsonl", "ndjson"}:
+    # JSON‑family (nested)
+    if fmt in {"json", "geojson", "jsonl", "ndjson"}:
+        rows = _to_records(events)
+        if fmt == "json":
+            out.write_text(json.dumps(rows, ensure_ascii=False, indent=2), encoding="utf-8")
+            return out
         with out.open("w", encoding="utf-8") as f:
             for r in rows:
                 f.write(json.dumps(r, ensure_ascii=False) + "\n")
         return out
 
+    # Table‑family (flat)
     if pd is None:
-        header = [
-            "fileId","eventId","event","category","place","date","persons","others",
-            "emotion","emotion_valence","count_mentions","confidence","sources"
-        ]
-        lines = ["\t".join(header)]
-        for r in rows:
-            line = "\t".join([
-                str(r.get("fileId","")),
-                str(r.get("eventId","")),
-                str(r.get("event","")),
-                str(r.get("category","")),
-                str(r.get("place","") or ""),
-                str(r.get("date","") or ""),
-                json.dumps(r.get("persons",[]), ensure_ascii=False),
-                json.dumps(r.get("others",[]), ensure_ascii=False),
-                str(r.get("emotion","") or ""),
-                str(r.get("emotion_valence","") or ""),
-                str(r.get("count_mentions",0)),
-                str(r.get("confidence",0.0)),
-                json.dumps(r.get("sources",[]), ensure_ascii=False),
-            ])
-            lines.append(line)
-        out.write_text("\n".join(lines), encoding="utf-8")
-        return out
+        raise RuntimeError("pandas required for tabular formats. `pip install pandas`")
 
-    df = pd.DataFrame(rows)
+    df = to_dataframe(events, schema=schema)
     if fmt == "csv":
         df.to_csv(out, index=False)
     elif fmt == "tsv":
         df.to_csv(out, sep="\t", index=False)
     else:
-        raise ValueError(f"Unsupported format: {fmt}")
+        raise ValueError(f"Unsupported format for tabular save: {fmt}")
     return out
