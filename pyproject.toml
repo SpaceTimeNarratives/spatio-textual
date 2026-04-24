@@ -9,10 +9,10 @@ description = "Spatial textual annotation with spaCy: chunking, list-of-texts, r
 readme = "README.md"
 requires-python = ">=3.9"
 authors = [
-  { name = "Your Name", email = "you@example.com" }
+  { name = "Ignatius Ezeani", email = "i.ezeani@lancaster.ac.uk" }
 ]
 license = { file = "LICENSE" }
-keywords = ["nlp", "spacy", "geography", "annotation", "holocaust", "lake-district"]
+keywords = ["nlp", "digital humanities", "history", "geography", "annotation", "holocaust", "lake-district"]
 classifiers = [
   "Programming Language :: Python :: 3",
   "License :: OSI Approved :: MIT License",
