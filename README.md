@@ -294,7 +294,7 @@ summary, interpretation, themes
 
 ## 📄 License
 
-GNU GENERAL PUBLIC LICENSE. See [LICENSE](./LICENSE).
+MIT License. See [LICENSE](./LICENSE).
 
 ---
 
