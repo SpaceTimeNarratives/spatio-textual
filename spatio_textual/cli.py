@@ -40,7 +40,7 @@ def parse_args() -> argparse.Namespace:
     p.add_argument("-i", "--input", nargs="+", help="Files or directories (for testimony, plain text)")
     p.add_argument("--glob", default="*.txt")
     p.add_argument("--no-recursive", action="store_true")
-    p.add_argument("-o", "--output", default="-")
+    p.add_argument("-o", "--output", default="-", help="Output path, or '-' for stdout JSON")
     p.add_argument("--output-format", choices=["json","jsonl","csv","tsv"], default="json")
     p.add_argument("--include-text", action="store_true")
 
@@ -143,7 +143,7 @@ def main() -> int:
                 })
 
         # 4) Sentiment / Emotion
-        texts = [r.get("text", "") for r in ann]
+        texts = [r.get("text") if r.get("text") else seg for r, seg in zip(ann, segments)]
         if sent is not None:
             preds = sent.predict(texts)
             for r, p in zip(ann, preds):
@@ -184,12 +184,12 @@ def main() -> int:
         save_annotations([{"u": u, "v": v, "w": w} for u, v, w in edges], out, fmt="csv" if out.endswith(".csv") else "tsv")
         print(json.dumps({"edges": len(edges), "output": out}, ensure_ascii=False))
 
-    # 7) Save annotations
-    if args.output:
+    # 7) Save annotations / stdout
+    if args.output == "-":
+        print(json.dumps(results, ensure_ascii=False))
+    else:
         from .utils import save_annotations as _save
         _save(results, args.output, fmt=args.output_format)
-    else:
-        print(json.dumps(results, ensure_ascii=False))
 
     return 0
 

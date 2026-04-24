@@ -84,6 +84,16 @@ class QAPair:
     a_text: str
 
 
+@dataclass
+class TestimonySegment:
+    text: str
+    role: str
+    turn_id: int
+    is_question: bool
+    is_answer: bool
+    qa_pair_id: Optional[int]
+
+
 # =========================
 # spaCy loading (lightweight)
 # =========================
@@ -283,6 +293,70 @@ def qa_from_file(path: str | Path,
                             merge_multiturn=merge_multiturn,
                             sentence_safe=sentence_safe,
                             file_id=p.stem)
+
+
+def segment_testimony(text: str,
+                      nlp: Optional[spacy.Language] = None,
+                      speaker_patterns: Optional[Dict[str, List[str]]] = None,
+                      join_continuations: bool = True,
+                      sentence_safe: bool = True) -> List[TestimonySegment]:
+    """
+    Segment testimony text into turn-level records expected by the CLI.
+    """
+    patterns = _compile_patterns(speaker_patterns or DEFAULT_SPEAKER_PATTERNS)
+    lines = [ln.rstrip("\n") for ln in text.splitlines() if ln.strip()]
+
+    labeled: List[Tuple[str, str, str]] = []
+    for ln in lines:
+        role, _, content = _detect_role(ln, patterns)
+        if content:
+            labeled.append((role, role.upper(), content))
+
+    if join_continuations and labeled:
+        merged: List[Tuple[str, str, str]] = []
+        cur = list(labeled[0])
+        for role, tag, content in labeled[1:]:
+            if role == cur[0]:
+                cur[2] = f"{cur[2]} {content}".strip()
+            else:
+                merged.append(tuple(cur))
+                cur = [role, tag, content]
+        merged.append(tuple(cur))
+        labeled = merged
+
+    if sentence_safe and labeled:
+        _nlp = nlp or _load_spacy()
+        sent_turns: List[Tuple[str, str, str]] = []
+        for role, tag, content in labeled:
+            for s in _nlp(content).sents:
+                t = s.text.strip()
+                if t:
+                    sent_turns.append((role, tag, t))
+        labeled = sent_turns
+
+    out: List[TestimonySegment] = []
+    pair_id = 0
+    pending_q = False
+    for idx, (role, _, content) in enumerate(labeled, start=1):
+        is_q = role == "interviewer" and _is_question(content)
+        if is_q:
+            pair_id += 1
+            pending_q = True
+            qid: Optional[int] = pair_id
+        elif pending_q and role != "interviewer":
+            qid = pair_id
+            pending_q = False
+        else:
+            qid = None
+        out.append(TestimonySegment(
+            text=content,
+            role=role,
+            turn_id=idx,
+            is_question=is_q,
+            is_answer=(role != "interviewer" and qid is not None),
+            qa_pair_id=qid,
+        ))
+    return out
 
 
 # =========================
