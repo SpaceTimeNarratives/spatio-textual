@@ -1,4 +1,6 @@
-spacy>=3.0.0
-geonamescache
-tqdm
-pandas
+spacy>=3.6,<4.0
+pandas>=2.0
+geonamescache>=2.0.0
+tqdm>=4.66
+streamlit>=1.36
+folium>=0.15
