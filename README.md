@@ -1,118 +1,171 @@
----
-title: spatio-textual Annotation Platform
-emoji: 🗺️
-colorFrom: indigo
-colorTo: purple
-sdk: streamlit
-app_file: app.py
-pinned: false
-license: mit
-short_description: Spatial textual annotation, MoE adjudication, affect and testimony analysis
----
-
 # spatio-textual ✨
 
-A revamped package and interactive platform for spatial textual annotation in digital and spatial humanities. It supports place and spatial entity annotation, testimony segmentation, sentiment and emotion analysis, interpretation, visualisation, exports, a multiprocessing CLI and a Streamlit app suitable for Hugging Face Spaces.
+A Python package and Streamlit/HF Space platform for spatial textual annotation, testimony segmentation, entity linking, affect analysis, narrator-centred event extraction, telemetry and visualisation.
 
-The package is designed for work with the Corpus of Lake District Writing, Holocaust survivor testimonies and other textual corpora where places, movement, affect and interpretation need to be analysed together.
+## What changed in v0.3
 
-## What is new
+- Default high-quality NER option: `spacy:en_core_web_trf`.
+- Fast tutorial option: `spacy:en_core_web_sm`.
+- HF transformer NER comparison options:
+  - `hf:dslim/bert-base-NER`
+  - `hf:dbmdz/bert-large-cased-finetuned-conll03-english`
+- Spatial entity linking/geocoding for physically mappable named places.
+- Ambiguous/unresolved places are flagged for review.
+- Sentiment returns a probability distribution over `positive`, `neutral`, `negative`; label becomes `mixed` when no label is clearly dominant.
+- Emotion returns a probability distribution over `Neutral`, `Joy`, `Surprise`, `Sadness`, `Fear`, `Anger`, `Disgust`; label becomes `mixed` when no label is clearly dominant.
+- Narrator-centred `event_data` extraction distinguishes first-person actions/experiences from a raw verb list.
+- All annotation records include segmentation audit fields and telemetry: latency, model, backend, provider, estimated tokens and estimated cost.
+- MoE/entity adjudication flags model disagreement for human correction before export.
 
-- 🗺️ Entity annotation with spaCy and optional EntityRuler resources.
-- 🧭 Place classification for COUNTRY, CITY, CONTINENT, CAMP, GEONOUN and related spatial labels.
-- ✂️ Sentence-safe chunking by character budget or fixed segment count.
-- 🎙️ Q/A-aware testimony segmentation with roles, turn IDs and Q/A pair IDs.
-- 😊 Rule sentiment backend with LLM/HF callback hooks.
-- 😶‍🌫️ Ekman-style emotion backend with LLM/HF callback hooks.
-- 🧠 Record-level interpretation with summaries, explanations and theme tags.
-- 🗺️ GeoJSON and Folium map generation.
-- 📈 Entity co-occurrence edge lists for graph visualisation.
-- ⚖️ Multi-model annotation and adjudication interface for MoE workflows.
-- 🔁 BIO and CoNLL conversion helpers.
-- ⚡ Multiprocessing CLI with `--workers`, `--chunksize` and optional `--tqdm`.
-- 🧪 Streamlit app for a full end-to-end annotation workflow.
+## Do I need to show Hugging Face YAML in the GitHub README?
 
-## Installation
+No. Hugging Face Spaces reads configuration from the YAML block at the top of the README in the **Space repository**. Keep the main GitHub README clean. Use `hf_space/README.md` as the README for the Space repository, or use the included `Dockerfile` and copy the YAML only to the HF Space repo.
+
+## Fast local tutorial install
+
+Do **not** pipe the two pip commands. This is wrong and can hang or behave strangely:
+
+```bash
+python -m pip install -U pip | pip install -e ".[app,dev]"
+```
+
+Use one of these instead.
+
+### Fast tutorial/dev mode
 
 ```bash
 python -m venv .venv
-source .venv/bin/activate        # Windows: .venv\Scripts\activate
-pip install -U pip
-pip install -e .[app,dev]
-python -m spacy download en_core_web_sm
+source .venv/bin/activate  # Windows: .venv\Scripts\activate
+python -m pip install -U pip wheel
+python -m pip install -r requirements-lite.txt
+streamlit run app.py
 ```
 
-The code falls back to a blank English sentencizer when a spaCy model is not installed. For better entity recognition, install `en_core_web_sm` or `en_core_web_trf`.
+### High-quality transformer mode
 
-## Run the app
+```bash
+python -m pip install -r requirements-transformers.txt
+streamlit run app.py
+```
+
+### LLM/HF full mode
+
+```bash
+python -m pip install -r requirements-llm.txt
+streamlit run app.py
+```
+
+For the full-day tutorial, use `requirements-lite.txt` so participants start quickly. Demonstrate `en_core_web_trf` and HF models on a smaller sample or pre-built environment.
+
+## Local app
 
 ```bash
 streamlit run app.py
 ```
 
-For Hugging Face Spaces, push the repository root as a Streamlit Space. The metadata block above is already configured for this.
+The sidebar lets you choose:
 
-## Python quickstart
+- primary spatial NER model,
+- MoE expert models,
+- segmentation mode,
+- place linking,
+- sentiment backend,
+- emotion backend,
+- LLM provider,
+- event/action extraction,
+- export format.
 
-```python
-from spatio_textual import Annotator, load_spacy_model
-from spatio_textual.sentiment import SentimentAnalyzer
-from spatio_textual.emotion import EmotionAnalyzer
-from spatio_textual.analysis import analyze_records
-from spatio_textual.utils import save_annotations
+## CLI examples
 
-nlp = load_spacy_model("en_core_web_sm")
-ann = Annotator(nlp)
-
-text = "Anne Frank was taken from Amsterdam to Auschwitz."
-records = ann.annotate_texts([text], file_id="example", include_text=True, include_verbs=True)
-
-sentiment = SentimentAnalyzer("rule").predict([text])[0]
-emotion = EmotionAnalyzer("rule").predict([text])[0]
-records[0]["sentiment_label"] = sentiment["label"]
-records[0]["sentiment_score"] = sentiment["score"]
-records[0]["emotion_label"] = emotion["label"]
-records[0]["emotion_score"] = emotion["score"]
-
-records = analyze_records(records)
-save_annotations(records, "out/example.jsonl", fmt="jsonl")
-```
-
-## CLI quickstart
+Fast local run:
 
 ```bash
 spatio-textual \
-  -i example-texts/ --glob "*.txt" --tqdm \
-  --testimony --sentiment rule --emotion rule --interpret --verbs \
-  --workers 2 --chunksize 8 \
-  -o out/testimony_annotations.jsonl --output-format jsonl
+  -i example-texts --glob "*.txt" --testimony \
+  --ner-model spacy:en_core_web_sm \
+  --sentiment-backend rule --emotion-backend rule \
+  --events --link-places --tqdm \
+  -o out/annotations.jsonl --output-format jsonl
 ```
 
-Generate optional graph outputs:
+High-quality transformer spaCy run:
 
 ```bash
 spatio-textual \
-  -i example-texts/sample_testimony.txt --testimony --sentiment rule --emotion rule \
-  --cooccurrence-out out/cooccurrence.tsv \
-  --geojson-out out/places.geojson \
-  -o out/records.jsonl --output-format jsonl
+  -i example-texts --glob "*.txt" --testimony \
+  --ner-model spacy:en_core_web_trf \
+  --sentiment-backend rule --emotion-backend rule \
+  --events --link-places \
+  -o out/annotations.jsonl --output-format jsonl
 ```
 
-## Output schema
+HF NER comparison:
 
-Each record keeps a stable, pandas-friendly schema:
+```bash
+spatio-textual \
+  -i example-texts/sample_testimony.txt \
+  --ner-model hf:dslim/bert-base-NER \
+  --sentiment-backend hf \
+  --sentiment-model cardiffnlp/twitter-roberta-base-sentiment-latest \
+  --emotion-backend hf \
+  --emotion-model j-hartmann/emotion-english-distilroberta-base \
+  -o out/hf_annotations.jsonl
+```
+
+MoE adjudication:
+
+```bash
+spatio-textual \
+  -i example-texts/sample_testimony.txt \
+  --moe-models spacy:en_core_web_trf spacy:en_core_web_sm hf:dslim/bert-base-NER \
+  --moe-threshold 0.5 \
+  --sentiment-backend rule --emotion-backend rule \
+  -o out/moe_annotations.jsonl
+```
+
+## Hugging Face Space
+
+Recommended: Docker Space.
+
+1. Create a new Hugging Face Space with SDK `Docker`.
+2. Copy this repo into the Space repository.
+3. Copy `hf_space/README.md` to the Space repository root as `README.md`.
+4. Push.
+
+The Dockerfile installs the fast tutorial model by default. For a heavier public demo, change it to use `requirements-transformers.txt`.
+
+## Standard output fields
+
+Each record includes:
 
 ```text
-file, fileId, segId, segCount, text, entities, verb_data, error
-role, turnId, qaPairId, isQuestion, isAnswer
-sentiment_label, sentiment_score, emotion_label, emotion_score, emotion_dist
-summary, interpretation, themes
+file, fileId, segId, segCount, segStartChar, segEndChar, segTextCharLength,
+entities, verb_data, event_data, text, error,
+role, turnId, qaPairId, isQuestion, isAnswer,
+sentiment_label, sentiment_score, sentiment_distribution,
+emotion_label, emotion_score, emotion_dist,
+summary, interpretation, themes,
+telemetry, requires_review, review_notes
 ```
 
-`entities`, `verb_data`, `emotion_dist` and `themes` remain as structured values in JSON/JSONL and are serialised as JSON strings in CSV/TSV.
+## Telemetry
 
-## Preferred tutorial delivery
+Each model step appends telemetry like:
 
-The preferred delivery mode is **Streamlit deployed as a Hugging Face Space**, supported by a Colab fallback. This gives non-technical humanities users a guided web interface while keeping the Python package and CLI available for reproducible research.
+```json
+{
+  "task": "spatial_entity_recognition",
+  "backend": "spacy",
+  "provider": "local",
+  "model": "en_core_web_trf",
+  "latency_ms": 123.4,
+  "input_chars": 1000,
+  "input_tokens_est": 250,
+  "output_tokens_est": 40,
+  "cost_usd_est": 0.0,
+  "success": true,
+  "error": null
+}
+```
 
-See [`tutorials/full_day_end_to_end_tutorial.md`](tutorials/full_day_end_to_end_tutorial.md) for a complete full-day workshop plan.
+Provider billing can be made exact later by plugging in provider-specific token counters and price tables. The current implementation gives a consistent offline estimate for audit and teaching.

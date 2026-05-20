@@ -1,204 +1,138 @@
 from __future__ import annotations
-from dataclasses import dataclass
-from typing import Any, Dict, Iterable, List, Optional
-import json, os, time
 
-# ------------------ Shared helpers ------------------
+import json
+import os
+import time
+from typing import Any, Optional
 
-def _tostr(x) -> str:
-    return "" if x is None else str(x)
+from .telemetry import estimate_tokens
 
-def _safe_float(x, default: float = 0.0) -> float:
-    try:
-        return float(x)
-    except Exception:
-        return default
 
-# ---------- Sentiment helpers ----------
+class LLMClient:
+    """Small structured-output adapter for common providers.
 
-PROMPT_SENTIMENT = """\
-You are a rater. Classify the SENTIMENT of the text as one of: positive, neutral, negative.
-Return ONLY a single JSON object: {"label": "...", "score": 0.0-1.0}
-Text:
-"""
+    The class is intentionally optional-dependency based. It is safe to import in
+    lightweight tutorials, and provider SDKs are imported only when used.
+    """
 
-def _parse_sentiment_json(txt: str) -> Dict[str, Any]:
-    try:
-        obj = json.loads(txt.strip())
-    except Exception:
-        lo = txt.lower()
-        lab = "positive" if "positive" in lo else "negative" if "negative" in lo else "neutral"
-        return {"label": lab, "score": 0.5 if lab == "neutral" else 0.7}
-    lab = _tostr(obj.get("label", "neutral")).strip().lower()
-    if lab not in {"positive", "neutral", "negative"}:
-        lab = "neutral"
-    score = max(0.0, min(1.0, _safe_float(obj.get("score", 0.0))))
-    return {"label": lab, "score": score}
+    def __init__(self, provider: str = "openai", model: str | None = None, api_key: str | None = None, base_url: str | None = None):
+        self.provider = provider
+        self.model = model or self.default_model(provider)
+        self.api_key = api_key
+        self.base_url = base_url
 
-# ---------- Emotion helpers ----------
+    @staticmethod
+    def default_model(provider: str) -> str:
+        return {
+            "openai": "gpt-4.1-mini",
+            "azure_openai": "gpt-4.1-mini",
+            "anthropic": "claude-sonnet-4-5",
+            "google_gemini": "gemini-3.5-flash",
+            "groq": "llama-3.3-70b-versatile",
+            "mistral": "mistral-large-latest",
+            "huggingface_inference": "meta-llama/Llama-3.1-8B-Instruct",
+            "ollama": "llama3.1",
+        }.get(provider, "gpt-4.1-mini")
 
-EMOTION_LABELS = ["neutral", "joy", "surprise", "sadness", "fear", "anger", "disgust"]
+    def classify_json(self, task: str, text: str, labels: list[str], instructions: str) -> dict[str, Any]:
+        prompt = (
+            f"Task: {task}\n"
+            f"Allowed labels: {labels}\n"
+            f"Instructions: {instructions}\n"
+            "Return strict JSON with keys: label, distribution, explanation. "
+            "The distribution must contain all labels and sum approximately to 1.\n\n"
+            f"Text:\n{text}"
+        )
+        start = time.perf_counter()
+        out_text = ""
+        error = None
+        try:
+            out_text = self._complete(prompt)
+            data = self._extract_json(out_text)
+        except Exception as exc:
+            error = str(exc)
+            data = {"label": "mixed", "distribution": {lab: 0.0 for lab in labels}, "explanation": error}
+        data["telemetry"] = {
+            "task": task,
+            "backend": "llm",
+            "provider": self.provider,
+            "model": self.model,
+            "latency_ms": round((time.perf_counter() - start) * 1000, 3),
+            "input_chars": len(text or ""),
+            "input_tokens_est": estimate_tokens(prompt),
+            "output_tokens_est": estimate_tokens(out_text),
+            "cost_usd_est": None,
+            "success": error is None,
+            "error": error,
+        }
+        return data
 
-PROMPT_EMOTION = """\
-You are an emotion classifier. Classify the text into exactly one of:
-neutral, joy, surprise, sadness, fear, anger, disgust.
-
-Return ONLY strict JSON like:
-{
-  "label": "joy|surprise|sadness|fear|anger|disgust|neutral",
-  "score": 0.0-1.0,
-  "distribution": { "neutral": p, "joy": p, "surprise": p, "sadness": p, "fear": p, "anger": p, "disgust": p }  # optional
-}
-Text:
-"""
-
-def _parse_emotion_json(txt: str) -> Dict[str, Any]:
-    try:
-        obj = json.loads(txt.strip())
-    except Exception:
-        lo = txt.lower()
-        lab = next((l for l in EMOTION_LABELS if l in lo), "neutral")
-        return {"label": lab, "score": 0.5}
-    lab = _tostr(obj.get("label", "neutral")).strip().lower()
-    if lab not in EMOTION_LABELS:
-        lab = "neutral"
-    score = max(0.0, min(1.0, _safe_float(obj.get("score", 0.0))))
-    dist = obj.get("distribution")
-    if isinstance(dist, dict):
-        s = sum(_safe_float(dist.get(k, 0.0)) for k in EMOTION_LABELS) or 1.0
-        dist = {k: _safe_float(dist.get(k, 0.0)) / s for k in EMOTION_LABELS}
-    else:
-        dist = None
-    out = {"label": lab, "score": score}
-    if dist is not None:
-        out["distribution"] = dist
-    return out
-
-# ------------------ Router ------------------
-
-@dataclass
-class LLMRouter:
-    provider: str
-    model: str
-    api_key: Optional[str] = None
-    base_url: Optional[str] = None
-    temperature: float = 0.0
-    max_tokens: int = 128
-
-    # ---- core chat once ----
-    def _chat_once_json(self, user_prompt: str) -> str:
-        """Send a single JSON-only chat to the configured provider and return the raw text."""
-        p = (self.provider or "").lower()
-
-        if p in {"openai", "openai_compat", "xai", "groq"}:
-            try:
-                from openai import OpenAI
-            except Exception as e:
-                raise RuntimeError("Install openai: pip install openai") from e
-            # API key & base URL resolution (Groq/xAI often use OpenAI-compatible endpoints)
-            api_key = self.api_key or os.getenv("OPENAI_API_KEY") or os.getenv("GROQ_API_KEY")
-            base_url = self.base_url or os.getenv("OPENAI_BASE_URL")
-            if p == "groq":
-                api_key = self.api_key or os.getenv("GROQ_API_KEY") or api_key
-                base_url = self.base_url or os.getenv("GROQ_BASE_URL", "https://api.groq.com/openai/v1")
-            if p == "xai":
-                api_key = self.api_key or os.getenv("OPENAI_API_KEY") or api_key
-                base_url = self.base_url or os.getenv("XAI_BASE_URL", "https://api.x.ai")
-            client = OpenAI(api_key=api_key, base_url=base_url) if base_url else OpenAI(api_key=api_key)
-            msgs = [
-                {"role": "system", "content": "Return one JSON object only. No prose."},
-                {"role": "user", "content": user_prompt},
-            ]
-            resp = client.chat.completions.create(
+    def _complete(self, prompt: str) -> str:
+        if self.provider in {"openai", "azure_openai", "groq"}:
+            from openai import AzureOpenAI, OpenAI
+            if self.provider == "azure_openai":
+                client = AzureOpenAI(
+                    api_key=self.api_key or os.getenv("AZURE_OPENAI_API_KEY"),
+                    azure_endpoint=self.base_url or os.getenv("AZURE_OPENAI_ENDPOINT"),
+                    api_version=os.getenv("AZURE_OPENAI_API_VERSION", "2024-10-21"),
+                )
+            elif self.provider == "groq":
+                client = OpenAI(api_key=self.api_key or os.getenv("GROQ_API_KEY"), base_url=self.base_url or "https://api.groq.com/openai/v1")
+            else:
+                client = OpenAI(api_key=self.api_key or os.getenv("OPENAI_API_KEY"), base_url=self.base_url)
+            res = client.chat.completions.create(
                 model=self.model,
-                messages=msgs,
-                temperature=self.temperature,
-                max_tokens=self.max_tokens,
+                messages=[{"role": "user", "content": prompt}],
                 response_format={"type": "json_object"},
             )
-            return resp.choices[0].message.content or ""
+            return res.choices[0].message.content or "{}"
 
-        if p == "anthropic":
-            try:
-                from anthropic import Anthropic
-            except Exception as e:
-                raise RuntimeError("Install anthropic: pip install anthropic") from e
+        if self.provider == "anthropic":
+            from anthropic import Anthropic
             client = Anthropic(api_key=self.api_key or os.getenv("ANTHROPIC_API_KEY"))
-            msgs = [{"role": "user", "content": user_prompt}]
-            resp = client.messages.create(
-                model=self.model,
-                max_tokens=self.max_tokens,
-                temperature=self.temperature,
-                system="Return one JSON object only. No prose.",
-                messages=msgs,
-            )
-            out = ""
-            for block in resp.content or []:
-                if getattr(block, "type", None) == "text":
-                    out += getattr(block, "text", "")
-                elif isinstance(block, dict) and block.get("type") == "text":
-                    out += block.get("text", "")
-            return out
+            res = client.messages.create(model=self.model, max_tokens=600, messages=[{"role": "user", "content": prompt}])
+            return "".join(block.text for block in res.content if getattr(block, "type", "") == "text")
 
-        if p == "google":
-            try:
-                import google.generativeai as genai
-            except Exception as e:
-                raise RuntimeError("Install google-generativeai: pip install google-generativeai") from e
-            genai.configure(api_key=self.api_key or os.getenv("GOOGLE_API_KEY") or os.getenv("GEMINI_API_KEY"))
-            model = genai.GenerativeModel(self.model)
-            resp = model.generate_content([{"role": "user", "parts": [{"text": user_prompt}]}])
-            try:
-                return resp.text or ""
-            except Exception:
-                return ""
+        if self.provider == "google_gemini":
+            from google import genai
+            client = genai.Client(api_key=self.api_key or os.getenv("GOOGLE_API_KEY"))
+            res = client.models.generate_content(model=self.model, contents=prompt)
+            return res.text or "{}"
 
-        if p == "ollama":
-            import requests
-            url = self.base_url or os.getenv("OLLAMA_URL", "http://localhost:11434")
-            r = requests.post(
-                f"{url}/api/chat",
-                json={
-                    "model": self.model,
-                    "messages": [
-                        {"role": "system", "content": "Return one JSON object only. No prose."},
-                        {"role": "user", "content": user_prompt},
-                    ],
-                },
-                timeout=90,
-            )
+        if self.provider == "mistral":
+            from mistralai import Mistral
+            client = Mistral(api_key=self.api_key or os.getenv("MISTRAL_API_KEY"))
+            res = client.chat.complete(model=self.model, messages=[{"role": "user", "content": prompt}])
+            return res.choices[0].message.content or "{}"
+
+        if self.provider == "huggingface_inference":
+            import httpx
+            token = self.api_key or os.getenv("HF_TOKEN") or os.getenv("HUGGINGFACEHUB_API_TOKEN")
+            url = self.base_url or f"https://api-inference.huggingface.co/models/{self.model}"
+            headers = {"Authorization": f"Bearer {token}"} if token else {}
+            r = httpx.post(url, headers=headers, json={"inputs": prompt}, timeout=60)
             r.raise_for_status()
             data = r.json()
-            if isinstance(data, dict) and "message" in data and "content" in data["message"]:
-                return data["message"]["content"]
-            return json.dumps(data)
+            if isinstance(data, list) and data and isinstance(data[0], dict):
+                return data[0].get("generated_text") or str(data)
+            return str(data)
 
-        raise ValueError(f"Unknown provider: {self.provider}")
+        if self.provider == "ollama":
+            import httpx
+            url = self.base_url or "http://localhost:11434/api/generate"
+            r = httpx.post(url, json={"model": self.model, "prompt": prompt, "stream": False}, timeout=120)
+            r.raise_for_status()
+            return r.json().get("response", "{}")
 
-    # ---- public tasks ----
+        raise ValueError(f"Unsupported LLM provider: {self.provider}")
 
-    def sentiment(self, texts: Iterable[str], rate_limit_s: float = 0.0) -> List[Dict[str, Any]]:
-        out: List[Dict[str, Any]] = []
-        for t in texts:
-            raw = self._chat_once_json(PROMPT_SENTIMENT + t)
-            out.append(_parse_sentiment_json(raw))
-            if rate_limit_s:
-                time.sleep(rate_limit_s)
-        return out
-
-    def emotion(
-        self,
-        texts: Iterable[str],
-        return_distribution: bool = True,
-        rate_limit_s: float = 0.0
-    ) -> List[Dict[str, Any]]:
-        out: List[Dict[str, Any]] = []
-        for t in texts:
-            raw = self._chat_once_json(PROMPT_EMOTION + t)
-            parsed = _parse_emotion_json(raw)
-            if not return_distribution:
-                parsed.pop("distribution", None)
-            out.append(parsed)
-            if rate_limit_s:
-                time.sleep(rate_limit_s)
-        return out
+    def _extract_json(self, text: str) -> dict[str, Any]:
+        text = (text or "{}").strip()
+        if text.startswith("```"):
+            text = text.strip("`")
+            text = text.replace("json\n", "", 1)
+        start = text.find("{")
+        end = text.rfind("}")
+        if start >= 0 and end > start:
+            text = text[start:end + 1]
+        return json.loads(text)

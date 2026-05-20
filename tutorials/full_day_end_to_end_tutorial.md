@@ -1,131 +1,75 @@
-# Full-day end-to-end tutorial: spatio-textual annotation platform
+# Full-day tutorial: spatio-textual annotation platform
 
-**Preferred delivery:** Streamlit on Hugging Face Spaces, with Colab as fallback.
+## Recommended tutorial setup
 
-## Learning outcomes
-
-By the end of the day, participants will be able to:
-
-1. Upload or paste testimony-style text into the web app.
-2. Segment testimony transcripts into Q/A-aware turns.
-3. Annotate spatial entities and inspect place classifications.
-4. Run rule-based sentiment and emotion analysis over segments.
-5. Use MoE-style adjudication to inspect consensus and disagreement.
-6. Export JSONL, JSON, CSV/TSV, BIO/CoNLL and visualisation artefacts.
-7. Run the same workflow from Python and the CLI for reproducibility.
-
-## Suggested timetable
-
-| Time | Session | Activities | Output |
-|---|---|---|---|
-| 09:30-10:00 | Setup and orientation | Open the HF Space, duplicate it if needed, inspect the sample text | Working personal Space |
-| 10:00-10:45 | Spatial entities | Run entity annotation, inspect entity tables, explain labels and place types | Entity table |
-| 10:45-11:00 | Break |  |  |
-| 11:00-12:00 | Testimony segmentation | Compare raw chunking with Q/A-aware turns, discuss interviewer and witness roles | Turn-level records |
-| 12:00-12:30 | Affect analysis | Run sentiment and emotion, inspect scores and labels | Affect-enhanced JSON |
-| 12:30-13:30 | Lunch |  |  |
-| 13:30-14:15 | MoE adjudication | Compare `spaCy+ruler` and `spaCy`, inspect agreement and disagreement | Consensus entities |
-| 14:15-15:00 | Visualisation | Build co-occurrence edges and GeoJSON, discuss geocoding options | Edge list and GeoJSON |
-| 15:00-15:15 | Break |  |  |
-| 15:15-16:00 | Reproducible CLI workflow | Run the CLI over a folder of texts with `--workers` and `--tqdm` | JSONL corpus output |
-| 16:00-16:45 | Python workflow | Load JSONL with pandas, convert entities to BIO/CoNLL, save outputs | DataFrame and CoNLL |
-| 16:45-17:00 | Wrap-up | Discuss responsible use, provenance, human review and next steps | Action plan |
-
-## Facilitator setup
+Use the lightweight installation for teaching:
 
 ```bash
-git clone https://github.com/SpaceTimeNarratives/spatio-textual.git
-cd spatio-textual
 python -m venv .venv
-source .venv/bin/activate
-pip install -U pip
-pip install -e .[app,dev]
-python -m spacy download en_core_web_sm
+source .venv/bin/activate  # Windows: .venv\Scripts\activate
+python -m pip install -U pip wheel
+python -m pip install -r requirements-lite.txt
 streamlit run app.py
 ```
 
-## Exercise 1: web annotation
+Avoid `python -m pip install -U pip | pip install ...`; the pipe sends stdout from the first command into the second command and is not a proper sequential install. Use `&&` or separate commands.
 
-1. Open the Streamlit app.
-2. Paste the sample testimony from `example-texts/sample_testimony.txt`.
-3. Keep Q/A-aware segmentation switched on.
-4. Run annotation.
-5. Inspect the Records and Entities tabs.
+## Learning goals
 
-Discussion prompts:
+By the end of the day, participants should be able to:
 
-- Which entities are named places and which are spatial nouns?
-- Which entities require human correction?
-- What additional project-specific EntityRuler terms should be added?
+1. Segment testimonies into Q/A-aware turns.
+2. Annotate spatial entities with place categories.
+3. Link named places to latitude/longitude where possible.
+4. Understand unresolved and ambiguous place-name review.
+5. Compare spaCy and Hugging Face NER models.
+6. Run MoE annotation and adjudicate disagreements.
+7. Add sentiment and emotion distributions.
+8. Extract narrator-centred actions/events.
+9. Inspect telemetry and export audit-ready data.
+10. Generate GeoJSON and co-occurrence outputs for later visualisation.
 
-## Exercise 2: affect analysis
+## Schedule
 
-1. Enable Sentiment, Emotion and Interpretation.
-2. Re-run annotation.
-3. Compare sentiment and emotion labels across interviewer and witness turns.
-4. Discuss why rule-based affect labels should be treated as weak signals.
+### 09:30 to 10:15: Conceptual overview
 
-## Exercise 3: MoE adjudication
+Introduce spatial humanities, testimony segmentation, annotation uncertainty, entity linking, affect analysis and telemetry.
 
-1. Select both `spaCy+ruler` and `spaCy`.
-2. Run annotation.
-3. Open the Adjudication tab.
-4. Inspect consensus entities and disagreement items.
+### 10:15 to 11:00: Installing and launching
 
-Discussion prompts:
+Use `requirements-lite.txt` and `streamlit run app.py`. Explain why this mode uses `en_core_web_sm` for speed.
 
-- Which disagreements are useful for human review?
-- What should be the acceptance threshold for different projects?
-- How would LLM or HF model outputs be added as additional experts?
+### 11:00 to 12:00: Spatial entity annotation
 
-## Exercise 4: CLI workflow
+Run the sample testimony. Inspect `entities`, place categories, lat/lon fields, unresolved places and `requires_review`.
 
-```bash
-spatio-textual \
-  -i example-texts/ --glob "*.txt" --tqdm \
-  --testimony --sentiment rule --emotion rule --interpret --verbs \
-  --workers 2 --chunksize 8 \
-  -o out/tutorial_records.jsonl --output-format jsonl
-```
+### 12:00 to 12:45: Segmentation audit
 
-Inspect the output:
+Switch between Q/A-aware segmentation and sentence-safe character-budget segmentation. Inspect `segStartChar`, `segEndChar`, `turnId`, `qaPairId`, `isQuestion` and `isAnswer`.
 
-```python
-from spatio_textual.utils import load_annotations
+### 13:45 to 14:45: Model comparison
 
-df = load_annotations("out/tutorial_records.jsonl")
-df[["fileId", "segId", "role", "sentiment_label", "emotion_label", "themes"]]
-```
+Compare:
 
-## Exercise 5: BIO and CoNLL export
+- `spacy:en_core_web_sm`
+- `spacy:en_core_web_trf`
+- `hf:dslim/bert-base-NER`
+- `hf:dbmdz/bert-large-cased-finetuned-conll03-english`
 
-```python
-from spatio_textual.formats import entities_to_conll
-from spatio_textual.utils import load_annotations
+Use a short text first. Explain that transformer models are stronger but slower and need more memory.
 
-df = load_annotations("out/tutorial_records.jsonl")
-for _, row in df.iterrows():
-    tokens = row["text"].split()
-    conll = entities_to_conll(tokens, row["entities"], doc_id=f"{row['fileId']}_{row['segId']}")
-    print(conll)
-```
+### 14:45 to 15:30: MoE and adjudication
 
-## Exercise 6: visualisation outputs
+Enable MoE. Show how disagreements are flagged for human review before export.
 
-```bash
-spatio-textual \
-  -i example-texts/sample_testimony.txt --testimony --sentiment rule --emotion rule \
-  --cooccurrence-out out/cooccurrence.tsv \
-  --geojson-out out/places.geojson \
-  -o out/records.jsonl --output-format jsonl
-```
+### 15:30 to 16:15: Sentiment, emotion and events
 
-The GeoJSON file will only contain features for entities that already include coordinates or when a geocoder is supplied in Python.
+Run rule-based sentiment/emotion first. Then discuss HF/LLM options. Inspect distributions and mixed labels. Review `event_data` as narrator-centred action/experience extraction rather than a simple verb list.
 
-## Responsible use notes
+### 16:15 to 17:00: Telemetry, export and next steps
 
-- Treat rule-based sentiment and emotion as triage signals, not final scholarly claims.
-- Keep evidence text and segment IDs with every annotation.
-- Use adjudication to prioritise human review rather than to replace it.
-- Document all custom resources and prompt/model versions used in production annotation.
-- For Holocaust testimony data, keep data governance, consent, access restrictions and survivor dignity central to the workflow.
+Inspect telemetry. Export JSONL, CSV and CoNLL/BIO. Generate GeoJSON and co-occurrence edge lists. Discuss how the analysis and visualisation layer should build on the tidied annotation schema.
+
+## Instructor note
+
+For a smooth workshop, pre-build a Docker image or provide a prepared environment for the transformer/LLM section. Keep the first half of the day on the lightweight rule and spaCy-small pipeline.

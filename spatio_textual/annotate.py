@@ -25,7 +25,7 @@ def annotate_texts(texts: Sequence[str], file_id: Optional[str] = None, include_
 
 def chunk_and_annotate_text(text: str, n_segments: Optional[int] = None, max_chars: int = 14000, file_id: Optional[str] = None, include_text: bool = True, *, include_entities: bool = True, include_verbs: bool = False) -> list[dict]:
     annotator = _get_annotator()
-    segments = split_into_segments(text, n_segments=n_segments, nlp=annotator.nlp, max_chars=max_chars)
+    segments = split_into_segments(text, n_segments=n_segments, nlp=annotator.nlp, max_chars=max_chars, as_records=True)
     return annotator.annotate_texts(segments, file_id=file_id, include_text=include_text, include_entities=include_entities, include_verbs=include_verbs)
 
 

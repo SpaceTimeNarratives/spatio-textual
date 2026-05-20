@@ -33,8 +33,10 @@ def test_bio_roundtrip():
 def test_affect_rules():
     sent = SentimentAnalyzer().predict(["I was afraid but later felt relief"])[0]
     emo = EmotionAnalyzer().predict(["I was afraid"])[0]
-    assert sent["label"] in {"positive", "negative", "neutral"}
-    assert emo["label"] == "Fear"
+    assert sent["label"] in {"positive", "negative", "neutral", "mixed"}
+    assert set(sent["distribution"]) == {"positive", "neutral", "negative"}
+    assert emo["label"] in {"Fear", "mixed"}
+    assert "Fear" in emo["distribution"]
 
 
 def test_annotator_fallback():
@@ -42,3 +44,11 @@ def test_annotator_fallback():
     ann = Annotator(nlp)
     rec = ann.annotate("Amsterdam was cold.", include_text=True)
     assert "entities" in rec
+
+
+def test_annotation_telemetry_and_place_linking():
+    nlp = load_spacy_model("model_that_does_not_exist")
+    ann = Annotator(nlp)
+    rec = ann.annotate("I travelled to Amsterdam.", include_text=True, include_verbs=True, include_events=True)
+    assert "telemetry" in rec
+    assert "event_data" in rec
