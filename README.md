@@ -17,19 +17,7 @@ A Python package and Streamlit/HF Space platform for spatial textual annotation,
 - All annotation records include segmentation audit fields and telemetry: latency, model, backend, provider, estimated tokens and estimated cost.
 - MoE/entity adjudication flags model disagreement for human correction before export.
 
-## Do I need to show Hugging Face YAML in the GitHub README?
-
-No. Hugging Face Spaces reads configuration from the YAML block at the top of the README in the **Space repository**. Keep the main GitHub README clean. Use `hf_space/README.md` as the README for the Space repository, or use the included `Dockerfile` and copy the YAML only to the HF Space repo.
-
 ## Fast local tutorial install
-
-Do **not** pipe the two pip commands. This is wrong and can hang or behave strangely:
-
-```bash
-python -m pip install -U pip | pip install -e ".[app,dev]"
-```
-
-Use one of these instead.
 
 ### Fast tutorial/dev mode
 
