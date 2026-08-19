@@ -1,6 +1,6 @@
 # Changelog
 
-## v0.3.0 — 2026-08-19
+## v0.3.0: 2026-08-19
 
 ### Added
 - Streamlit annotation app (app.py) with model selection, review queue, telemetry and exports (JSON / JSONL / CSV / CoNLL).
