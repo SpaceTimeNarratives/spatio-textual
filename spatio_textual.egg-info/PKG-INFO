@@ -1,0 +1,149 @@
+Metadata-Version: 2.4
+Name: spatio-textual
+Version: 0.2.0
+Summary: Spatial textual annotation, testimony segmentation, affect analysis and visualisation for digital humanities.
+Home-page: https://github.com/SpaceTimeNarratives/spatio-textual
+Author: Ignatius Ezeani
+Author-email: Ignatius Ezeani <i.ezeani@lancaster.ac.uk>
+License: MIT
+Project-URL: Homepage, https://github.com/SpaceTimeNarratives/spatio-textual
+Project-URL: Issues, https://github.com/SpaceTimeNarratives/spatio-textual/issues
+Keywords: nlp,digital humanities,spatial humanities,annotation,testimonies,geography
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: spacy<4.0,>=3.6
+Requires-Dist: pandas>=2.0
+Requires-Dist: geonamescache>=2.0.0
+Provides-Extra: app
+Requires-Dist: streamlit>=1.36; extra == "app"
+Requires-Dist: folium>=0.15; extra == "app"
+Provides-Extra: dev
+Requires-Dist: pytest>=8; extra == "dev"
+Requires-Dist: tqdm>=4.66; extra == "dev"
+Provides-Extra: llm
+Requires-Dist: openai>=1.0.0; extra == "llm"
+Requires-Dist: httpx>=0.27; extra == "llm"
+Dynamic: author
+Dynamic: home-page
+Dynamic: license-file
+Dynamic: requires-python
+
+---
+title: spatio-textual Annotation Platform
+emoji: 🗺️
+colorFrom: indigo
+colorTo: purple
+sdk: streamlit
+app_file: app.py
+pinned: false
+license: mit
+short_description: Spatial textual annotation, MoE adjudication, affect and testimony analysis
+---
+
+# spatio-textual ✨
+
+A revamped package and interactive platform for spatial textual annotation in digital and spatial humanities. It supports place and spatial entity annotation, testimony segmentation, sentiment and emotion analysis, interpretation, visualisation, exports, a multiprocessing CLI and a Streamlit app suitable for Hugging Face Spaces.
+
+The package is designed for work with the Corpus of Lake District Writing, Holocaust survivor testimonies and other textual corpora where places, movement, affect and interpretation need to be analysed together.
+
+## What is new
+
+- 🗺️ Entity annotation with spaCy and optional EntityRuler resources.
+- 🧭 Place classification for COUNTRY, CITY, CONTINENT, CAMP, GEONOUN and related spatial labels.
+- ✂️ Sentence-safe chunking by character budget or fixed segment count.
+- 🎙️ Q/A-aware testimony segmentation with roles, turn IDs and Q/A pair IDs.
+- 😊 Rule sentiment backend with LLM/HF callback hooks.
+- 😶‍🌫️ Ekman-style emotion backend with LLM/HF callback hooks.
+- 🧠 Record-level interpretation with summaries, explanations and theme tags.
+- 🗺️ GeoJSON and Folium map generation.
+- 📈 Entity co-occurrence edge lists for graph visualisation.
+- ⚖️ Multi-model annotation and adjudication interface for MoE workflows.
+- 🔁 BIO and CoNLL conversion helpers.
+- ⚡ Multiprocessing CLI with `--workers`, `--chunksize` and optional `--tqdm`.
+- 🧪 Streamlit app for a full end-to-end annotation workflow.
+
+## Installation
+
+```bash
+python -m venv .venv
+source .venv/bin/activate        # Windows: .venv\Scripts\activate
+pip install -U pip
+pip install -e .[app,dev]
+python -m spacy download en_core_web_sm
+```
+
+The code falls back to a blank English sentencizer when a spaCy model is not installed. For better entity recognition, install `en_core_web_sm` or `en_core_web_trf`.
+
+## Run the app
+
+```bash
+streamlit run app.py
+```
+
+For Hugging Face Spaces, push the repository root as a Streamlit Space. The metadata block above is already configured for this.
+
+## Python quickstart
+
+```python
+from spatio_textual import Annotator, load_spacy_model
+from spatio_textual.sentiment import SentimentAnalyzer
+from spatio_textual.emotion import EmotionAnalyzer
+from spatio_textual.analysis import analyze_records
+from spatio_textual.utils import save_annotations
+
+nlp = load_spacy_model("en_core_web_sm")
+ann = Annotator(nlp)
+
+text = "Anne Frank was taken from Amsterdam to Auschwitz."
+records = ann.annotate_texts([text], file_id="example", include_text=True, include_verbs=True)
+
+sentiment = SentimentAnalyzer("rule").predict([text])[0]
+emotion = EmotionAnalyzer("rule").predict([text])[0]
+records[0]["sentiment_label"] = sentiment["label"]
+records[0]["sentiment_score"] = sentiment["score"]
+records[0]["emotion_label"] = emotion["label"]
+records[0]["emotion_score"] = emotion["score"]
+
+records = analyze_records(records)
+save_annotations(records, "out/example.jsonl", fmt="jsonl")
+```
+
+## CLI quickstart
+
+```bash
+spatio-textual \
+  -i example-texts/ --glob "*.txt" --tqdm \
+  --testimony --sentiment rule --emotion rule --interpret --verbs \
+  --workers 2 --chunksize 8 \
+  -o out/testimony_annotations.jsonl --output-format jsonl
+```
+
+Generate optional graph outputs:
+
+```bash
+spatio-textual \
+  -i example-texts/sample_testimony.txt --testimony --sentiment rule --emotion rule \
+  --cooccurrence-out out/cooccurrence.tsv \
+  --geojson-out out/places.geojson \
+  -o out/records.jsonl --output-format jsonl
+```
+
+## Output schema
+
+Each record keeps a stable, pandas-friendly schema:
+
+```text
+file, fileId, segId, segCount, text, entities, verb_data, error
+role, turnId, qaPairId, isQuestion, isAnswer
+sentiment_label, sentiment_score, emotion_label, emotion_score, emotion_dist
+summary, interpretation, themes
+```
+
+`entities`, `verb_data`, `emotion_dist` and `themes` remain as structured values in JSON/JSONL and are serialised as JSON strings in CSV/TSV.
+
+## Preferred tutorial delivery
+
+The preferred delivery mode is **Streamlit deployed as a Hugging Face Space**, supported by a Colab fallback. This gives non-technical humanities users a guided web interface while keeping the Python package and CLI available for reproducible research.
+
+See [`tutorials/full_day_end_to_end_tutorial.md`](tutorials/full_day_end_to_end_tutorial.md) for a complete full-day workshop plan.

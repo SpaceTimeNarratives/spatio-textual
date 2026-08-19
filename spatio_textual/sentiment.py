@@ -1,235 +1,154 @@
 from __future__ import annotations
-"""
-sentiment.py — Pluggable sentiment analyzer with rule / hf / llm backends.
 
-Backends
-- "rule": lexicon-based polarity scorer (tiny fallback or Hu & Liu lists if present)
-- "hf"  : HuggingFace Transformers pipeline (or LLMRouter if supplied)
-- "llm" : Vendor-agnostic LLM via llm.py's LLMRouter or a user callable
-
-Extras
-- Optional signed score in [-1,1]: predict(..., include_signed=True)
-- Robust lexicon loading from packaged resources/env
-"""
-from typing import Callable, List, Dict, Optional, Any
 import math
-import os
-from pathlib import Path
-from importlib import resources as _ires
+import re
+import time
+from functools import lru_cache
+from typing import Any, Callable, Iterable, Optional
 
-# Optional router
-try:
-    from .llm import LLMRouter  # type: ignore
-except Exception:  # pragma: no cover
-    LLMRouter = None  # type: ignore
+from .llm import LLMClient
+from .telemetry import estimate_tokens
 
-# ---------- Robust lexicon loading ----------
-_DEF_POS = {
-    "joy","happy","happiness","relief","love","peace","hope","safe","safely","freedom","free",
-    "reunited","help","helped","support","protected","kind","kindness","welcomed","welcome"
+LABELS = ["positive", "neutral", "negative"]
+POSITIVE = {
+    "safe", "saved", "helped", "kind", "hope", "joy", "happy", "relief", "relieved", "free", "liberated", "survived", "warm", "welcome", "peace",
 }
-_DEF_NEG = {
-    "fear","afraid","terror","sad","sadness","cry","cried","anger","angry","hate","hated",
-    "disgust","hunger","cold","death","dead","killed","beaten","sick","ill","hurt","pain",
-    "lost","loss","lonely","alone","danger","unsafe","threat","starved","starvation"
+NEGATIVE = {
+    "fear", "afraid", "terrible", "horrible", "sad", "death", "died", "killed", "lost", "hungry", "pain", "cold", "camp", "deport", "deported", "shoot", "beaten", "cry", "crying",
 }
 
-def _read_wordlist(path: Path, *, encoding="latin-1", header_skip=35) -> set[str]:
-    text = path.read_text(encoding=encoding, errors="ignore")
-    lines = text.splitlines()
-    start = header_skip if len(lines) > header_skip else 0
-    items: set[str] = set()
-    for raw in lines[start:]:
-        s = raw.strip()
-        if not s or s.startswith(";"):
-            continue
-        items.add(s.lower())
-    return items
 
-def _find_lexicon_paths() -> tuple[Optional[Path], Optional[Path]]:
-    pos_env = os.getenv("POS_LEXICON")
-    neg_env = os.getenv("NEG_LEXICON")
-    if pos_env and neg_env:
-        p1, p2 = Path(pos_env), Path(neg_env)
-        if p1.exists() and p2.exists():
-            return p1, p2
+def _tokens(text: str) -> list[str]:
+    return re.findall(r"[A-Za-z']+", (text or "").lower())
 
-    base_env = os.getenv("SENTIMENT_LEXICON_DIR")
-    if base_env:
-        b = Path(base_env)
-        p1, p2 = b / "positive-words.txt", b / "negative-words.txt"
-        if p1.exists() and p2.exists():
-            return p1, p2
 
+def _softmax(scores: dict[str, float]) -> dict[str, float]:
+    m = max(scores.values()) if scores else 0.0
+    exps = {k: math.exp(v - m) for k, v in scores.items()}
+    z = sum(exps.values()) or 1.0
+    return {k: round(v / z, 4) for k, v in exps.items()}
+
+
+def _winner(dist: dict[str, float], margin: float = 0.12) -> tuple[str, float]:
+    ranked = sorted(dist.items(), key=lambda kv: kv[1], reverse=True)
+    if not ranked:
+        return "mixed", 0.0
+    if len(ranked) > 1 and ranked[0][1] - ranked[1][1] < margin:
+        return "mixed", ranked[0][1]
+    return ranked[0]
+
+
+@lru_cache(maxsize=4)
+def _hf_sentiment(model_name: str):
     try:
-        pkg = "spatio_textual.resources"
-        pos_res = _ires.files(pkg).joinpath("positive-words.txt")
-        neg_res = _ires.files(pkg).joinpath("negative-words.txt")
-        if pos_res.is_file() and neg_res.is_file():
-            with _ires.as_file(pos_res) as p1, _ires.as_file(neg_res) as p2:
-                return Path(p1), Path(p2)
-    except Exception:
-        pass
+        from transformers import pipeline
+    except Exception as exc:  # pragma: no cover
+        raise ImportError("Install transformer dependencies with: pip install -e '.[transformers]'") from exc
+    return pipeline("text-classification", model=model_name, top_k=None)
 
-    here = Path(__file__).parent
-    p1, p2 = here / "resources" / "positive-words.txt", here / "resources" / "negative-words.txt"
-    if p1.exists() and p2.exists():
-        return p1, p2
-    p1, p2 = here / "positive-words.txt", here / "negative-words.txt"
-    if p1.exists() and p2.exists():
-        return p1, p2
-    return None, None
-
-try:
-    _pos_path, _neg_path = _find_lexicon_paths()
-    if _pos_path and _neg_path:
-        POS_WORDS = _read_wordlist(_pos_path)
-        NEG_WORDS = _read_wordlist(_neg_path)
-    else:
-        POS_WORDS = _DEF_POS
-        NEG_WORDS = _DEF_NEG
-except Exception:
-    POS_WORDS = _DEF_POS
-    NEG_WORDS = _DEF_NEG
-
-# ---------- Rule backend ----------
-
-def _rule_score(text: str) -> Dict[str, float | str]:
-    toks = [t.strip(".,;:!?\"'()[]{} ").lower() for t in text.split()]
-    pos = sum(1 for t in toks if t in POS_WORDS)
-    neg = sum(1 for t in toks if t in NEG_WORDS)
-    raw = pos - neg
-    score = math.tanh(raw / 3.0)  # in [-1,1]
-    label = "neutral"
-    if score > 0.15:
-        label = "positive"
-    elif score < -0.15:
-        label = "negative"
-    return {"label": label, "score": float(score)}
-
-# ---------- Helpers ----------
-
-def _norm_label(lab: str) -> str:
-    lab = (lab or "").strip().lower()
-    if lab.startswith("pos"): return "positive"
-    if lab.startswith("neg"): return "negative"
-    return lab if lab in {"positive","neutral","negative"} else "neutral"
-
-_LABEL_MAP = {
-    "positive":"pos","negative":"neg","neutral":"neu",
-    "label_2":"pos","label_1":"neu","label_0":"neg",
-}
-
-def _signed_from_all_scores(all_scores: List[Dict[str, float]], normalize: bool = True) -> float:
-    p_pos = p_neg = 0.0
-    for d in all_scores:
-        lab = _LABEL_MAP.get(str(d.get("label","")).lower(), str(d.get("label","")).lower())
-        if lab in ("pos","positive"):
-            p_pos = float(d.get("score",0.0))
-        elif lab in ("neg","negative"):
-            p_neg = float(d.get("score",0.0))
-    if normalize:
-        denom = max(p_pos + p_neg, 1e-9)
-        return (p_pos - p_neg) / denom
-    return p_pos - p_neg
-
-def _signed_from_top(label: str, score: float) -> float:
-    lab = (label or "").lower()
-    if lab.startswith("pos"): return float(score)
-    if lab.startswith("neg"): return -float(score)
-    return 0.0
-
-# ---------- Analyzer ----------
 
 class SentimentAnalyzer:
-    """
-    backend: "rule" (default) | "hf" | "llm"
-    model_name: HF model name for backend="hf"
-    llm_fn: LLMRouter instance or callable(texts)->[{"label","score"}]
-    """
-    def __init__(self, backend: str = "rule", model_name: Optional[str] = None,
-                 llm_fn: Optional[Callable[[List[str]], List[Dict]] | Any] = None):
+    """Sentiment classifier returning a positive/neutral/negative distribution."""
+
+    def __init__(
+        self,
+        backend: str = "rule",
+        model_name: Optional[str] = None,
+        llm_fn: Optional[Callable[[str], dict]] = None,
+        provider: str = "openai",
+        mixed_margin: float = 0.12,
+    ):
         self.backend = backend
-        self.model_name = model_name
+        self.model_name = model_name or ("cardiffnlp/twitter-roberta-base-sentiment-latest" if backend == "hf" else "rule")
         self.llm_fn = llm_fn
-        self._pipe = None  # HF pipeline cache
+        self.provider = provider
+        self.mixed_margin = mixed_margin
 
-    # HF
-    def _ensure_hf_pipeline(self):
-        if self._pipe is not None:
-            return
-        try:
-            from transformers import pipeline
-        except Exception as e:
-            raise RuntimeError("Transformers not installed. pip install transformers") from e
-        model = self.model_name or "cardiffnlp/twitter-roberta-base-sentiment-latest"
-        self._pipe = pipeline("sentiment-analysis", model=model)
-
-    # LLM
-    def _ensure_llm_router(self):
-        if LLMRouter is None:
-            raise RuntimeError("LLMRouter not available. Ensure spatio_textual.llm is importable.")
-        provider = os.getenv("LLM_PROVIDER")
-        model = os.getenv("LLM_MODEL")
-        if not provider or not model:
-            raise ValueError("backend='llm' needs llm_fn or env LLM_PROVIDER + LLM_MODEL.")
-        base_url = os.getenv("LLM_BASE_URL")
-        return LLMRouter(provider=provider, model=model, base_url=base_url)
-
-    def predict(self, texts: List[str], *, include_signed: bool = False,
-                normalize_signed: bool = True) -> List[Dict]:
-        # Rule
-        if self.backend == "rule":
-            out = [_rule_score(t) for t in texts]
-            if include_signed:
-                for r in out:
-                    r["signed"] = float(r["score"])
-            return out
-
-        # LLM
-        if self.backend == "llm":
-            if LLMRouter is not None and isinstance(self.llm_fn, LLMRouter):
-                preds = self.llm_fn.sentiment(texts)  # type: ignore[attr-defined]
-            elif callable(self.llm_fn):
-                preds = self.llm_fn(texts)  # type: ignore[call-arg]
-            else:
-                router = self._ensure_llm_router()
-                preds = router.sentiment(texts)
-            results = [{"label": _norm_label(p.get("label")), "score": float(p.get("score",0.0))} for p in preds]
-            if include_signed:
-                for r in results:
-                    r["signed"] = _signed_from_top(r["label"], r["score"])
-            return results
-
-        # HF
+    def predict(self, texts: Iterable[str]) -> list[dict[str, Any]]:
         if self.backend == "hf":
-            if LLMRouter is not None and isinstance(self.llm_fn, LLMRouter):
-                preds = self.llm_fn.sentiment(texts)  # type: ignore[attr-defined]
-                results = [{"label": _norm_label(p.get("label")), "score": float(p.get("score",0.0))} for p in preds]
-                if include_signed:
-                    for r in results:
-                        r["signed"] = _signed_from_top(r["label"], r["score"])
-                return results
+            return [self._hf(t) for t in texts]
+        if self.backend == "llm":
+            return [self._llm(t) for t in texts]
+        if self.backend == "callback" and self.llm_fn:
+            return [self.llm_fn(t) for t in texts]
+        return [self._rule(t) for t in texts]
 
-            self._ensure_hf_pipeline()
-            if include_signed:
-                out = self._pipe(texts, return_all_scores=True)  # type: ignore[misc]
-                results: List[Dict] = []
-                for dist in out:
-                    s_val = _signed_from_all_scores(dist, normalize=normalize_signed)
-                    top = max(dist, key=lambda d: float(d.get("score",0.0)))
-                    results.append({
-                        "label": _norm_label(str(top.get("label","neutral"))),
-                        "score": float(top.get("score",0.0)),
-                        "signed": float(s_val),
-                    })
-                return results
-            else:
-                out = self._pipe(texts)  # type: ignore[misc]
-                results = []
-                for r in out:
-                    lab = _norm_label(r.get("label","neutral"))
-                    results.append({"label": lab, "score": float(r.get("score",0.0))})
-                return results
+    def _rule(self, text: str) -> dict[str, Any]:
+        start = time.perf_counter()
+        toks = _tokens(text)
+        pos = sum(1 for t in toks if t in POSITIVE)
+        neg = sum(1 for t in toks if t in NEGATIVE)
+        # neutral prior avoids over-confident labels in short or mixed segments
+        scores = {"positive": float(pos), "negative": float(neg), "neutral": max(1.0, len(toks) / 50.0)}
+        dist = _softmax(scores)
+        label, score = _winner(dist, self.mixed_margin)
+        return {
+            "label": label,
+            "score": round(float(score), 4),
+            "distribution": dist,
+            "positive_hits": pos,
+            "negative_hits": neg,
+            "telemetry": {
+                "task": "sentiment",
+                "backend": "rule",
+                "provider": "local",
+                "model": "rule-lexicon-v2",
+                "latency_ms": round((time.perf_counter() - start) * 1000, 3),
+                "input_chars": len(text or ""),
+                "input_tokens_est": estimate_tokens(text),
+                "output_tokens_est": estimate_tokens(str(dist)),
+                "cost_usd_est": 0.0,
+                "success": True,
+                "error": None,
+            },
+        }
 
-        raise ValueError(f"Unknown backend: {self.backend}")
+    def _hf(self, text: str) -> dict[str, Any]:
+        start = time.perf_counter()
+        error = None
+        dist = {lab: 0.0 for lab in LABELS}
+        try:
+            raw = _hf_sentiment(self.model_name)(text or "")
+            if raw and isinstance(raw[0], list):
+                raw = raw[0]
+            for item in raw:
+                lab = str(item.get("label", "")).lower()
+                score = float(item.get("score", 0.0))
+                if "pos" in lab or lab in {"label_2", "5 stars", "4 stars"}:
+                    dist["positive"] += score
+                elif "neg" in lab or lab in {"label_0", "1 star", "2 stars"}:
+                    dist["negative"] += score
+                else:
+                    dist["neutral"] += score
+            total = sum(dist.values()) or 1.0
+            dist = {k: round(v / total, 4) for k, v in dist.items()}
+        except Exception as exc:
+            error = str(exc)
+        label, score = _winner(dist, self.mixed_margin)
+        return {"label": label, "score": round(float(score), 4), "distribution": dist, "telemetry": self._tel(text, start, "hf", "huggingface_transformers", error)}
+
+    def _llm(self, text: str) -> dict[str, Any]:
+        if self.llm_fn:
+            return self.llm_fn(text)
+        data = LLMClient(provider=self.provider, model=self.model_name).classify_json(
+            "sentiment", text, LABELS,
+            "Classify testimony segment sentiment. Use mixed when positive/neutral/negative are close or genuinely blended.",
+        )
+        dist = {lab: float(data.get("distribution", {}).get(lab, 0.0)) for lab in LABELS}
+        label = str(data.get("label") or _winner(dist, self.mixed_margin)[0]).lower()
+        return {"label": label, "score": max(dist.values()) if dist else 0.0, "distribution": dist, "explanation": data.get("explanation"), "telemetry": data.get("telemetry")}
+
+    def _tel(self, text: str, start: float, backend: str, provider: str, error: str | None) -> dict[str, Any]:
+        return {
+            "task": "sentiment",
+            "backend": backend,
+            "provider": provider,
+            "model": self.model_name,
+            "latency_ms": round((time.perf_counter() - start) * 1000, 3),
+            "input_chars": len(text or ""),
+            "input_tokens_est": estimate_tokens(text),
+            "output_tokens_est": 0,
+            "cost_usd_est": 0.0 if backend == "hf" else None,
+            "success": error is None,
+            "error": error,
+        }

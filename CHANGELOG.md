@@ -1,6 +1,6 @@
 # Changelog
 
-## v0.3.0 — 2026-08-19
+## v0.3.0: 2026-08-19
 
 ### Added
 - Streamlit annotation app (app.py) with model selection, review queue, telemetry and exports (JSON / JSONL / CSV / CoNLL).
@@ -20,7 +20,7 @@
 - README streamlined for v0.3 features and packaging metadata improved.
 - Requirements split into requirements-lite/requirements-transformers/requirements-llm for easier installs.
 
-### Breaking / migration notes
+### Breaking/migration notes
 - Public API and CLI flags changed:
   - spatio_textual.__init__ exports were reorganised (e.g., SentimentAnalyzer, EmotionAnalyzer, run_builtin_moe, model registries). Update imports if you rely on old names.
   - CLI flags renamed/normalised (use `--ner-model`, `--sentiment-backend`, `--emotion-backend`, `--moe-models`, etc.). Update any scripts or CI that call the legacy CLI.
@@ -43,5 +43,3 @@
 - Telemetry is included by default; downstream export/ingest workflows should handle the new telemetry fields.
 
 ---
-
-(Entry prepared for v0.3.0 — ready to commit.)

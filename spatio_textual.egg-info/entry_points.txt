@@ -1,0 +1,2 @@
+[console_scripts]
+spatio-textual = spatio_textual.cli:main
