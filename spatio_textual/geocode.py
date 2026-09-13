@@ -26,7 +26,14 @@ COUNTRY_ALIASES = {
     "england": "United Kingdom",
     "scotland": "United Kingdom",
     "wales": "United Kingdom",
-    "czechoslovakia": "Czechia",
+}
+
+# Historical names that must not be silently collapsed onto a present-day state.
+# The lightweight offline resolver does not contain time-indexed boundaries, so
+# preserving the source form and surfacing review is more defensible than an
+# anachronistic one-country normalization.
+HISTORICAL_POLITIES = {
+    "czechoslovakia",
 }
 
 
@@ -49,6 +56,10 @@ class GeoResolver:
     The resolver prioritises exact country and continent matches, then city
     candidates ranked by population. Ambiguous places are marked so the app can
     surface them for human review before export.
+
+    Historical polities that cannot be represented safely by this present-day
+    gazetteer are preserved as source strings and returned unresolved rather
+    than being silently mapped to a modern country.
     """
 
     def __init__(self, prefer_country: str | None = None, max_candidates: int = 5):
@@ -92,6 +103,22 @@ class GeoResolver:
         if low in CONTINENT_COORDS:
             lat, lon = CONTINENT_COORDS[low]
             return self._result(name, lat, lon, "CONTINENT", "offline:continent", 1.0, False, [])
+
+        if low in HISTORICAL_POLITIES:
+            return {
+                "resolved_name": name,
+                "lat": None,
+                "lon": None,
+                "place_type_resolved": "HISTORICAL_POLITY",
+                "resolution_status": "unresolved",
+                "geo_source": "historical_name:preserved",
+                "geo_confidence": 0.0,
+                "ambiguous": True,
+                "candidates_count": 0,
+                "candidates": [],
+                "historical_name": True,
+                "review_reason": "Historical polity requires time-aware/human resolution; source form preserved.",
+            }
 
         canonical = COUNTRY_ALIASES.get(low, name)
         country = self.countries.get(_norm(canonical))

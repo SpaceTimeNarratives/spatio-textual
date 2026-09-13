@@ -34,6 +34,43 @@ class LLMClient:
             "ollama": "llama3.1",
         }.get(provider, "gpt-4.1-mini")
 
+    def complete_json(self, task: str, prompt: str, *, input_text: str | None = None) -> dict[str, Any]:
+        """Run an arbitrary structured-JSON task and attach standard telemetry.
+
+        This is the public generic counterpart to :meth:`classify_json`. It is
+        used by evidence-first extractors that need
+        a richer schema than a single classification label.
+
+        The method intentionally does not pretend that provider-side JSON mode is
+        equivalent to schema validation. Callers must validate the returned
+        object and ground any evidence/offsets locally.
+        """
+        start = time.perf_counter()
+        out_text = ""
+        error = None
+        try:
+            out_text = self._complete(prompt)
+            data = self._extract_json(out_text)
+            if not isinstance(data, dict):
+                raise ValueError("Structured LLM response must be a JSON object")
+        except Exception as exc:
+            error = str(exc)
+            data = {}
+        data["telemetry"] = {
+            "task": task,
+            "backend": "llm",
+            "provider": self.provider,
+            "model": self.model,
+            "latency_ms": round((time.perf_counter() - start) * 1000, 3),
+            "input_chars": len(input_text if input_text is not None else prompt),
+            "input_tokens_est": estimate_tokens(prompt),
+            "output_tokens_est": estimate_tokens(out_text),
+            "cost_usd_est": None,
+            "success": error is None,
+            "error": error,
+        }
+        return data
+
     def classify_json(self, task: str, text: str, labels: list[str], instructions: str) -> dict[str, Any]:
         prompt = (
             f"Task: {task}\n"

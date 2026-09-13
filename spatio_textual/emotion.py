@@ -40,13 +40,17 @@ def _winner(dist: dict[str, float], margin: float = 0.10) -> tuple[str, float]:
     return ranked[0]
 
 
-@lru_cache(maxsize=4)
-def _hf_emotion(model_name: str):
+@lru_cache(maxsize=8)
+def _hf_emotion(model_name: str, model_revision: str | None = None):
+    """Load and cache a Hugging Face emotion pipeline with an optional revision pin."""
     try:
         from transformers import pipeline
     except Exception as exc:  # pragma: no cover
         raise ImportError("Install transformer dependencies with: pip install -e '.[transformers]'") from exc
-    return pipeline("text-classification", model=model_name, top_k=None)
+    kwargs: dict[str, Any] = {"model": model_name, "top_k": None}
+    if model_revision:
+        kwargs["revision"] = model_revision
+    return pipeline("text-classification", **kwargs)
 
 
 class EmotionAnalyzer:
@@ -59,9 +63,11 @@ class EmotionAnalyzer:
         llm_fn: Optional[Callable[[str], dict]] = None,
         provider: str = "openai",
         mixed_margin: float = 0.10,
+        model_revision: Optional[str] = None,
     ):
         self.backend = backend
         self.model_name = model_name or ("j-hartmann/emotion-english-distilroberta-base" if backend == "hf" else "rule")
+        self.model_revision = model_revision
         self.llm_fn = llm_fn
         self.provider = provider
         self.mixed_margin = mixed_margin
@@ -74,6 +80,19 @@ class EmotionAnalyzer:
         if self.backend == "callback" and self.llm_fn:
             return [self.llm_fn(t) for t in texts]
         return [self._rule(t) for t in texts]
+
+    def explain(self, text: str) -> dict[str, Any]:
+        """Return the lexical cues used by the transparent rule backend."""
+        if self.backend != "rule":
+            raise ValueError("explain() is available only for the rule emotion backend")
+        tokens = _tokens(text)
+        return {
+            "tokens": tokens,
+            "matched_terms": {
+                emotion: [token for token in tokens if token in words]
+                for emotion, words in LEXICON.items()
+            },
+        }
 
     def _rule(self, text: str) -> dict[str, Any]:
         start = time.perf_counter()
@@ -96,6 +115,7 @@ class EmotionAnalyzer:
                 "backend": "rule",
                 "provider": "local",
                 "model": "ekman-lexicon-v2",
+                "model_revision": None,
                 "latency_ms": round((time.perf_counter() - start) * 1000, 3),
                 "input_chars": len(text or ""),
                 "input_tokens_est": estimate_tokens(text),
@@ -111,17 +131,11 @@ class EmotionAnalyzer:
         error = None
         dist = {emo: 0.0 for emo in EMOTIONS}
         try:
-            raw = _hf_emotion(self.model_name)(text or "")
+            raw = _hf_emotion(self.model_name, self.model_revision)(text or "")
             if raw and isinstance(raw[0], list):
                 raw = raw[0]
             for item in raw:
                 lab = str(item.get("label", "")).lower().capitalize()
-                if lab == "Fear": lab = "Fear"
-                if lab == "Sadness": lab = "Sadness"
-                if lab == "Anger": lab = "Anger"
-                if lab == "Disgust": lab = "Disgust"
-                if lab == "Joy": lab = "Joy"
-                if lab == "Surprise": lab = "Surprise"
                 if lab in dist:
                     dist[lab] += float(item.get("score", 0.0))
                 elif lab.lower() == "neutral":
@@ -150,6 +164,7 @@ class EmotionAnalyzer:
             "backend": backend,
             "provider": provider,
             "model": self.model_name,
+            "model_revision": self.model_revision,
             "latency_ms": round((time.perf_counter() - start) * 1000, 3),
             "input_chars": len(text or ""),
             "input_tokens_est": estimate_tokens(text),

@@ -1,5 +1,35 @@
 # Changelog
 
+## v0.4.0: unreleased
+
+### Added
+- Evidence-grounded spatial span and journey extraction with locally computed offsets.
+- Rule, transformer and LLM-capable affect and journey components.
+- Reusable reference validation, evaluation, review and provenance utilities.
+- Public lexical-cue explanations for the rule sentiment and emotion analyzers.
+
+### Changed
+- Package schemas and evaluation-policy identifiers are project-independent.
+- Python compatibility CI now covers Python 3.9, 3.11 and 3.12.
+- Generated `spatio_textual.egg-info` metadata is no longer version-controlled.
+
+### Fixed
+- Editing a resolved place invalidates stale coordinates while retaining the
+  original values in the human-review audit trail.
+- Failed LLM affect and journey requests are recorded as backend errors rather
+  than valid neutral or empty predictions.
+- Affect evaluation refuses to score backend failures.
+- Evidence-only journey references can match on grounded evidence spans.
+- The Python 3.9 dependency path remains compatible with the tutorial spaCy
+  model wheel.
+
+### Migration notes
+- Reference records now use `schema_version: spatio-textual-gold-0.1`.
+- Affect output now uses `unsupported_emotion_labels` instead of the former
+  conference-specific field name.
+- Journey and affect evaluation policy identifiers now begin with
+  `spatio-textual-`.
+
 ## v0.3.0: 2026-08-19
 
 ### Added

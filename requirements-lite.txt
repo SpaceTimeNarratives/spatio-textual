@@ -1,3 +1,5 @@
 -e .[app]
-# Fast tutorial/dev install. Uses en_core_web_sm.
+# Fast tutorial/dev install. Uses en_core_web_sm and includes the plotting
+# dependency required by the default CPU workshop notebooks.
+matplotlib>=3.8
 https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.8.0/en_core_web_sm-3.8.0-py3-none-any.whl

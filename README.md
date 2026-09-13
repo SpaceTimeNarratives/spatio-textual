@@ -2,6 +2,22 @@
 
 A Python package and Streamlit/HF Space platform for spatial textual annotation, testimony segmentation, entity linking, affect analysis, narrator-centred event extraction, telemetry and visualisation.
 
+## Repository scope
+
+This repository contains the reusable Python package, its general applications,
+documentation, examples and tests. Conference-specific notebooks, datasets,
+experimental protocols and frozen results belong in their own project
+repositories and depend on a tagged package release through the public API.
+
+## What changed in v0.4
+
+- Evidence-first structured spatial-span and journey extraction.
+- Transparent rule and transformer baselines for spatial and affect analysis.
+- Reference-data validation plus span, journey and affect evaluation utilities.
+- Human-review operations with auditable correction histories.
+- Reproducible provenance manifests and strict-schema OpenAI Responses support.
+- Package APIs and identifiers are independent of any conference repository.
+
 ## What changed in v0.3
 
 - Default high-quality NER option: `spacy:en_core_web_trf`.

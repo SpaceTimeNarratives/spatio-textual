@@ -38,13 +38,21 @@ def _winner(dist: dict[str, float], margin: float = 0.12) -> tuple[str, float]:
     return ranked[0]
 
 
-@lru_cache(maxsize=4)
-def _hf_sentiment(model_name: str):
+@lru_cache(maxsize=8)
+def _hf_sentiment(model_name: str, model_revision: str | None = None):
+    """Load and cache a Hugging Face sentiment pipeline.
+
+    ``model_revision`` is optional for backwards compatibility, but callers that
+    need reproducible empirical output can pin an exact Hub commit/tag.
+    """
     try:
         from transformers import pipeline
     except Exception as exc:  # pragma: no cover
         raise ImportError("Install transformer dependencies with: pip install -e '.[transformers]'") from exc
-    return pipeline("text-classification", model=model_name, top_k=None)
+    kwargs: dict[str, Any] = {"model": model_name, "top_k": None}
+    if model_revision:
+        kwargs["revision"] = model_revision
+    return pipeline("text-classification", **kwargs)
 
 
 class SentimentAnalyzer:
@@ -57,9 +65,11 @@ class SentimentAnalyzer:
         llm_fn: Optional[Callable[[str], dict]] = None,
         provider: str = "openai",
         mixed_margin: float = 0.12,
+        model_revision: Optional[str] = None,
     ):
         self.backend = backend
         self.model_name = model_name or ("cardiffnlp/twitter-roberta-base-sentiment-latest" if backend == "hf" else "rule")
+        self.model_revision = model_revision
         self.llm_fn = llm_fn
         self.provider = provider
         self.mixed_margin = mixed_margin
@@ -72,6 +82,21 @@ class SentimentAnalyzer:
         if self.backend == "callback" and self.llm_fn:
             return [self.llm_fn(t) for t in texts]
         return [self._rule(t) for t in texts]
+
+    def explain(self, text: str) -> dict[str, Any]:
+        """Return the lexical cues used by the transparent rule backend.
+
+        This deliberately reports surface matches rather than presenting them
+        as a causal explanation of transformer or LLM predictions.
+        """
+        if self.backend != "rule":
+            raise ValueError("explain() is available only for the rule sentiment backend")
+        tokens = _tokens(text)
+        return {
+            "tokens": tokens,
+            "positive_terms": [token for token in tokens if token in POSITIVE],
+            "negative_terms": [token for token in tokens if token in NEGATIVE],
+        }
 
     def _rule(self, text: str) -> dict[str, Any]:
         start = time.perf_counter()
@@ -93,6 +118,7 @@ class SentimentAnalyzer:
                 "backend": "rule",
                 "provider": "local",
                 "model": "rule-lexicon-v2",
+                "model_revision": None,
                 "latency_ms": round((time.perf_counter() - start) * 1000, 3),
                 "input_chars": len(text or ""),
                 "input_tokens_est": estimate_tokens(text),
@@ -108,7 +134,7 @@ class SentimentAnalyzer:
         error = None
         dist = {lab: 0.0 for lab in LABELS}
         try:
-            raw = _hf_sentiment(self.model_name)(text or "")
+            raw = _hf_sentiment(self.model_name, self.model_revision)(text or "")
             if raw and isinstance(raw[0], list):
                 raw = raw[0]
             for item in raw:
@@ -144,6 +170,7 @@ class SentimentAnalyzer:
             "backend": backend,
             "provider": provider,
             "model": self.model_name,
+            "model_revision": self.model_revision,
             "latency_ms": round((time.perf_counter() - start) * 1000, 3),
             "input_chars": len(text or ""),
             "input_tokens_est": estimate_tokens(text),

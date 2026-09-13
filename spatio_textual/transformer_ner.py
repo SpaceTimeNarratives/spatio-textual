@@ -12,21 +12,38 @@ HF_LOC_LABELS = {"LOC", "LOCATION", "GPE", "B-LOC", "I-LOC"}
 LABEL_MAP = {"LOC": "GPE", "LOCATION": "GPE", "B-LOC": "GPE", "I-LOC": "GPE"}
 
 
-@lru_cache(maxsize=4)
-def _pipeline(model_name: str):
+@lru_cache(maxsize=8)
+def _pipeline(model_name: str, revision: str | None = None):
     try:
         from transformers import pipeline
     except Exception as exc:  # pragma: no cover - optional dependency
         raise ImportError("Install transformer dependencies with: pip install -e '.[transformers]' or pip install -r requirements-transformers.txt") from exc
-    return pipeline("token-classification", model=model_name, aggregation_strategy="simple")
+    kwargs: dict[str, Any] = {
+        "model": model_name,
+        "aggregation_strategy": "simple",
+    }
+    if revision:
+        kwargs["revision"] = revision
+    return pipeline("token-classification", **kwargs)
 
 
 class HFNERAnnotator:
-    def __init__(self, model_name: str, link_places: bool = True, resolver: GeoResolver | None = None):
+    def __init__(
+        self,
+        model_name: str,
+        link_places: bool = True,
+        resolver: GeoResolver | None = None,
+        revision: str | None = None,
+    ):
         self.model_name = model_name
+        self.revision = revision
         self.link_places = link_places
         self.resolver = resolver or GeoResolver()
-        self.pipe = _pipeline(model_name)
+        self.pipe = _pipeline(model_name, revision)
+
+    @property
+    def model_identifier(self) -> str:
+        return f"{self.model_name}@{self.revision}" if self.revision else self.model_name
 
     def annotate(self, text: str, include_text: bool = True) -> dict[str, Any]:
         start = time.perf_counter()
@@ -47,7 +64,8 @@ class HFNERAnnotator:
                     "end_token": None,
                     "place_type": classify_place(item.get("word", ""), norm_label) if norm_label in {"GPE", "LOC", "FAC"} else None,
                     "confidence": round(float(item.get("score", 0.0)), 4),
-                    "source": f"hf:{self.model_name}",
+                    "source": f"hf:{self.model_identifier}",
+                    "model_revision": self.revision,
                 }
                 if self.link_places and ent["place_type"] and ent["place_type"] != "GEONOUN":
                     linked = self.resolver.resolve(ent["text"], ent["label"], context=text)
@@ -60,7 +78,8 @@ class HFNERAnnotator:
             "task": "spatial_entity_recognition",
             "backend": "hf",
             "provider": "huggingface_transformers",
-            "model": self.model_name,
+            "model": self.model_identifier,
+            "model_revision": self.revision,
             "latency_ms": round((time.perf_counter() - start) * 1000, 3),
             "input_chars": len(text or ""),
             "input_tokens_est": estimate_tokens(text),
