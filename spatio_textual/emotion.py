@@ -66,7 +66,14 @@ class EmotionAnalyzer:
         model_revision: Optional[str] = None,
     ):
         self.backend = backend
-        self.model_name = model_name or ("j-hartmann/emotion-english-distilroberta-base" if backend == "hf" else "rule")
+        if model_name:
+            self.model_name = model_name
+        elif backend == "hf":
+            self.model_name = "j-hartmann/emotion-english-distilroberta-base"
+        elif backend == "llm":
+            self.model_name = None
+        else:
+            self.model_name = "rule"
         self.model_revision = model_revision
         self.llm_fn = llm_fn
         self.provider = provider

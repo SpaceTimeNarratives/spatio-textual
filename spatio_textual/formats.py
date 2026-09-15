@@ -4,17 +4,53 @@ import json
 from typing import Any, Iterable, Sequence
 
 
-def entities_to_bio(tokens: Sequence[str], entities: Sequence[dict[str, Any]], label_key: str = "label") -> list[str]:
+def _token_char_spans(text: str, tokens: Sequence[str]) -> list[tuple[int, int]]:
+    """Locate an already-tokenised sequence in its source text."""
+    spans: list[tuple[int, int]] = []
+    cursor = 0
+    for token in tokens:
+        start = text.find(token, cursor)
+        if start < 0:
+            return []
+        end = start + len(token)
+        spans.append((start, end))
+        cursor = end
+    return spans
+
+
+def entities_to_bio(
+    tokens: Sequence[str],
+    entities: Sequence[dict[str, Any]],
+    label_key: str = "label",
+    *,
+    token_char_spans: Sequence[tuple[int, int]] | None = None,
+) -> list[str]:
     """Convert token-aligned entity spans into BIO tags.
 
-    Entities should include ``start_token`` and ``end_token``. Character-only spans are
-    ignored because token offsets are needed for a lossless BIO conversion.
+    Entities should normally include ``start_token`` and ``end_token``. When
+    ``token_char_spans`` is supplied, character-only entities are aligned to every
+    source token they overlap. This supports transformer pipelines that return
+    grounded character offsets but no token indices.
     """
     tags = ["O"] * len(tokens)
     for ent in entities:
         start = ent.get("start_token")
         end = ent.get("end_token")
         label = ent.get(label_key) or ent.get("place_type") or "ENT"
+        if (start is None or end is None) and token_char_spans:
+            char_start = ent.get("start_char")
+            char_end = ent.get("end_char")
+            try:
+                char_start_i, char_end_i = int(char_start), int(char_end)
+            except (TypeError, ValueError):
+                continue
+            overlapping = [
+                index
+                for index, (token_start, token_end) in enumerate(token_char_spans)
+                if token_start < char_end_i and token_end > char_start_i
+            ]
+            if overlapping:
+                start, end = overlapping[0], overlapping[-1] + 1
         if start is None or end is None:
             continue
         try:
@@ -49,9 +85,19 @@ def bio_to_entities(tokens: Sequence[str], tags: Sequence[str]) -> list[dict[str
     return entities
 
 
-def entities_to_conll(tokens: Sequence[str], entities: Sequence[dict[str, Any]], doc_id: str = "doc") -> str:
-    """Export tokens plus BIO tags as simple CoNLL text."""
-    tags = entities_to_bio(tokens, entities)
+def entities_to_conll(
+    tokens: Sequence[str],
+    entities: Sequence[dict[str, Any]],
+    doc_id: str = "doc",
+    *,
+    text: str | None = None,
+) -> str:
+    """Export tokens plus BIO tags as simple CoNLL text.
+
+    Pass the original ``text`` when entities may contain only character offsets.
+    """
+    token_spans = _token_char_spans(text, tokens) if text is not None else None
+    tags = entities_to_bio(tokens, entities, token_char_spans=token_spans)
     lines = [f"# doc_id = {doc_id}"]
     for tok, tag in zip(tokens, tags):
         lines.append(f"{tok}\t{tag}")

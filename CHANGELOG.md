@@ -1,6 +1,24 @@
 # Changelog
 
-## v0.4.0: unreleased
+## v0.4.1: 2026-09-15
+
+### Fixed
+- The lightweight Streamlit app defaults to the spaCy model installed by its
+  deployment requirements.
+- CoNLL export aligns character-only transformer entities to source tokens.
+- LLM sentiment and emotion use each provider's default model unless callers
+  explicitly choose one.
+- Structured segments JSON preserves supplied document, segment and testimony
+  metadata instead of annotating dictionary representations.
+- Standard-output serialisation honours the requested JSON, JSONL, CSV or TSV
+  format.
+
+### Changed
+- Canonical project links now point to the SpaceTimeNarratives organisation.
+- Package metadata now has one authoritative source and consistently declares
+  the repository's MIT licence and supported Python versions.
+
+## v0.4.0: 2026-09-13
 
 ### Added
 - Evidence-grounded spatial span and journey extraction with locally computed offsets.

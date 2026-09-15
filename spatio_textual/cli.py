@@ -3,6 +3,7 @@ from __future__ import annotations
 import argparse
 import json
 import multiprocessing as mp
+import sys
 from pathlib import Path
 from typing import Any
 
@@ -13,7 +14,7 @@ from .moe import run_builtin_moe
 from .qa import segment_testimony
 from .sentiment import SentimentAnalyzer
 from .transformer_ner import HFNERAnnotator
-from .utils import Annotator, load_spacy_model, save_annotations, split_into_segments
+from .utils import Annotator, load_spacy_model, save_annotations, serialize_annotations, split_into_segments
 from .viz import build_cooccurrence, make_map_geojson, to_geojson
 
 _WORKER: Annotator | None = None
@@ -52,7 +53,29 @@ def _annotate_segments_hf(segments: list[dict[str, Any]], file_id: str, cfg: dic
     records = []
     for idx, seg in enumerate(segments, start=1):
         rec = ann.annotate(seg.get("text", ""), include_text=cfg.get("include_text", True))
-        rec.update({"file": file_id, "fileId": file_id, "segId": idx, "segCount": len(segments), **{k: seg.get(k) for k in ("segStartChar", "segEndChar", "segTextCharLength")}})
+        item_file_id = seg.get("fileId") or seg.get("file") or file_id
+        rec.update(
+            {
+                "file": seg.get("file") or item_file_id,
+                "fileId": item_file_id,
+                "segId": seg.get("segId", idx),
+                "segCount": seg.get("segCount", len(segments)),
+                **{
+                    k: seg.get(k)
+                    for k in (
+                        "segStartChar",
+                        "segEndChar",
+                        "segTextCharLength",
+                        "role",
+                        "turnId",
+                        "qaPairId",
+                        "isQuestion",
+                        "isAnswer",
+                    )
+                    if k in seg
+                },
+            }
+        )
         if metadata and idx - 1 < len(metadata):
             rec.update(metadata[idx - 1])
         records.append(rec)
@@ -123,6 +146,26 @@ def _resolve_files(inputs: list[str], glob: str, recursive: bool) -> list[str]:
     return out
 
 
+def _normalise_input_segments(raw: Any) -> list[dict[str, Any]]:
+    if not isinstance(raw, list):
+        raise ValueError("--segments-json must contain a JSON array")
+    segments: list[dict[str, Any]] = []
+    for index, item in enumerate(raw, start=1):
+        if isinstance(item, str):
+            segment = {"text": item}
+        elif isinstance(item, dict):
+            if not isinstance(item.get("text"), str):
+                raise ValueError(f"Segment {index} must contain a string 'text' field")
+            segment = dict(item)
+        else:
+            raise ValueError(f"Segment {index} must be a string or an object with a string 'text' field")
+        segment.setdefault("segStartChar", None)
+        segment.setdefault("segEndChar", None)
+        segment.setdefault("segTextCharLength", len(segment["text"]))
+        segments.append(segment)
+    return segments
+
+
 def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     p = argparse.ArgumentParser(prog="spatio-textual", description="Spatial textual annotation for files, folders and testimony transcripts.")
     p.add_argument("-i", "--input", nargs="+", help="Input text files or directories")
@@ -178,7 +221,7 @@ def main(argv: list[str] | None = None) -> int:
     results: list[dict[str, Any]] = []
     if args.segments_json:
         raw = json.loads(Path(args.segments_json).read_text(encoding="utf-8"))
-        segments = [{"text": str(x), "segStartChar": None, "segEndChar": None, "segTextCharLength": len(str(x))} for x in raw]
+        segments = _normalise_input_segments(raw)
         spec = parse_ner_model(args.ner_model)
         if spec.backend == "hf":
             results = _annotate_segments_hf(segments, "segments", cfg)
@@ -218,7 +261,10 @@ def main(argv: list[str] | None = None) -> int:
         save_annotations(edges, args.cooccurrence_out, fmt="csv" if str(args.cooccurrence_out).endswith(".csv") else "tsv")
 
     if args.output == "-":
-        print(json.dumps(results, ensure_ascii=False, indent=2))
+        payload = serialize_annotations(results, args.output_format)
+        sys.stdout.write(payload)
+        if payload and not payload.endswith("\n"):
+            sys.stdout.write("\n")
     else:
         save_annotations(results, args.output, fmt=args.output_format)
     return 0

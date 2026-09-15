@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import csv
+import io
 import json
 import re
 import time
@@ -386,12 +387,41 @@ class Annotator:
             idx = start_seg_id + offset
             if isinstance(item, dict):
                 text = str(item.get("text", ""))
-                seg_meta = {k: item.get(k) for k in ("segStartChar", "segEndChar", "segTextCharLength") if k in item}
+                item_file_id = item.get("fileId") or item.get("file") or file_id
+                item_file = item.get("file") or item_file_id
+                item_seg_id = item.get("segId", idx)
+                item_seg_count = item.get("segCount", seg_count)
+                seg_meta = {
+                    k: item.get(k)
+                    for k in (
+                        "segStartChar",
+                        "segEndChar",
+                        "segTextCharLength",
+                        "role",
+                        "turnId",
+                        "qaPairId",
+                        "isQuestion",
+                        "isAnswer",
+                    )
+                    if k in item
+                }
             else:
                 text = str(item)
+                item_file = file_id
+                item_file_id = file_id
+                item_seg_id = idx
+                item_seg_count = seg_count
                 seg_meta = {"segStartChar": None, "segEndChar": None, "segTextCharLength": len(text)}
             rec = self.annotate(text, include_entities=include_entities, include_verbs=include_verbs, include_events=include_events, include_text=include_text)
-            rec.update({"file": file_id, "fileId": file_id, "segId": idx, "segCount": seg_count, **seg_meta})
+            rec.update(
+                {
+                    "file": item_file,
+                    "fileId": item_file_id,
+                    "segId": item_seg_id,
+                    "segCount": item_seg_count,
+                    **seg_meta,
+                }
+            )
             if metadata and offset < len(metadata):
                 rec.update(metadata[offset])
             records.append(rec)
@@ -472,28 +502,30 @@ def _table_safe(value: Any) -> Any:
     return "" if value is None else value
 
 
-def save_annotations(records: Sequence[dict[str, Any]], path: Union[str, Path], fmt: Optional[str] = None) -> None:
-    p = Path(path)
-    p.parent.mkdir(parents=True, exist_ok=True)
-    kind = _infer_format(p, fmt)
+def serialize_annotations(records: Sequence[dict[str, Any]], fmt: str = "json") -> str:
+    """Serialise annotation records without requiring a filesystem destination."""
+    kind = _infer_format("", fmt)
     rows = list(records)
     if kind == "json":
-        p.write_text(json.dumps(rows, ensure_ascii=False, indent=2), encoding="utf-8")
-        return
+        return json.dumps(rows, ensure_ascii=False, indent=2)
     if kind == "jsonl":
-        with p.open("w", encoding="utf-8") as f:
-            for row in rows:
-                f.write(json.dumps(row, ensure_ascii=False) + "\n")
-        return
+        return "".join(json.dumps(row, ensure_ascii=False) + "\n" for row in rows)
     if kind not in {"csv", "tsv"}:
         raise ValueError(f"Unsupported output format: {kind}")
     fieldnames = list(dict.fromkeys(STANDARD_COLUMNS + sorted({k for r in rows for k in r})))
     delimiter = "\t" if kind == "tsv" else ","
-    with p.open("w", encoding="utf-8", newline="") as f:
-        writer = csv.DictWriter(f, fieldnames=fieldnames, delimiter=delimiter)
-        writer.writeheader()
-        for row in rows:
-            writer.writerow({k: _table_safe(row.get(k)) for k in fieldnames})
+    stream = io.StringIO(newline="")
+    writer = csv.DictWriter(stream, fieldnames=fieldnames, delimiter=delimiter)
+    writer.writeheader()
+    for row in rows:
+        writer.writerow({k: _table_safe(row.get(k)) for k in fieldnames})
+    return stream.getvalue()
+
+
+def save_annotations(records: Sequence[dict[str, Any]], path: Union[str, Path], fmt: Optional[str] = None) -> None:
+    p = Path(path)
+    p.parent.mkdir(parents=True, exist_ok=True)
+    p.write_text(serialize_annotations(records, _infer_format(p, fmt)), encoding="utf-8")
 
 
 def _parse_json_cell(value: Any) -> Any:

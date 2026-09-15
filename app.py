@@ -9,7 +9,14 @@ import streamlit as st
 from spatio_textual.analysis import analyze_records
 from spatio_textual.emotion import EmotionAnalyzer
 from spatio_textual.formats import entities_to_conll
-from spatio_textual.model_registry import EMOTION_MODELS, LLM_PROVIDERS, NER_MODELS, SENTIMENT_MODELS, parse_ner_model
+from spatio_textual.model_registry import (
+    EMOTION_MODELS,
+    LLM_PROVIDERS,
+    NER_MODELS,
+    SENTIMENT_MODELS,
+    TUTORIAL_NER_MODEL,
+    parse_ner_model,
+)
 from spatio_textual.moe import run_builtin_moe
 from spatio_textual.qa import segment_testimony
 from spatio_textual.sentiment import SentimentAnalyzer
@@ -29,7 +36,12 @@ def _model_options():
 
 with st.sidebar:
     st.header("Annotation models")
-    ner_choice = st.selectbox("Primary spatial NER model", _model_options(), index=0)
+    model_options = _model_options()
+    ner_choice = st.selectbox(
+        "Primary spatial NER model",
+        model_options,
+        index=model_options.index(TUTORIAL_NER_MODEL),
+    )
     if ner_choice == "hf:custom":
         ner_model = "hf:" + st.text_input("Custom HF token-classification model", value="dslim/bert-base-NER")
     elif ner_choice == "spacy:custom":
@@ -210,8 +222,16 @@ if records:
         st.download_button("Download CSV", csv_df.to_csv(index=False).encode("utf-8"), "spatio_textual_annotations.csv", "text/csv")
         conll_docs = []
         for r in records:
-            tokens = (r.get("text") or "").split()
-            conll_docs.append(entities_to_conll(tokens, r.get("entities") or [], doc_id=f"{r.get('fileId')}_{r.get('segId')}"))
+            source_text = r.get("text") or ""
+            tokens = source_text.split()
+            conll_docs.append(
+                entities_to_conll(
+                    tokens,
+                    r.get("entities") or [],
+                    doc_id=f"{r.get('fileId')}_{r.get('segId')}",
+                    text=source_text,
+                )
+            )
         st.download_button("Download CoNLL/BIO", "\n".join(conll_docs).encode("utf-8"), "spatio_textual_entities.conll", "text/plain")
 else:
     st.info("Paste text or upload files, then click Annotate.")

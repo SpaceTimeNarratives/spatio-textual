@@ -1,4 +1,4 @@
-from spatio_textual.formats import bio_to_entities, entities_to_bio
+from spatio_textual.formats import bio_to_entities, entities_to_bio, entities_to_conll
 from spatio_textual.qa import segment_testimony
 from spatio_textual.sentiment import SentimentAnalyzer
 from spatio_textual.emotion import EmotionAnalyzer
@@ -28,6 +28,26 @@ def test_bio_roundtrip():
     assert tags == ["O", "O", "O", "B-GPE"]
     ents = bio_to_entities(tokens, tags)
     assert ents[0]["label"] == "GPE"
+
+
+def test_conll_export_aligns_character_only_entities():
+    text = "We moved from New York to London."
+    tokens = text.split()
+    entities = [
+        {
+            "text": "New York",
+            "label": "GPE",
+            "start_char": text.index("New York"),
+            "end_char": text.index("New York") + len("New York"),
+            "start_token": None,
+            "end_token": None,
+        }
+    ]
+
+    conll = entities_to_conll(tokens, entities, text=text)
+
+    assert "New\tB-GPE" in conll
+    assert "York\tI-GPE" in conll
 
 
 def test_affect_rules():
