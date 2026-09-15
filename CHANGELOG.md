@@ -1,5 +1,18 @@
 # Changelog
 
+## Unreleased
+
+### Changed
+- Renamed the packaged city gazetteer to `known_cities.txt` while retaining the
+  former filename as a compatibility fallback for custom resource directories.
+- Moved users of the full workshop to the standalone Spatial Humanities 2026
+  repository and removed legacy workshop material from the package repository.
+
+### Removed
+- Unused positive and negative word-list resources; rule-based sentiment uses
+  its documented in-code cue sets.
+- An unreferenced test-data fixture and obsolete tutorial input files.
+
 ## v0.4.1: 2026-09-15
 
 ### Fixed
