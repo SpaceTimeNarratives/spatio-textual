@@ -33,6 +33,7 @@ def test_release_metadata_is_canonical_and_consistent():
     setup_source = (ROOT / "setup.py").read_text(encoding="utf-8")
 
     assert 'version = "0.4.1"' in pyproject
+    assert 'requires = ["setuptools>=77", "wheel"]' in pyproject
     assert 'license = "MIT"' in pyproject
     assert "GNU General Public License" not in pyproject
     assert "https://github.com/SpaceTimeNarratives/spatio-textual" in pyproject
@@ -113,8 +114,12 @@ def test_serialization_supports_all_cli_output_formats():
 
     assert json.loads(serialize_annotations(records, "json")) == records
     assert json.loads(serialize_annotations(records, "jsonl")) == records[0]
-    assert list(csv.DictReader(StringIO(serialize_annotations(records, "csv"))))[0]["fileId"] == "doc"
-    assert list(csv.DictReader(StringIO(serialize_annotations(records, "tsv")), delimiter="\t"))[0]["fileId"] == "doc"
+    csv_payload = serialize_annotations(records, "csv")
+    tsv_payload = serialize_annotations(records, "tsv")
+    assert "\r" not in csv_payload
+    assert "\r" not in tsv_payload
+    assert list(csv.DictReader(StringIO(csv_payload)))[0]["fileId"] == "doc"
+    assert list(csv.DictReader(StringIO(tsv_payload), delimiter="\t"))[0]["fileId"] == "doc"
 
 
 def test_cli_stdout_honours_jsonl(tmp_path, capsys):

@@ -515,7 +515,12 @@ def serialize_annotations(records: Sequence[dict[str, Any]], fmt: str = "json") 
     fieldnames = list(dict.fromkeys(STANDARD_COLUMNS + sorted({k for r in rows for k in r})))
     delimiter = "\t" if kind == "tsv" else ","
     stream = io.StringIO(newline="")
-    writer = csv.DictWriter(stream, fieldnames=fieldnames, delimiter=delimiter)
+    writer = csv.DictWriter(
+        stream,
+        fieldnames=fieldnames,
+        delimiter=delimiter,
+        lineterminator="\n",
+    )
     writer.writeheader()
     for row in rows:
         writer.writerow({k: _table_safe(row.get(k)) for k in fieldnames})
