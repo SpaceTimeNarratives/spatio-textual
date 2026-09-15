@@ -12,9 +12,11 @@ from spatio_textual.formats import entities_to_conll
 from spatio_textual.model_registry import (
     EMOTION_MODELS,
     LLM_PROVIDERS,
-    NER_MODELS,
     SENTIMENT_MODELS,
     TUTORIAL_NER_MODEL,
+    available_ner_models,
+    ner_backend_available,
+    ner_model_available,
     parse_ner_model,
 )
 from spatio_textual.moe import run_builtin_moe
@@ -31,24 +33,38 @@ st.caption("Spatial entity annotation, entity linking, MoE adjudication, affect 
 
 
 def _model_options():
-    return list(NER_MODELS.keys()) + ["hf:custom", "spacy:custom"]
+    options = available_ner_models()
+    if ner_backend_available("hf"):
+        options.append("hf:custom")
+    options.append("spacy:custom")
+    return options
 
 
 with st.sidebar:
     st.header("Annotation models")
     model_options = _model_options()
+    default_ner_index = (
+        model_options.index(TUTORIAL_NER_MODEL)
+        if TUTORIAL_NER_MODEL in model_options
+        else 0
+    )
     ner_choice = st.selectbox(
         "Primary spatial NER model",
         model_options,
-        index=model_options.index(TUTORIAL_NER_MODEL),
+        index=default_ner_index,
     )
     if ner_choice == "hf:custom":
-        ner_model = "hf:" + st.text_input("Custom HF token-classification model", value="dslim/bert-base-NER")
+        custom_ner_model = st.text_input("Custom HF token-classification model", value="")
+        ner_model = "hf:" + custom_ner_model.strip()
     elif ner_choice == "spacy:custom":
-        ner_model = "spacy:" + st.text_input("Custom spaCy pipeline", value="en_core_web_trf")
+        custom_ner_model = st.text_input("Custom spaCy pipeline", value="")
+        ner_model = "spacy:" + custom_ner_model.strip()
     else:
         ner_model = ner_choice
     st.caption(parse_ner_model(ner_model).description)
+    ner_ready = ner_model_available(ner_model)
+    if not ner_ready:
+        st.warning("Install or provide the selected NER model before annotating.")
 
     resources_dir = st.text_input("Resources directory", value=str(Path("spatio_textual/resources")))
     link_places = st.checkbox("Resolve/link named places to lat/lon", value=True)
@@ -73,19 +89,33 @@ with st.sidebar:
     sentiment_backend = sentiment_key.split(":", 1)[0]
     sentiment_model = sentiment_key.split(":", 1)[1] if sentiment_key.startswith("hf:") else None
     if sentiment_key == "llm":
-        sentiment_model = st.text_input("Sentiment LLM model", value="gpt-4.1-mini")
+        sentiment_model = st.text_input(
+            "Sentiment LLM model (optional)",
+            value="",
+            placeholder="Leave blank for the provider default",
+        ).strip() or None
     emotion_key = st.selectbox("Emotion backend", list(EMOTION_MODELS.keys()), index=0)
     emotion_backend = emotion_key.split(":", 1)[0]
     emotion_model = emotion_key.split(":", 1)[1] if emotion_key.startswith("hf:") else None
     if emotion_key == "llm":
-        emotion_model = st.text_input("Emotion LLM model", value="gpt-4.1-mini")
+        emotion_model = st.text_input(
+            "Emotion LLM model (optional)",
+            value="",
+            placeholder="Leave blank for the provider default",
+        ).strip() or None
     llm_provider = st.selectbox("LLM provider", LLM_PROVIDERS, index=0)
     run_interpret = st.checkbox("Interpretation", value=True)
 
     st.divider()
     st.subheader("Mixture of experts")
     use_moe = st.checkbox("Use MoE/adjudication for entity annotation", value=False)
-    moe_models = st.multiselect("Expert models", list(NER_MODELS.keys()), default=["spacy:en_core_web_trf", "spacy:en_core_web_sm"])
+    installed_ner_models = available_ner_models()
+    moe_defaults = [
+        key
+        for key in ("spacy:en_core_web_trf", "spacy:en_core_web_sm")
+        if key in installed_ner_models
+    ]
+    moe_models = st.multiselect("Expert models", installed_ner_models, default=moe_defaults)
     threshold = st.slider("Consensus threshold", 0.0, 1.0, 0.5, 0.05)
 
 sample_text = """Q: Where did you live before the war?
@@ -129,7 +159,7 @@ def _annotate_primary(file_id: str, content: str):
     return recs, segments
 
 
-if st.button("Annotate", type="primary"):
+if st.button("Annotate", type="primary", disabled=not ner_ready):
     records = []
     adjudications = []
     source_items = []

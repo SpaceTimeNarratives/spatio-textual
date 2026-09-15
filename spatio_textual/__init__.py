@@ -1,4 +1,5 @@
 from .utils import Annotator, load_spacy_model, split_into_segments, save_annotations, load_annotations
+from .annotate import annotate_text, annotate_texts, chunk_and_annotate_text, chunk_and_annotate_file
 from .qa import segment_testimony
 from .sentiment import SentimentAnalyzer
 from .emotion import EmotionAnalyzer
@@ -65,6 +66,7 @@ from .benchmark import (
 
 __all__ = [
     "Annotator", "load_spacy_model", "split_into_segments", "save_annotations", "load_annotations",
+    "annotate_text", "annotate_texts", "chunk_and_annotate_text", "chunk_and_annotate_file",
     "segment_testimony", "SentimentAnalyzer", "EmotionAnalyzer", "adjudicate_entities", "run_builtin_moe",
     "NER_MODELS", "SENTIMENT_MODELS", "EMOTION_MODELS", "LLM_PROVIDERS",
     "GOLD_SCHEMA_VERSION", "SPAN_LABELS", "load_gold_jsonl", "validate_gold_record", "validate_gold_records", "assert_valid_gold",
