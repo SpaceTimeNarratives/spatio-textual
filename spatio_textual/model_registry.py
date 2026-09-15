@@ -1,7 +1,11 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+from importlib.util import find_spec
+from pathlib import Path
 from typing import Literal
+
+import spacy
 
 NERBackend = Literal["spacy", "hf"]
 
@@ -91,3 +95,25 @@ def parse_ner_model(key_or_model: str) -> NERModelSpec:
         return NERModelSpec(key=key_or_model, backend="spacy", model=model, label=f"spaCy: {model}", description="Custom spaCy pipeline")
     # Backwards compatibility: raw spaCy model name
     return NERModelSpec(key=f"spacy:{key_or_model}", backend="spacy", model=key_or_model, label=f"spaCy: {key_or_model}", description="Custom spaCy pipeline")
+
+
+def ner_backend_available(backend: NERBackend) -> bool:
+    """Return whether the optional runtime for an NER backend is installed."""
+    if backend == "hf":
+        return find_spec("transformers") is not None and find_spec("torch") is not None
+    return True
+
+
+def ner_model_available(key_or_model: str) -> bool:
+    """Return whether a model can be selected without a known runtime failure."""
+    spec = parse_ner_model(key_or_model)
+    if not ner_backend_available(spec.backend):
+        return False
+    if spec.backend == "hf":
+        return bool(spec.model)
+    return bool(spec.model) and (spacy.util.is_package(spec.model) or Path(spec.model).exists())
+
+
+def available_ner_models() -> list[str]:
+    """List registered NER models supported by the current environment."""
+    return [key for key in NER_MODELS if ner_model_available(key)]

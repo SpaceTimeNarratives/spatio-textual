@@ -10,8 +10,9 @@ import spacy
 import spatio_textual.cli as cli
 import spatio_textual.emotion as emotion_module
 import spatio_textual.sentiment as sentiment_module
+from spatio_textual import annotate_text, annotate_texts, chunk_and_annotate_file, chunk_and_annotate_text
 from spatio_textual.emotion import EmotionAnalyzer
-from spatio_textual.model_registry import TUTORIAL_NER_MODEL
+from spatio_textual.model_registry import TUTORIAL_NER_MODEL, available_ner_models, ner_model_available
 from spatio_textual.sentiment import SentimentAnalyzer
 from spatio_textual.utils import Annotator, serialize_annotations
 
@@ -25,7 +26,32 @@ def test_lightweight_app_defaults_to_its_installed_spacy_model():
 
     assert TUTORIAL_NER_MODEL == "spacy:en_core_web_sm"
     assert "en_core_web_sm" in requirements
-    assert "index=model_options.index(TUTORIAL_NER_MODEL)" in app_source
+    assert "if TUTORIAL_NER_MODEL in model_options" in app_source
+
+
+def test_package_root_preserves_legacy_annotation_exports():
+    assert callable(annotate_text)
+    assert callable(annotate_texts)
+    assert callable(chunk_and_annotate_text)
+    assert callable(chunk_and_annotate_file)
+
+
+def test_app_exposes_only_available_registered_ner_models(monkeypatch):
+    monkeypatch.setattr("spatio_textual.model_registry.spacy.util.is_package", lambda name: name == "en_core_web_sm")
+    monkeypatch.setattr("spatio_textual.model_registry.find_spec", lambda name: None)
+
+    assert available_ner_models() == ["spacy:en_core_web_sm"]
+    assert ner_model_available("spacy:en_core_web_trf") is False
+    assert ner_model_available("hf:dslim/bert-base-NER") is False
+
+
+def test_app_leaves_llm_model_blank_for_provider_default():
+    app_source = (ROOT / "app.py").read_text(encoding="utf-8")
+
+    assert '"Sentiment LLM model (optional)"' in app_source
+    assert '"Emotion LLM model (optional)"' in app_source
+    assert app_source.count('placeholder="Leave blank for the provider default"') == 2
+    assert app_source.count(").strip() or None") == 2
 
 
 def test_release_metadata_is_canonical_and_consistent():

@@ -28,29 +28,30 @@ def entities_to_bio(
     """Convert token-aligned entity spans into BIO tags.
 
     Entities should normally include ``start_token`` and ``end_token``. When
-    ``token_char_spans`` is supplied, character-only entities are aligned to every
-    source token they overlap. This supports transformer pipelines that return
-    grounded character offsets but no token indices.
+    ``token_char_spans`` and character offsets are supplied, character alignment
+    takes precedence. This keeps BIO tags correct when the entity producer and
+    exporter use different tokenizers.
     """
     tags = ["O"] * len(tokens)
     for ent in entities:
         start = ent.get("start_token")
         end = ent.get("end_token")
         label = ent.get(label_key) or ent.get("place_type") or "ENT"
-        if (start is None or end is None) and token_char_spans:
+        if token_char_spans:
             char_start = ent.get("start_char")
             char_end = ent.get("end_char")
             try:
                 char_start_i, char_end_i = int(char_start), int(char_end)
             except (TypeError, ValueError):
-                continue
-            overlapping = [
-                index
-                for index, (token_start, token_end) in enumerate(token_char_spans)
-                if token_start < char_end_i and token_end > char_start_i
-            ]
-            if overlapping:
-                start, end = overlapping[0], overlapping[-1] + 1
+                pass
+            else:
+                overlapping = [
+                    index
+                    for index, (token_start, token_end) in enumerate(token_char_spans)
+                    if token_start < char_end_i and token_end > char_start_i
+                ]
+                if overlapping:
+                    start, end = overlapping[0], overlapping[-1] + 1
         if start is None or end is None:
             continue
         try:

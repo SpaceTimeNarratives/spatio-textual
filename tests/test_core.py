@@ -50,6 +50,26 @@ def test_conll_export_aligns_character_only_entities():
     assert "York\tI-GPE" in conll
 
 
+def test_conll_export_prefers_character_offsets_across_tokenizers():
+    text = "Hello, Amsterdam"
+    tokens = text.split()
+    entities = [
+        {
+            "text": "Amsterdam",
+            "label": "GPE",
+            "start_char": text.index("Amsterdam"),
+            "end_char": len(text),
+            "start_token": 2,
+            "end_token": 3,
+        }
+    ]
+
+    conll = entities_to_conll(tokens, entities, text=text)
+
+    assert "Hello,\tO" in conll
+    assert "Amsterdam\tB-GPE" in conll
+
+
 def test_affect_rules():
     sent = SentimentAnalyzer().predict(["I was afraid but later felt relief"])[0]
     emo = EmotionAnalyzer().predict(["I was afraid"])[0]
