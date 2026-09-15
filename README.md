@@ -44,7 +44,7 @@ repositories and depend on a tagged package release through the public API.
 
 ## Installation
 
-### Fast tutorial/dev mode
+### Lightweight demo/development mode
 
 ```bash
 python -m venv .venv
@@ -68,7 +68,10 @@ python -m pip install -r requirements-llm.txt
 streamlit run app.py
 ```
 
-For the full-day tutorial, use `requirements-lite.txt` so participants start quickly. Demonstrate `en_core_web_trf` and HF models on a smaller sample or pre-built environment.
+For the complete teaching sequence, exercises and Colab notebooks, use the
+[Spatial Humanities 2026 workshop repository](https://github.com/IgnatiusEzeani/spatial-humanities-2026).
+It pins a released version of this package and keeps workshop-specific material
+outside the reusable library.
 
 ## Local app
 
@@ -145,7 +148,7 @@ Recommended: Docker Space.
 3. Copy `hf_space/README.md` to the Space repository root as `README.md`.
 4. Push.
 
-The Dockerfile installs the fast tutorial model by default. The app hides unavailable
+The Dockerfile installs the lightweight demo model by default. The app hides unavailable
 transformer choices rather than silently running an uninstalled model. For a heavier
 public demo, change the Dockerfile to use `requirements-transformers.txt`.
 

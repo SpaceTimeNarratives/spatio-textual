@@ -13,8 +13,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 COPY pyproject.toml README.md requirements-lite.txt ./
 COPY spatio_textual ./spatio_textual
 COPY app.py ./app.py
-COPY example-texts ./example-texts
-COPY tutorials ./tutorials
 
 RUN python -m pip install --upgrade pip wheel && \
     python -m pip install -r requirements-lite.txt
