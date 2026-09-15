@@ -68,7 +68,14 @@ class SentimentAnalyzer:
         model_revision: Optional[str] = None,
     ):
         self.backend = backend
-        self.model_name = model_name or ("cardiffnlp/twitter-roberta-base-sentiment-latest" if backend == "hf" else "rule")
+        if model_name:
+            self.model_name = model_name
+        elif backend == "hf":
+            self.model_name = "cardiffnlp/twitter-roberta-base-sentiment-latest"
+        elif backend == "llm":
+            self.model_name = None
+        else:
+            self.model_name = "rule"
         self.model_revision = model_revision
         self.llm_fn = llm_fn
         self.provider = provider
