@@ -14,7 +14,7 @@ EXPECTED_RESOURCE_FILES = {
 }
 LEGACY_WORKSHOP_PATHS = (
     ROOT / "spatio_textual_package_a_demo.ipynb",
-    ROOT / "tutorials",
+    ROOT / "tutorials" / "full_day_end_to_end_tutorial.md",
     ROOT / "example-texts" / "long-text",
     ROOT / "example-texts" / "short-text",
 )
