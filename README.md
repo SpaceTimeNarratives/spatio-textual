@@ -9,6 +9,15 @@ documentation, examples and tests. Conference-specific notebooks, datasets,
 experimental protocols and frozen results belong in their own project
 repositories and depend on a tagged package release through the public API.
 
+## What changed in v0.4.1
+
+- Restored the legacy package-root annotation imports retained from v0.3.
+- Preserved structured segment identifiers and format-correct CLI output.
+- Corrected CoNLL/BIO alignment when model and export tokenizers differ.
+- Let each LLM provider choose its own default model when none is supplied.
+- Limited Streamlit NER and MoE choices to models supported by the installed runtime.
+- Modernised canonical package metadata and expanded release regression coverage.
+
 ## What changed in v0.4
 
 - Evidence-first structured spatial-span and journey extraction.
@@ -33,7 +42,7 @@ repositories and depend on a tagged package release through the public API.
 - All annotation records include segmentation audit fields and telemetry: latency, model, backend, provider, estimated tokens and estimated cost.
 - MoE/entity adjudication flags model disagreement for human correction before export.
 
-## Fast local tutorial install
+## Installation
 
 ### Fast tutorial/dev mode
 
@@ -77,7 +86,7 @@ The sidebar lets you choose:
 - emotion backend,
 - LLM provider,
 - event/action extraction,
-- export format.
+- JSON, JSONL, CSV and CoNLL/BIO downloads.
 
 ## CLI examples
 
@@ -136,7 +145,9 @@ Recommended: Docker Space.
 3. Copy `hf_space/README.md` to the Space repository root as `README.md`.
 4. Push.
 
-The Dockerfile installs the fast tutorial model by default. For a heavier public demo, change it to use `requirements-transformers.txt`.
+The Dockerfile installs the fast tutorial model by default. The app hides unavailable
+transformer choices rather than silently running an uninstalled model. For a heavier
+public demo, change the Dockerfile to use `requirements-transformers.txt`.
 
 ## Standard output fields
 
