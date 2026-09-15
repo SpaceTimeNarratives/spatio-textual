@@ -1,97 +1,55 @@
 from __future__ import annotations
 
-"""
-analysis.py — Lightweight analysis/interpretation helpers with optional LLM hook.
+import re
+from typing import Callable, Iterable, Sequence
 
-- summarize segments
-- explain sentiment/emotion labels
-- tag themes via simple keyword buckets (can be swapped for LLM)
-
-Pass `llm_fn(prompt:str)->str` to enable richer outputs without hard-coding providers.
-"""
-from typing import Callable, Dict, Iterable, List, Optional
-import textwrap
-
-# simple theme keywords; extend as needed
-THEME_BUCKETS = {
-    "family": ["mother", "father", "sister", "brother", "parents", "children", "family"],
-    "place": ["camp", "ghetto", "city", "village", "forest", "Amsterdam", "Auschwitz"],
-    "movement": ["deported", "transported", "moved", "taken", "arrived", "left"],
+THEME_KEYWORDS = {
+    "movement": {"went", "moved", "travelled", "traveled", "walked", "train", "transport", "route", "arrived", "left"},
+    "persecution": {"camp", "ghetto", "deported", "arrested", "guard", "soldier", "nazi", "gestapo"},
+    "family": {"mother", "father", "sister", "brother", "child", "children", "uncle", "aunt", "family"},
+    "survival": {"survived", "hid", "hiding", "saved", "escape", "escaped", "liberated", "food", "bread"},
+    "place-memory": {"home", "village", "town", "city", "street", "house", "school"},
 }
 
 
-def _simple_summary(text: str, max_chars: int = 240) -> str:
-    return (text[: max_chars - 1] + "…") if len(text) > max_chars else text
+def _sentences(text: str) -> list[str]:
+    return [s.strip() for s in re.split(r"(?<=[.!?])\s+", text or "") if s.strip()]
 
 
-def _simple_explain(sentiment_label: Optional[str], emotion_label: Optional[str]) -> str:
-    bits = []
-    if sentiment_label:
-        bits.append(f"Sentiment suggests *{sentiment_label}* tone.")
-    if emotion_label and emotion_label != "neutral":
-        bits.append(f"Dominant emotion appears to be *{emotion_label}*.")
-    if not bits:
-        bits.append("No strong affective signal detected.")
-    return " ".join(bits)
+def _themes(text: str) -> list[str]:
+    words = set(re.findall(r"[A-Za-z']+", (text or "").lower()))
+    return [theme for theme, keys in THEME_KEYWORDS.items() if words & keys]
 
 
-def _simple_themes(text: str) -> List[str]:
-    t = text.lower()
-    out = []
-    for theme, kws in THEME_BUCKETS.items():
-        if any(kw.lower() in t for kw in kws):
-            out.append(theme)
-    return out
+def analyze_records(
+    records: Sequence[dict],
+    llm_fn: Callable[[dict], dict] | None = None,
+    summarize: bool = True,
+    explain: bool = True,
+    tag_themes: bool = True,
+) -> list[dict]:
+    """Add simple summaries, affect explanations and theme tags.
 
-
-def analyze_records(records: List[Dict], *, llm_fn: Optional[Callable[[str], str]] = None,
-                    summarize: bool = True, explain: bool = True, tag_themes: bool = True,
-                    max_chars: int = 240) -> List[Dict]:
+    If ``llm_fn`` is supplied it receives each record and can return richer fields.
     """
-    Enrich records with `summary`, `interpretation`, and `themes`.
-    If `llm_fn` is provided, it will be used for the summary+interpretation of each record.
-    """
-    out: List[Dict] = []
-    for r in records:
-        text = r.get("text") or r.get("segment") or r.get("raw") or ""
-        sentiment_label = r.get("sentiment_label")
-        emotion_label = r.get("emotion_label")
-
-        summary = None
-        interpretation = None
-
-        if llm_fn is not None:
-            prompt = textwrap.dedent(f"""
-            Summarize the following testimony segment in one sentence. Then, in a second sentence,
-            explain how its emotional tone relates to any detected sentiment/emotion labels.
-
-            TEXT:\n{text}
-            SENTIMENT: {sentiment_label}
-            EMOTION: {emotion_label}
-            """)
-            try:
-                resp = llm_fn(prompt)
-                if isinstance(resp, str):
-                    # naive split
-                    parts = [p.strip() for p in resp.split("\n") if p.strip()]
-                    if parts:
-                        summary = parts[0]
-                    if len(parts) > 1:
-                        interpretation = parts[1]
-            except Exception:
-                pass  # fall back to simple
-
-        if summary is None and summarize:
-            summary = _simple_summary(text, max_chars=max_chars)
-        if interpretation is None and explain:
-            interpretation = _simple_explain(sentiment_label, emotion_label)
-
-        if tag_themes:
-            r["themes"] = _simple_themes(text)
+    out: list[dict] = []
+    for rec in records:
+        r = dict(rec)
+        if llm_fn:
+            enriched = llm_fn(r) or {}
+            r.update(enriched)
+            out.append(r)
+            continue
+        text = r.get("text") or ""
         if summarize:
-            r["summary"] = summary
+            sents = _sentences(text)
+            r["summary"] = " ".join(sents[:2])[:500] if sents else text[:500]
         if explain:
-            r["interpretation"] = interpretation
-
+            sent = r.get("sentiment_label") or "unknown sentiment"
+            emo = r.get("emotion_label") or "unknown emotion"
+            ent_count = len(r.get("entities") or [])
+            r["interpretation"] = f"This segment has {sent} sentiment and {emo} emotion, with {ent_count} extracted entities."
+        if tag_themes:
+            r["themes"] = _themes(text)
         out.append(r)
     return out

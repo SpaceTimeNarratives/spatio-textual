@@ -1,6 +1,54 @@
 # Changelog
 
-## v0.3.0 — 2026-08-19
+## v0.4.1: 2026-09-15
+
+### Fixed
+- The lightweight Streamlit app defaults to the spaCy model installed by its
+  deployment requirements.
+- CoNLL export aligns character-only transformer entities to source tokens.
+- LLM sentiment and emotion use each provider's default model unless callers
+  explicitly choose one.
+- Structured segments JSON preserves supplied document, segment and testimony
+  metadata instead of annotating dictionary representations.
+- Standard-output serialisation honours the requested JSON, JSONL, CSV or TSV
+  format.
+
+### Changed
+- Canonical project links now point to the SpaceTimeNarratives organisation.
+- Package metadata now has one authoritative source and consistently declares
+  the repository's MIT licence and supported Python versions.
+
+## v0.4.0: 2026-09-13
+
+### Added
+- Evidence-grounded spatial span and journey extraction with locally computed offsets.
+- Rule, transformer and LLM-capable affect and journey components.
+- Reusable reference validation, evaluation, review and provenance utilities.
+- Public lexical-cue explanations for the rule sentiment and emotion analyzers.
+
+### Changed
+- Package schemas and evaluation-policy identifiers are project-independent.
+- Python compatibility CI now covers Python 3.9, 3.11 and 3.12.
+- Generated `spatio_textual.egg-info` metadata is no longer version-controlled.
+
+### Fixed
+- Editing a resolved place invalidates stale coordinates while retaining the
+  original values in the human-review audit trail.
+- Failed LLM affect and journey requests are recorded as backend errors rather
+  than valid neutral or empty predictions.
+- Affect evaluation refuses to score backend failures.
+- Evidence-only journey references can match on grounded evidence spans.
+- The Python 3.9 dependency path remains compatible with the tutorial spaCy
+  model wheel.
+
+### Migration notes
+- Reference records now use `schema_version: spatio-textual-gold-0.1`.
+- Affect output now uses `unsupported_emotion_labels` instead of the former
+  conference-specific field name.
+- Journey and affect evaluation policy identifiers now begin with
+  `spatio-textual-`.
+
+## v0.3.0: 2026-08-19
 
 ### Added
 - Streamlit annotation app (app.py) with model selection, review queue, telemetry and exports (JSON / JSONL / CSV / CoNLL).
@@ -20,7 +68,7 @@
 - README streamlined for v0.3 features and packaging metadata improved.
 - Requirements split into requirements-lite/requirements-transformers/requirements-llm for easier installs.
 
-### Breaking / migration notes
+### Breaking/migration notes
 - Public API and CLI flags changed:
   - spatio_textual.__init__ exports were reorganised (e.g., SentimentAnalyzer, EmotionAnalyzer, run_builtin_moe, model registries). Update imports if you rely on old names.
   - CLI flags renamed/normalised (use `--ner-model`, `--sentiment-backend`, `--emotion-backend`, `--moe-models`, etc.). Update any scripts or CI that call the legacy CLI.
@@ -43,5 +91,3 @@
 - Telemetry is included by default; downstream export/ingest workflows should handle the new telemetry fields.
 
 ---
-
-(Entry prepared for v0.3.0 — ready to commit.)

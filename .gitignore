@@ -1,24 +1,10 @@
-# Byte-compiled files
+.venv/
+.venv*/
 __pycache__/
-*.py[cod]
-
-# Distribution / packaging
+*.pyc
+out/
+.DS_Store
+.pytest_cache/
+*.egg-info/
 build/
 dist/
-*.egg-info/
-
-# Virtual environments (if you use them)
-.venv/
-env/
-venv/
-
-# Installer logs
-pip-log.txt
-
-# IDE/editor settings (optional)
-.vscode/
-.idea/
-
-# macOS and Windows junk files (optional)
-.DS_Store
-Thumbs.db
