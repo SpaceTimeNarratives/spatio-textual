@@ -1,3 +1,5 @@
+import pytest
+
 from spatio_textual.formats import bio_to_entities, entities_to_bio, entities_to_conll
 from spatio_textual.qa import segment_testimony
 from spatio_textual.sentiment import SentimentAnalyzer
@@ -84,6 +86,30 @@ def test_annotator_fallback():
     ann = Annotator(nlp)
     rec = ann.annotate("Amsterdam was cold.", include_text=True)
     assert "entities" in rec
+
+
+@pytest.mark.parametrize(
+    ("text", "expected_label"),
+    [
+        ("river", "GEONOUN"),
+        ("[LAUGHS]", "NON-VERBAL"),
+        ("mother", "FAMILY"),
+        ("Auschwitz", "CAMP"),
+        ("Amsterdam", "CITY"),
+    ],
+)
+def test_packaged_resources_produce_their_configured_labels(text, expected_label):
+    nlp = load_spacy_model("model_that_does_not_exist")
+
+    assert [(ent.text, ent.label_) for ent in nlp(text).ents] == [(text, expected_label)]
+
+
+def test_legacy_city_resource_filename_remains_supported(tmp_path):
+    (tmp_path / "ambiguous_cities.txt").write_text("Legacyville\n", encoding="utf-8")
+
+    nlp = load_spacy_model("model_that_does_not_exist", resources_dir=tmp_path)
+
+    assert [(ent.text, ent.label_) for ent in nlp("Legacyville").ents] == [("Legacyville", "CITY")]
 
 
 def test_annotation_telemetry_and_place_linking():

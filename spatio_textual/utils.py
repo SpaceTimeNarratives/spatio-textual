@@ -31,11 +31,13 @@ PLACE_LABELS = {"GPE", "LOC", "FAC", "COUNTRY", "CITY", "CONTINENT", "CAMP", "RE
 RESOURCE_LABELS = {
     "combined_geonouns.txt": "GEONOUN",
     "non_verbals.txt": "NON-VERBAL",
-    "non_verbal.txt": "NON-VERBAL",
-    "ht_non_verbals.txt": "NON-VERBAL",
     "family_terms.txt": "FAMILY",
     "cleaned_holocaust_camps.txt": "CAMP",
-    "ambiguous_cities.txt": "CITY",
+    "known_cities.txt": "CITY",
+}
+RESOURCE_ALIASES = {
+    "non_verbals.txt": ("non_verbal.txt", "ht_non_verbals.txt"),
+    "known_cities.txt": ("ambiguous_cities.txt",),
 }
 
 COUNTRY_ALIASES = {"america", "united states", "the united states", "usa", "u.s.", "u.s.a.", "england", "scotland", "wales"}
@@ -58,6 +60,19 @@ def _read_terms(path: Path) -> list[str]:
             continue
         terms.append(item)
     return terms
+
+
+def _iter_resource_files(resources_dir: Path) -> Iterator[tuple[Path, str]]:
+    """Yield one available file for each configured resource category.
+
+    Canonical filenames take precedence. Aliases preserve compatibility with
+    custom resource directories created before a resource was renamed.
+    """
+    for filename, label in RESOURCE_LABELS.items():
+        candidates = (filename, *RESOURCE_ALIASES.get(filename, ()))
+        path = next((resources_dir / name for name in candidates if (resources_dir / name).exists()), None)
+        if path is not None:
+            yield path, label
 
 
 @lru_cache(maxsize=8)
@@ -103,8 +118,8 @@ def _add_entity_ruler(nlp: Language, resources_dir: Path) -> None:
     except Exception:
         existing = set()
     patterns: list[dict[str, str]] = []
-    for filename, label in RESOURCE_LABELS.items():
-        for term in _read_terms(resources_dir / filename):
+    for path, label in _iter_resource_files(resources_dir):
+        for term in _read_terms(path):
             key = (label, term)
             if key not in existing:
                 patterns.append({"label": label, "pattern": term})

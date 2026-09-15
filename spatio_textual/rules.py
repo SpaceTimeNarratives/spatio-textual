@@ -10,7 +10,7 @@ import spacy
 
 from .geocode import GeoResolver
 from .telemetry import estimate_tokens
-from .utils import DEFAULT_RESOURCES_DIR, RESOURCE_LABELS
+from .utils import DEFAULT_RESOURCES_DIR, _iter_resource_files
 
 # Deliberately small, transparent cue inventories for the teaching baseline.
 # These are not claimed to be complete linguistic grammars.
@@ -114,8 +114,8 @@ class RuleGazetteerAnnotator:
         seen: set[tuple[str, str]] = set()
 
         if self.include_project_resources:
-            for filename, label in RESOURCE_LABELS.items():
-                for term in _read_terms(self.resources_dir / filename):
+            for path, label in _iter_resource_files(self.resources_dir):
+                for term in _read_terms(path):
                     key = (label, term if self.case_sensitive else term.lower())
                     if key not in seen:
                         patterns.append({"label": label, "pattern": term})
